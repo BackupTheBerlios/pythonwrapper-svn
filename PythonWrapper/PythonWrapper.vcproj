@@ -127,6 +127,9 @@
 				RelativePath=".\source\OPFileException.cpp">
 			</File>
 			<File
+				RelativePath=".\source\OPImportException.cpp">
+			</File>
+			<File
 				RelativePath=".\source\OPPythonException.cpp">
 			</File>
 			<File
@@ -145,6 +148,9 @@
 			</File>
 			<File
 				RelativePath=".\include\OPFileException.h">
+			</File>
+			<File
+				RelativePath=".\include\OPImportException.h">
 			</File>
 			<File
 				RelativePath=".\include\OPPythonException.h">

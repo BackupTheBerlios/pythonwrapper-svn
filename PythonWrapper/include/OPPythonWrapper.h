@@ -45,7 +45,7 @@ namespace OP
                 called, all variables in the two objects are equal but changes to
                 one does not affect the other.
          */
-        operator=( const PythonWrapper & );
+        virtual const PythonWrapper &operator=( const PythonWrapper & );
 
 
         /** Destructor.
@@ -120,7 +120,8 @@ namespace OP
 
 
         // Static methods.
-        /** Loads a user defined module into the interpreter.
+        /** Loads a user defined module into the interpreter.  YOU MUST CALL THIS
+            BEFORE CREATING ANY PythonWrapper OBJECTS!
             @remarks
                 This is not for importing modules; if you wish to import a module,
                 call runString("import ModuleName").  This method is for loading
@@ -132,7 +133,7 @@ namespace OP
                 If you use BOOST_PYTHON_MODULE, the init_function will be
                 init[modulename] where [modulename] is the name of the module you
                 specified to BOOST_PYTHON_MODULE.
-            @throws PythonException
+            @throws ImportException
                 Throws PythonException if there was an error while loading the
                 module.
             @param moduleName
