@@ -112,6 +112,19 @@ namespace OP
         virtual boost::python::object evaluate( const std::string &expression );
 
 
+        /** Returns a python object that's in the namespace.  (Including
+            variables, functions, classes, and so on.)
+            @param object
+                The name of the object to retrieve.
+            @throws PythonException
+                Throws a python exception if there is no object in the namespace
+                that matches that.
+            @return
+                Returns the Python object in the local namespace.
+         */
+        virtual boost::python::object getObject( const std::string &object );
+
+
         /** Resets the interpreter back to its initial state.
             @remarks
                 All variables are cleared and reset to their initial value.

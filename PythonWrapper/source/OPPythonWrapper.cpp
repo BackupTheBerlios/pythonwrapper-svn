@@ -214,3 +214,14 @@ void PythonWrapper::loadModule( const std::string &moduleName, void (*initFuncti
 
     delete name;
 } // loadModule( const std::string &, void (*)(void) )
+
+
+boost::python::object PythonWrapper::getObject( const std::string &object )
+{
+    if (! mNamespace.has_key( object ) )
+    {
+        // Todo:  Throw here.
+    } // if
+
+    return mNamespace[object];
+} // getObject( const std::string & )
