@@ -54,15 +54,49 @@ void PythonWrapper::deinit()
 } // deinit
 
 
+std::string PythonWrapper::getStr( PyObject *pyo )
+{
+    PyObject *str;
+    std::string toReturn = NULL;
+    
+    if (pyo)
+    {
+        str = PyObject_Str( pyo );
+
+        if ( str && PyString_Check( str ) )
+            toReturn = PyString_AsString( str );
+
+        Py_XDECREF( str );
+    } // if
+
+    return toReturn;
+} // getStr( PyObject * )
+
+
 void PythonWrapper::runString( const std::string &str )
 {
     try
     {
         python::handle<> result(PyRun_String(str.c_str( ), Py_file_input, mNamespace.ptr(), mNamespace.ptr()));
-    }
+    } // try
     catch (python::error_already_set)
     {
-        // todo: Throw exception on error, query for error message/type.
+        std::string eType, eValue, eStackTrace;
+        PyObject *type, *value, *stackTrace;
+
+        // Fetch the python error.
+        PyErr_Fetch( &type, &value, &stackTrace );
+
+
+        eType = getStr( type );
+        eValue = getStr( value );
+        eStackTrace = getStr( stackTrace );
+
+        Py_XDECREF( type );
+        Py_XDECREF( value );
+        Py_XDECREF( stackTrace );
+
         PyErr_Clear( );
-    }
-}
+        throw PythonException( eValue, eType, eStackTrace, __FILE__, __LINE__ );
+    } // catch
+} // runString( const std::string & )

@@ -159,6 +159,18 @@ namespace OP
         */
         virtual void deinit( );
 
+
+        /** Returns a const char * for the given Python object.
+            @remarks
+                This is an internal function.
+            @param pyo
+                The python object to convert, can be NULL.
+            @return
+                A string object containing the string representation of pyo.
+         */
+        static std::string getStr( PyObject *pyo );
+
+
         /** The python namespace (ie the instance) of the object.
             @remarks
                 This object IS the interpreter's variable set.  Since each

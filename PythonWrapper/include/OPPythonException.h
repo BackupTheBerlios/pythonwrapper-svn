@@ -22,10 +22,14 @@ namespace OP
                 The string representation of the Python exception Type.
             @param pyErrorMessage
                 The error message that Python reports.
+            @param pyStackTrace
+                The stacktrace that lead to the error.
             @param sourceFile
                 The file in which the exception occurs.
+            @param line
+                The line on which the exception was thrown.
          */
-        PythonException( const std::string &pyErrorMessage, const std::string &pyExceptionType, const std::string &sourceFile );
+        PythonException( const std::string &pyErrorMessage, const std::string &pyExceptionType, const std::string &pyStackTrace, const std::string &sourceFile, unsigned int line );
         virtual ~PythonException( );
 
 
@@ -33,11 +37,19 @@ namespace OP
             @remarks
                 This is equivilant to PyObject->ob_type->tp_name.
          */
-        virtual const std::string &getExceptionType( );
+        virtual const std::string &getExceptionType( ) const;
+
+        /** Returns the Python stack trace which lead to the error.
+          */
+        virtual const std::string &getStackTrace( ) const;
     protected:
         /** The string ExceptionType (Python type).
          */
         std::string mExceptionType;
+
+        /** The Python stack trace.
+         */
+        std::string mStackTrace;
     };
 }
 

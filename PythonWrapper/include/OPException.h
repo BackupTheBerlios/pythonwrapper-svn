@@ -22,19 +22,26 @@ namespace OP
                 A short description of what went wrong.
             @param sourceFile
                 The file in which the exception was thrown.
+            @param line
+                The line on which the exception was thrown.
          */
-        Exception( const std::string &description, const std::string &sourceFile );
+        Exception( const std::string &description, const std::string &sourceFile, unsigned int line );
         virtual ~Exception( );
 
 
         /** Gets the description of the Exception.
          */
-        virtual const std::string &getDescription( );
+        virtual const std::string &getDescription( ) const;
 
 
-        /** Gets the file in which the Exception was raised occured.
+        /** Gets the file in which the Exception occured.
          */
-        virtual const std::string &getFile( );
+        virtual const std::string &getFile( ) const;
+
+
+        /** Gets the line on which the Exception occured.
+         */
+        virtual unsigned int getLine( ) const;
     protected:
         /** The description of the error.
          */
@@ -44,6 +51,11 @@ namespace OP
         /** The file the error occured in.
          */
         std::string mFile;
+
+
+        /** The line on which the error occured.
+         */
+        unsigned int mLine;
     }; // class Exception
 } // namespace OP
 

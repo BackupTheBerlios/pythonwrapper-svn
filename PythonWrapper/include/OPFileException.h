@@ -18,15 +18,17 @@ namespace OP
                 The file which could not be read or written to.
             @param sourceFile
                 The source file which the exception was thrown in.
+            @param line
+                The line on which the exception was thrown.
          */
-        FileException( const std::string &fileName, const std::string &sourceFile );
+        FileException( const std::string &fileName, const std::string &sourceFile, unsigned int line );
         virtual ~FileException();
 
         /** Retrieves the name of the file that could not be read or written.
             @return
                 The name of the file which could not be read or written.
          */
-        virtual const std::string &getFileName( );
+        virtual const std::string &getFileName( ) const;
     protected:
         /** The file which could not be read or written.
          */
