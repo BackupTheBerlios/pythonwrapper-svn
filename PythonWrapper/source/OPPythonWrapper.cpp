@@ -43,6 +43,8 @@ const PythonWrapper &PythonWrapper::operator=( const PythonWrapper &pw )
 
 PythonWrapper::~PythonWrapper( )
 {
+    deinit( );
+
     if ( --sInstanceCount == 0 )
     {
         assert( sModule != 0 );
@@ -51,8 +53,6 @@ PythonWrapper::~PythonWrapper( )
 
         Py_Finalize();
     }
-
-    deinit( );
 } // ~PythonWrapper
 
 
@@ -75,7 +75,7 @@ void PythonWrapper::deinit()
 std::string PythonWrapper::getStr( PyObject *pyo )
 {
     PyObject *str;
-    std::string toReturn = NULL;
+    std::string toReturn;
     
     if (pyo)
     {
@@ -143,7 +143,6 @@ python::object PythonWrapper::evaluate( const std::string &expression )
 
         // Fetch the python error.
         PyErr_Fetch( &type, &value, &stackTrace );
-
 
         eType = getStr( type );
         eValue = getStr( value );
@@ -220,7 +219,7 @@ boost::python::object PythonWrapper::getObject( const std::string &object )
 {
     if (! mNamespace.has_key( object ) )
     {
-        // Todo:  Throw here.
+        throw PythonException( "No object " + object + " in namespace.", "NoneType", "", __FILE__, __LINE__ );
     } // if
 
     return mNamespace[object];

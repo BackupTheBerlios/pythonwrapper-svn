@@ -33,13 +33,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="python23.lib boost_python-vc71-mt-gd-1_32.lib"
-				OutputFile="$(OutDir)/PythonWrapper.dll"
+				OutputFile="$(OutDir)/PythonWrapper_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\Dependancies\lib\$(ConfigurationName)&quot;;..\Dependancies\lib\all"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/PythonWrapper.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)/PythonWrapper.lib"
+				ImportLibrary="$(OutDir)/PythonWrapper_d.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
