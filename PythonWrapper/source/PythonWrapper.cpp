@@ -1,6 +1,7 @@
 #include "PythonWrapper.h"
 #include <boost/python.hpp>
 
+using namespace OP;
 namespace python = boost::python;
 
 python::object *PythonWrapper::sModule = 0;
@@ -55,9 +56,9 @@ void PythonWrapper::runString( const char *str )
 {
     try
     {
-        handle<> result(PyRun_String(str, Py_file_input, mNamespace.ptr(), mNamespace.ptr()));
+        python::handle<> result(PyRun_String(str, Py_file_input, mNamespace.ptr(), mNamespace.ptr()));
     }
-    catch (...) // todo: use the correct error catch
+    catch (python::error_already_set)
     {
         // todo: Throw exception on error, query for error message/type.
         PyErr_Clear( );

@@ -132,7 +132,7 @@
 				RelativePath=".\include\Common.h">
 			</File>
 			<File
-				RelativePath=".\include\PythonWrapper.h">
+				RelativePath=".\include\OPPythonWrapper.h">
 			</File>
 		</Filter>
 		<Filter
