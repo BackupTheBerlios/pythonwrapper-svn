@@ -1,7 +1,7 @@
 #ifndef _OPException_h_
 #define _OPException_h_
 
-#include "Common.h"
+#include "OPCommon.h"
 
 #include <string>
 
@@ -11,7 +11,7 @@ namespace OP
         @remarks
             This class is the base for all exceptions thrown by OP.
      */
-    class DLL_EXPORT Exception
+    class _OP_DLL_EXPORT Exception
     {
     public:
         /** Constructor.
@@ -44,7 +44,7 @@ namespace OP
         /** The file the error occured in.
          */
         std::string mFile;
-    } // class Exception
+    }; // class Exception
 } // namespace OP
 
 #endif

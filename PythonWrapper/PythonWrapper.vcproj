@@ -124,6 +124,9 @@
 				RelativePath=".\source\Exception.cpp">
 			</File>
 			<File
+				RelativePath=".\source\PythonException.cpp">
+			</File>
+			<File
 				RelativePath=".\source\PythonWrapper.cpp">
 			</File>
 		</Filter>
@@ -136,6 +139,9 @@
 			</File>
 			<File
 				RelativePath=".\include\OPException.h">
+			</File>
+			<File
+				RelativePath=".\include\OPPythonException.h">
 			</File>
 			<File
 				RelativePath=".\include\OPPythonWrapper.h">

@@ -1,7 +1,7 @@
 #ifndef _PythonWrapper_h_
 #define _PythonWrapper_h_
 
-#include "Common.h"
+#include "OPCommon.h"
 #include <boost/python/object.hpp>
 #include <boost/python/dict.hpp>
 
@@ -19,7 +19,7 @@ namespace OP
             interpreter state between multiple instances, use pointers and
             references.
     */
-    class DLL_EXPORT PythonWrapper
+    class _OP_DLL_EXPORT PythonWrapper
     {
     public:
         /** Constructor.
@@ -115,8 +115,8 @@ namespace OP
                 If you use BOOST_PYTHON_MODULE, the init_function will be
                 init[modulename] where [modulename] is the name of the module you
                 specified to BOOST_PYTHON_MODULE.
-            @throws ImportException
-                Throws ImportException if there was an error while loading the
+            @throws PythonException
+                Throws PythonException if there was an error while loading the
                 module.
             @param name
                 An arbitrary name for the module.  You can later import it using
