@@ -19,11 +19,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="F:\projects\cppunit-1.10.2\include"
+				AdditionalIncludeDirectories="F:\projects\PythonWrapper\Dependancies\include;F:\projects\PythonWrapper\PythonWrapper\include;F:\projects\PythonWrapper\TestCode\include;&quot;F:\projects\cppunit-1.10.2\include&quot;;C:\opt\Python23\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -32,10 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cppunit.lib"
-				OutputFile="$(OutDir)/TestCode.exe"
+				AdditionalDependencies="cppunitd_dll.lib PythonWrapper_d.lib boost_python-vc71-mt-gd-1_32.lib"
+				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="F:\projects\cppunit-1.10.2\lib"
+				AdditionalLibraryDirectories="&quot;F:\projects\PythonWrapper\PythonWrapper\bin\$(ConfigurationName)&quot;;&quot;F:\projects\cppunit-1.10.2\lib&quot;;&quot;F:\projects\PythonWrapper\Dependancies\lib\$(ConfigurationName)&quot;;F:\projects\PythonWrapper\Dependancies\lib\all"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/TestCode.pdb"
 				SubSystem="1"
@@ -69,9 +69,9 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="F:\projects\cppunit-1.10.2\include"
+				AdditionalIncludeDirectories="F:\projects\PythonWrapper\Dependancies\include;F:\projects\PythonWrapper\PythonWrapper\include;F:\projects\PythonWrapper\TestCode\include;&quot;F:\projects\cppunit-1.10.2\include&quot;;C:\opt\Python23\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -80,10 +80,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cppunit.lib"
-				OutputFile="$(OutDir)/TestCode.exe"
+				AdditionalDependencies="cppunit.lib PythonWrapper.lib boost_python-vc71-mt-1_32.lib"
+				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="F:\projects\cppunit-1.10.2\lib"
+				AdditionalLibraryDirectories="F:\projects\PythonWrapper\PythonWrapper\bin\release;&quot;F:\projects\cppunit-1.10.2\lib&quot;;&quot;F:\projects\PythonWrapper\Dependancies\lib\$(ConfigurationName)&quot;;F:\projects\PythonWrapper\Dependancies\lib\all"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -118,6 +118,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<File
+				RelativePath=".\source\main.cpp">
+			</File>
 			<File
 				RelativePath=".\source\PythonWrapperTest.cpp">
 			</File>
