@@ -1,4 +1,6 @@
 #include "OPPythonWrapper.h"
+#include "OPPythonException.h"
+
 #include <boost/python.hpp>
 
 using namespace OP;
@@ -52,11 +54,11 @@ void PythonWrapper::deinit()
 } // deinit
 
 
-void PythonWrapper::runString( const char *str )
+void PythonWrapper::runString( const std::string &str )
 {
     try
     {
-        python::handle<> result(PyRun_String(str, Py_file_input, mNamespace.ptr(), mNamespace.ptr()));
+        python::handle<> result(PyRun_String(str.c_str( ), Py_file_input, mNamespace.ptr(), mNamespace.ptr()));
     }
     catch (python::error_already_set)
     {

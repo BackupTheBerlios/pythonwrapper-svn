@@ -20,10 +20,10 @@ namespace OP
                 the exception occured in.
             @param description
                 A short description of what went wrong.
-            @param file
+            @param sourceFile
                 The file in which the exception was thrown.
          */
-        Exception( const std::string &description, const std::string &file );
+        Exception( const std::string &description, const std::string &sourceFile );
         virtual ~Exception( );
 
 

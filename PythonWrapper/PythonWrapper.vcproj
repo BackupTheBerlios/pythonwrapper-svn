@@ -121,13 +121,16 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\source\Exception.cpp">
+				RelativePath=".\source\OPException.cpp">
 			</File>
 			<File
-				RelativePath=".\source\PythonException.cpp">
+				RelativePath=".\source\OPFileException.cpp">
 			</File>
 			<File
-				RelativePath=".\source\PythonWrapper.cpp">
+				RelativePath=".\source\OPPythonException.cpp">
+			</File>
+			<File
+				RelativePath=".\source\OPPythonWrapper.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -139,6 +142,9 @@
 			</File>
 			<File
 				RelativePath=".\include\OPException.h">
+			</File>
+			<File
+				RelativePath=".\include\OPFileException.h">
 			</File>
 			<File
 				RelativePath=".\include\OPPythonException.h">

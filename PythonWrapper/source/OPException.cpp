@@ -3,10 +3,10 @@
 using namespace OP;
 
 
-Exception::Exception( const std::string &description, const std::string &file )
+Exception::Exception( const std::string &description, const std::string &sourceFile )
 {
     mDescription = description;
-    mFile = file;
+    mFile = sourceFile;
 } // Exception( const std::string &, const std::string & )
 
 

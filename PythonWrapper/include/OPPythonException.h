@@ -22,10 +22,10 @@ namespace OP
                 The string representation of the Python exception Type.
             @param pyErrorMessage
                 The error message that Python reports.
-            @param file
+            @param sourceFile
                 The file in which the exception occurs.
          */
-        PythonException( const std::string &pyErrorMessage, const std::string &pyExceptionType, const std::string &file );
+        PythonException( const std::string &pyErrorMessage, const std::string &pyExceptionType, const std::string &sourceFile );
         virtual ~PythonException( );
 
 

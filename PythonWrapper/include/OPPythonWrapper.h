@@ -31,6 +31,23 @@ namespace OP
         PythonWrapper( );
 
 
+        /** Deep copy constructor.
+            @remarks
+                This does NOT call init.  Equivilant to operator=.
+            @see operator=
+         */
+        PythonWrapper( const PythonWrapper &pw );
+
+
+        /** Performs a deep copy of the given PythonWrapper.
+            @remarks
+                This performs a deep copy of the given PythonWrapper.  When this is
+                called, all variables in the two objects are equal but changes to
+                one does not affect the other.
+         */
+        operator=( const PythonWrapper & );
+
+
         /** Destructor.
             @remarks
                 This takes care of finalizing the python interpreter if no
@@ -52,7 +69,7 @@ namespace OP
             @see runFile
             @see evaluate
         */
-        virtual void runString( const char *str );
+        virtual void runString( const std::string &str );
 
 
         /** Runs the file specified by file_name.
@@ -67,11 +84,11 @@ namespace OP
                 execute the specified file.
             @throws FileException
                 Throws a FileException if the specified file was not found.
-            @param file_name
+            @param fileName
                 The path to the file you wish to execute.
             @see runString
         */
-        virtual void runFile( const char *file_name );
+        virtual void runFile( const std::string &fileName );
 
 
         /** Evaluates a python expression and returns the result.
@@ -92,7 +109,7 @@ namespace OP
                 The Boost.Python object which contains the result of the
                 expression.
         */
-        virtual boost::python::object evaluate( const char *expression );
+        virtual boost::python::object evaluate( const std::string &expression );
 
 
         /** Resets the interpreter back to its initial state.
@@ -118,13 +135,13 @@ namespace OP
             @throws PythonException
                 Throws PythonException if there was an error while loading the
                 module.
-            @param name
+            @param moduleName
                 An arbitrary name for the module.  You can later import it using
-                "import module_name".
-            @param init_function
+                "import moduleName".
+            @param initFunction
                 The initialization function for the module.
         */
-        static void loadModule( const char *module_name, void (*init_function)(void) );
+        static void loadModule( const std::string &moduleName, void (*initFunction)(void) );
     protected:
         /** Intializes the PythonWrapper.
             @remarks
