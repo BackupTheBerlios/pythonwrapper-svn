@@ -167,6 +167,6 @@ namespace OP
                 keep at least one PythonWrapper running or none.
         */
         static unsigned int sInstanceCount;
-    };
-} // namespace PW
+    }; // class PythonWrapper
+} // namespace OP
 #endif

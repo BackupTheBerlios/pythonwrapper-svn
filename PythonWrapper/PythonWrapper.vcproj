@@ -121,6 +121,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\source\Exception.cpp">
+			</File>
+			<File
 				RelativePath=".\source\PythonWrapper.cpp">
 			</File>
 		</Filter>
@@ -129,7 +132,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\include\Common.h">
+				RelativePath=".\include\OPCommon.h">
+			</File>
+			<File
+				RelativePath=".\include\OPException.h">
 			</File>
 			<File
 				RelativePath=".\include\OPPythonWrapper.h">
