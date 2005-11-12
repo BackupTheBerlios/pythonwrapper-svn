@@ -2,27 +2,29 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-#include "PythonWrapperTest.h"
-
-CPPUNIT_TEST_SUITE_REGISTRATION( PythonWrapperTest );
-
 #include <iostream>
+#include <PW_Python.h>
 
 int main(int argc, char* argv[])
 {
-    // create runner
+    Py_Initialize();
+
+    // Get the top level suite from the registry
+    CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
+
+    // Adds the test to the list of test to run
     CppUnit::TextUi::TestRunner runner;
-    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+    runner.addTest( suite );
 
-    // add tests
-    runner.addTest( registry.makeTest() );
+    // Change the default outputter to a compiler error format outputter
+    runner.setOutputter( new CppUnit::CompilerOutputter( &runner.result(),
+                                                        std::cerr ) );
+    // Run the tests.
+    bool wasSucessful = runner.run();
 
-    // run tests
-    bool wasSuccessful = runner.run( "", false );
+    Py_Finalize();
 
-    // return results
-    return wasSuccessful;
+    // Return error code 1 if the one of test failed.
+    return wasSucessful ? 0 : 1;
 }
 

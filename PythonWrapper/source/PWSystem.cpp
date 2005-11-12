@@ -1,17 +1,13 @@
-#include "OPPythonWrapper.h"
-#include "OPPythonException.h"
-#include "OPFileException.h"
-#include "OPImportException.h"
-
+#include "OPSystem.h"
 #include <boost/python.hpp>
 
 using namespace OP;
 namespace python = boost::python;
 
-python::object *PythonWrapper::sModule = 0;
-unsigned int PythonWrapper::sInstanceCount = 0;
+python::object *System::sModule = 0;
+unsigned int System::sInstanceCount = 0;
 
-PythonWrapper::PythonWrapper( )
+System::System( )
 {
     if ( sInstanceCount++ == 0 )
     {
@@ -22,16 +18,16 @@ PythonWrapper::PythonWrapper( )
     }
 
     init( );
-} // PythonWrapper
+} // System
 
 
-PythonWrapper::PythonWrapper( const PythonWrapper &pw )
+System::System( const System &pw )
 {
     *this = pw;
-} // PythonWrapper( const PythonWrapper & )
+} // System( const System & )
 
 
-const PythonWrapper &PythonWrapper::operator=( const PythonWrapper &pw )
+const System &System::operator=( const System &pw )
 {
     assert( sInstanceCount > 0 );
     mNamespace = python::dict(pw.mNamespace).copy();
@@ -41,7 +37,7 @@ const PythonWrapper &PythonWrapper::operator=( const PythonWrapper &pw )
 }
 
 
-PythonWrapper::~PythonWrapper( )
+System::~System( )
 {
     deinit( );
 
@@ -53,10 +49,10 @@ PythonWrapper::~PythonWrapper( )
 
         Py_Finalize();
     }
-} // ~PythonWrapper
+} // ~System
 
 
-void PythonWrapper::init( )
+void System::init( )
 {
     // This is a workaround.  The dict constructor does not make a deep copy
     // as it is supposed to.  This ensures that we retrieve a copy of the dict,
@@ -65,14 +61,14 @@ void PythonWrapper::init( )
 } // init
 
 
-void PythonWrapper::deinit()
+void System::deinit()
 {
     // Clear namespace so we don't have a reference to it.
     mNamespace = python::dict( );
 } // deinit
 
 
-std::string PythonWrapper::getStr( PyObject *pyo )
+std::string System::getStr( PyObject *pyo )
 {
     PyObject *str;
     std::string toReturn;
@@ -91,7 +87,7 @@ std::string PythonWrapper::getStr( PyObject *pyo )
 } // getStr( PyObject * )
 
 
-void PythonWrapper::runString( const std::string &str )
+void System::runString( const std::string &str )
 {
     try
     {
@@ -120,7 +116,7 @@ void PythonWrapper::runString( const std::string &str )
 } // runString( const std::string & )
 
 
-void PythonWrapper::reset( )
+void System::reset( )
 {
     // This is a workaround.  The dict constructor does not make a deep copy
     // as it is supposed to.  This ensures that we retrieve a copy of the dict,
@@ -129,7 +125,7 @@ void PythonWrapper::reset( )
 }
 
 
-python::object PythonWrapper::evaluate( const std::string &expression )
+python::object System::evaluate( const std::string &expression )
 {
     try
     {
@@ -161,7 +157,7 @@ python::object PythonWrapper::evaluate( const std::string &expression )
 } // evaluate( const std::string & )
 
 
-void PythonWrapper::runFile( const std::string &fileName )
+void System::runFile( const std::string &fileName )
 {
     FILE *fp;
     
@@ -199,7 +195,7 @@ void PythonWrapper::runFile( const std::string &fileName )
 } // runFile( const std::string & )
 
 
-void PythonWrapper::loadModule( const std::string &moduleName, void (*initFunction)(void) )
+void System::loadModule( const std::string &moduleName, void (*initFunction)(void) )
 {
     // PyImport_AppendInittab takes a char*.  To be safe I don't cast, I give it a throw-away char *.
     char *name = new char[moduleName.length()+1];
@@ -215,7 +211,7 @@ void PythonWrapper::loadModule( const std::string &moduleName, void (*initFuncti
 } // loadModule( const std::string &, void (*)(void) )
 
 
-boost::python::object PythonWrapper::getObject( const std::string &object )
+boost::python::object System::getObject( const std::string &object )
 {
     if (! mNamespace.has_key( object ) )
     {

@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;..\Dependancies\include\python;..\Dependancies\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS"
+				AdditionalIncludeDirectories="include;..\dependencies\python\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS;_PW_LIBRARY_BUILD"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -32,10 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="python23.lib boost_python-vc71-mt-gd-1_32.lib"
+				AdditionalDependencies="python24.lib"
 				OutputFile="$(OutDir)/PythonWrapper_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\Dependancies\lib\$(ConfigurationName)&quot;;..\Dependancies\lib\all"
+				AdditionalLibraryDirectories="..\dependencies\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/PythonWrapper.pdb"
 				SubSystem="2"
@@ -44,7 +44,8 @@
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="copy bin\debug\PythonWrapper_d.dll ..\TestCode\Debug"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -70,8 +71,8 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="include;..\Dependancies\include\python;..\Dependancies\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS"
+				AdditionalIncludeDirectories="include;Dependencies\include\python;..\Dependencies\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS;_PW_LIBRARY_BUILD"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -81,10 +82,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="python23.lib boost_python-vc71-mt-1_32.lib"
+				AdditionalDependencies="python24.lib"
 				OutputFile="$(OutDir)/PythonWrapper.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\Dependancies\lib\$(ConfigurationName)&quot;;..\Dependancies\lib\all"
+				AdditionalLibraryDirectories="..\dependencies\lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -94,7 +95,8 @@
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="copy bin\release\PythonWrapper.dll ..\TestCode\Release"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -121,19 +123,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\source\OPException.cpp">
-			</File>
-			<File
-				RelativePath=".\source\OPFileException.cpp">
-			</File>
-			<File
-				RelativePath=".\source\OPImportException.cpp">
-			</File>
-			<File
-				RelativePath=".\source\OPPythonException.cpp">
-			</File>
-			<File
-				RelativePath=".\source\OPPythonWrapper.cpp">
+				RelativePath=".\source\PWObject.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -141,22 +131,19 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\include\OPCommon.h">
+				RelativePath=".\include\PW_Python.h">
 			</File>
 			<File
-				RelativePath=".\include\OPException.h">
+				RelativePath=".\include\PWCommon.h">
 			</File>
 			<File
-				RelativePath=".\include\OPFileException.h">
+				RelativePath=".\include\PWExceptions.h">
 			</File>
 			<File
-				RelativePath=".\include\OPImportException.h">
+				RelativePath=".\include\PWHandler.h">
 			</File>
 			<File
-				RelativePath=".\include\OPPythonException.h">
-			</File>
-			<File
-				RelativePath=".\include\OPPythonWrapper.h">
+				RelativePath=".\include\PWObject.h">
 			</File>
 		</Filter>
 		<Filter

@@ -5,6 +5,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PythonWrapper", "PythonWrap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCode", "TestCode\TestCode.vcproj", "{114D085C-EB8F-48DA-9503-EE40E5F08BD1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF} = {F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}
 	EndProjectSection
 EndProject
 Global
