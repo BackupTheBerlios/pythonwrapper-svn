@@ -2,6 +2,7 @@
 #define _System_h_
 
 #include "PWCommon.h"
+#include "PWDict.h"
 
 namespace pw
 {
@@ -18,6 +19,8 @@ namespace pw
      */
     class _PW_EXPORT System
     {
+    public:
+        typedef void (*InitFunction)();
     public:
         /** Constructor.
          *  @remarks
@@ -67,7 +70,7 @@ namespace pw
          *  @see runFile
          *  @see evaluate
         */
-        virtual void runString(const std::string &str);
+        virtual Object runString(const char *str);
 
 
         /** Runs the file specified by file_name.
@@ -86,7 +89,7 @@ namespace pw
          *      The path to the file you wish to execute.
          *  @see runString
         */
-        virtual void runFile(const std::string &fileName);
+        virtual Object runFile(const char *fileName);
 
 
         /** Evaluates a python expression and returns the result.
@@ -107,12 +110,12 @@ namespace pw
          *      The Boost.Python object which contains the result of the
          *      expression.
         */
-        virtual Object evaluate(const std::string &expression);
+        virtual Object evaluate(const char *expression);
 
 
         /** Returns a python object that's in the namespace.  (Including
          *  variables, functions, classes, and so on.)
-         *  @param object
+         *  @param name
          *      The name of the object to retrieve.
          *  @throws PythonException
          *      Throws a python exception if there is no object in the namespace
@@ -120,7 +123,7 @@ namespace pw
          *  @return
          *      Returns the Python object in the local namespace.
          */
-        virtual Object getObject(const std::string &object);
+        virtual Object getObject(char *name);
 
 
         /** Resets the interpreter back to its initial state.
@@ -153,7 +156,7 @@ namespace pw
           * @param initFunction
           *     The initialization function for the module.
           */
-        static void loadModule(const std::string &moduleName, void (*initFunction)(void));
+        static void loadModule(char *moduleName, System::InitFunction f);
     protected:
         /** Intializes the System.
             @remarks
@@ -170,17 +173,6 @@ namespace pw
                 This function is called by the System destructor.
         */
         virtual void deinit();
-
-
-        /** Returns a const char * for the given Python object.
-            @remarks
-                This is an internal function.
-            @param pyo
-                The python object to convert, can be NULL.
-            @return
-                A string object containing the string representation of pyo.
-         */
-        static const char *getStr(const Object &obj);
 
 
         /** The python namespace (ie the instance) of the object.

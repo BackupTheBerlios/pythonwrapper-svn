@@ -1,6 +1,8 @@
 #include "PWObject.h"
 #include "PWHandler.h"
 #include "PWExceptions.h"
+#include "PWTuple.h"
+#include "PWDict.h"
 
 using namespace pw;
 
@@ -57,9 +59,69 @@ void Object::check(PyObject *ptr)
 {
     if (!ptr)
     {
-        if (PyErr_Occurred())
-            PYTHON_EXCEPTION_THROW;
-
+        PYTHON_EXCEPTION_CHECK;
         NULL_OBJECT_EXCEPTION_THROW;
     } // if
 } // check(PyObject *)
+
+
+int Object::length() const
+{
+    return PyObject_Size(mPtr);
+} // length()
+
+
+Object Object::getAttr(const Object &attr) const
+{
+    return Object(NewReference(PyObject_GetAttr(mPtr, attr.borrowReference())));
+}
+
+
+void Object::setAttr(const Object &attr, const Object &value)
+{
+    PyObject_SetAttr(mPtr, attr.borrowReference(), value.borrowReference());
+    PYTHON_EXCEPTION_CHECK;
+}
+
+
+void Object::delAttr(const Object &attr)
+{
+    bool toReturn = PyObject_DelAttr(mPtr, attr.borrowReference()) != -1;
+    PYTHON_EXCEPTION_CHECK;
+}
+
+
+Object Object::getAttr(char *attr) const
+{
+    return Object(NewReference(PyObject_GetAttrString(mPtr, attr)));
+}
+
+
+void Object::setAttr(char *attr, const Object &value)
+{
+    PyObject_SetAttrString(mPtr, attr, value.borrowReference());
+}
+
+
+void Object::delAttr(char *attr)
+{
+    PyObject_DelAttrString(mPtr, attr);
+}
+
+
+Object Object::operator()()
+{
+    return Object(NewReference(PyObject_CallObject(mPtr, 0)));
+}
+
+
+Object Object::operator()(const Tuple &args)
+{
+    return Object(NewReference(PyObject_CallObject(mPtr, args.borrowReference())));
+}
+
+
+Object Object::operator()(const Tuple &args, const Dict &namedArgs)
+{
+    return Object(NewReference(PyObject_Call(mPtr, args.borrowReference(), namedArgs.borrowReference())));
+}

@@ -71,7 +71,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="include;Dependencies\include\python;..\Dependencies\include"
+				AdditionalIncludeDirectories="include;..\dependencies\python\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS;_PW_LIBRARY_BUILD"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -123,7 +123,19 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\source\PWExceptions.cpp">
+			</File>
+			<File
+				RelativePath=".\source\PWList.cpp">
+			</File>
+			<File
 				RelativePath=".\source\PWObject.cpp">
+			</File>
+			<File
+				RelativePath=".\source\PWSequence.cpp">
+			</File>
+			<File
+				RelativePath=".\source\PWTuple.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -143,7 +155,16 @@
 				RelativePath=".\include\PWHandler.h">
 			</File>
 			<File
+				RelativePath=".\include\PWList.h">
+			</File>
+			<File
 				RelativePath=".\include\PWObject.h">
+			</File>
+			<File
+				RelativePath=".\include\PWSequence.h">
+			</File>
+			<File
+				RelativePath=".\include\PWTuple.h">
 			</File>
 		</Filter>
 		<Filter

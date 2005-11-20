@@ -5,8 +5,6 @@
 
 namespace pw
 {
-    class ReferenceHandler;  // forward reference
-
     /**
      * Wrapper for the basic PyObject struct.
      */
@@ -50,6 +48,121 @@ namespace pw
          * @param rhs the Object to copy
          */
         virtual Object &operator=(const Object &rhs);
+
+
+        /**
+         * Returns a borrowed reference to the object that this contains.
+         * You must not call Py_DECREF on the return value of this function.
+         * If you wish to pass the return value into a function which
+         * steals a reference, you should call the getNewReference function
+         * instead.
+         * @returns a pointer to the PyObject that this Object contains,
+         *          garunteed to be a valid pointer
+         * @remarks The return value of this function is garunteed to remain
+         *          valid until this Object is destroyed or it is reassigned
+         *          with a call to operator=.
+         */
+        virtual inline PyObject *borrowReference() const
+        { return mPtr; }
+
+
+        /**
+         * Returns a new reference to the PyObject that this contains.  You
+         * MUST call Py_DECREF on the return value of this function or pass
+         * it to a Python/C function which "steals a reference" or you will
+         * create a memory leak.
+         */
+        virtual inline PyObject *newReference() const
+        {
+            Py_INCREF(mPtr);
+            return mPtr;
+        } // getNewReference
+
+
+        /**
+         * Returns the length of this object, like calling len(obj).  Returns
+         * -1 if the object does not have a length (that is, does not define
+         * an __len__ function to call).
+         * @returns the length of the object or -1 if the object does not have
+         *          a length
+         */
+        virtual int length() const;
+
+
+        /**
+         * Returns true if this object has the attribute "attr", false otherwise.
+         * Does not throw an exception.
+         * @returns true if the object has attr, false otherwise
+         */
+        virtual inline bool hasAttr(const Object &attr)
+        { return PyObject_HasAttr(mPtr, attr.borrowReference()) != 0; }
+
+
+        /**
+         * Obtains the attribute from this Object and returns it, same as
+         * return Object.__dict__[str(attr)]
+         */
+        virtual Object getAttr(const Object &attr) const;
+
+
+        /**
+         * Sets the attribute, same as:
+         * Object.__dict__[str(attr)] = value;
+         */
+        virtual void setAttr(const Object &attr, const Object &value);
+
+        
+        /**
+         * Deletes the attribute, same as:
+         * del Object.__dict__[str(attr)]
+         */
+        virtual void delAttr(const Object &attr);
+
+
+        /**
+         * Returns the attribute.
+         */
+        virtual Object getAttr(char *attr) const;
+
+
+        /**
+         * Sets the attribute.
+         */
+        virtual void setAttr(char *attr, const Object &value);
+
+
+        /**
+         * Deletes the attribute.
+         */
+        virtual void delAttr(char *attr);
+
+
+        /**
+         * Calls the object with no parameters.
+         * Equivalent to obj()
+         * @returns the return value of the function call
+         * @throws PythonException if an error occurred during the call
+         */
+        virtual Object operator()();
+
+
+        /**
+         * Calls the object with parameters.
+         * Equivalent to obj(*args)
+         * @returns the return value of the function call
+         * @throws PythonException if an error occurred during the call
+         */
+        virtual Object operator()(const Tuple &args);
+
+        
+        /**
+         * Calls the object with parameters, and named parameters, such as
+         * calling the object as obj(param1, param2, named1=val1, named2=val2)
+         * Equivalent to obj(*args)
+         * @returns the return value of the function call
+         * @throws PythonException if an error occurred during the call
+         */
+        virtual Object operator()(const Tuple &args, const Dict &namedArgs);
 
     public:
         static void check(PyObject *ptr);
