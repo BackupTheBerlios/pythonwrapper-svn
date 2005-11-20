@@ -10,7 +10,7 @@ using namespace pw;
 Object *System::sModule = 0;
 unsigned int System::sInstanceCount = 0;
 
-System::System( )
+System::System()
 {
     if (sInstanceCount++ == 0)
     {
@@ -28,7 +28,7 @@ System::System(const System &pw)
 {
     *this = pw;
     sInstanceCount++;
-} // System( const System & )
+} // System(const System &)
 
 
 const System &System::operator=(const System &sys)
@@ -40,7 +40,7 @@ const System &System::operator=(const System &sys)
 }
 
 
-System::~System( )
+System::~System()
 {
     deinit();
 
@@ -55,9 +55,9 @@ System::~System( )
 } // ~System
 
 
-void System::init( )
+void System::init()
 {
-    //mNamespace = Dict(sModule->getattr("__dict__"));
+    mNamespace = Dict(sModule->getAttr("__dict__"));
 } // init
 
 
@@ -79,10 +79,10 @@ Object System::runString(const char *str)
     } // if
 
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
-} // runString( const std::string & )
+} // runString(const std::string &)
 
 
-void System::reset( )
+void System::reset()
 {
     mNamespace = Dict(sModule->getAttr("__dict__"));
 }
@@ -101,7 +101,7 @@ Object System::evaluate(const char *expression)
     } // if
 
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
-} // evaluate( const std::string & )
+} // evaluate(const std::string &)
 
 
 Object System::runFile(const char *fileName)
@@ -125,8 +125,8 @@ Object System::runFile(const char *fileName)
     } // if
     
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
+} // runFile(const std::string &)
 
-} // runFile( const std::string & )
 
 void System::loadModule(char *moduleName, System::InitFunction f)
 {
@@ -135,7 +135,7 @@ void System::loadModule(char *moduleName, System::InitFunction f)
         // todo, does this even set the python exception?
         PYTHON_EXCEPTION_THROW;
     } // if
-} // loadModule( const std::string &, void (*)(void) )
+} // loadModule(const std::string &, void (*)(void))
 
 
 Object System::getObject(char *object)
@@ -147,4 +147,4 @@ Object System::getObject(char *object)
     } // if
 
     return mNamespace[object];
-} // getObject( const std::string & )
+} // getObject(const std::string &)
