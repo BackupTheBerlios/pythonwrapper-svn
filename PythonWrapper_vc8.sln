@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PythonWrapper", "PythonWrapper\PythonWrapper_vc8.vcproj", "{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCode", "TestCode\TestCode_vc8.vcproj", "{114D085C-EB8F-48DA-9503-EE40E5F08BD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF} = {F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}.Debug|Win32.Build.0 = Debug|Win32
+		{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}.Release|Win32.ActiveCfg = Release|Win32
+		{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}.Release|Win32.Build.0 = Release|Win32
+		{114D085C-EB8F-48DA-9503-EE40E5F08BD1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{114D085C-EB8F-48DA-9503-EE40E5F08BD1}.Debug|Win32.Build.0 = Debug|Win32
+		{114D085C-EB8F-48DA-9503-EE40E5F08BD1}.Release|Win32.ActiveCfg = Release|Win32
+		{114D085C-EB8F-48DA-9503-EE40E5F08BD1}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -83,7 +83,7 @@
 				AdditionalDependencies="cppunit.lib PythonWrapper.lib python24.lib"
 				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="F:\projects\PythonWrapper\PythonWrapper\bin\release;&quot;F:\projects\cppunit-1.10.2\lib&quot;;&quot;F:\projects\PythonWrapper\Dependancies\lib\$(ConfigurationName)&quot;;F:\projects\PythonWrapper\Dependancies\lib\all"
+				AdditionalLibraryDirectories="..\PythonWrapper\bin\release;..\dependencies\lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -122,7 +122,25 @@
 				RelativePath=".\source\main.cpp">
 			</File>
 			<File
+				RelativePath=".\source\TestDict.cpp">
+			</File>
+			<File
+				RelativePath=".\source\TestExtract.cpp">
+			</File>
+			<File
 				RelativePath=".\source\TestHandler.cpp">
+			</File>
+			<File
+				RelativePath=".\source\TestList.cpp">
+			</File>
+			<File
+				RelativePath=".\source\TestNumber.cpp">
+			</File>
+			<File
+				RelativePath=".\source\TestSystem.cpp">
+			</File>
+			<File
+				RelativePath=".\source\TestTuple.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -130,7 +148,25 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath=".\include\TestDict.h">
+			</File>
+			<File
+				RelativePath=".\include\TestExtract.h">
+			</File>
+			<File
 				RelativePath=".\include\TestHandler.h">
+			</File>
+			<File
+				RelativePath=".\include\TestList.h">
+			</File>
+			<File
+				RelativePath=".\include\TestNumber.h">
+			</File>
+			<File
+				RelativePath=".\include\TestSystem.h">
+			</File>
+			<File
+				RelativePath=".\include\TestTuple.h">
 			</File>
 		</Filter>
 		<Filter

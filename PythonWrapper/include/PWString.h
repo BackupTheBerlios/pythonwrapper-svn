@@ -6,7 +6,7 @@
 
 namespace pw
 {
-    class _PW_EXPORT String : public Object
+    class PW_EXPORT String : public Object
     {
     public:
         String(const char *str);

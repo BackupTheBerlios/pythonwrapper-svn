@@ -113,13 +113,11 @@ void TestHandler::testBorrowedReferenceNull()
 
 void TestHandler::testNewReferencePython()
 {
-    PyErr_Clear();
     PyErr_SetString(PyExc_TypeError, "Test message.");
     NewReference(0);
 }
 void TestHandler::testBorrrowedReferencePython()
 {
-    PyErr_Clear();
     PyErr_SetString(PyExc_TypeError, "Test message.");
     BorrowedReference(0);
 }
@@ -127,4 +125,36 @@ void TestHandler::testBorrrowedReferencePython()
 void TestHandler::tearDown()
 {
     PyErr_Clear();
+}
+
+void TestHandler::testReferenceNew()
+{
+    NewReference nr(PyString_FromString("Test"));
+    CPPUNIT_ASSERT_EQUAL(1, nr.getPtr()->ob_refcnt);
+
+    Object obj1(nr);
+    CPPUNIT_ASSERT_EQUAL(1, nr.getPtr()->ob_refcnt);
+
+    Object obj2(nr);
+    CPPUNIT_ASSERT_EQUAL(2, nr.getPtr()->ob_refcnt);
+
+    Object obj3(nr);
+    CPPUNIT_ASSERT_EQUAL(3, nr.getPtr()->ob_refcnt);
+}
+
+void testReferenceBorrowed()
+{
+    NewReference nr(PyString_FromString("Test"));
+    CPPUNIT_ASSERT_EQUAL(2, nr.getPtr()->ob_refcnt);
+
+    Object obj1(nr);
+    CPPUNIT_ASSERT_EQUAL(2, nr.getPtr()->ob_refcnt);
+
+    Object obj2(nr);
+    CPPUNIT_ASSERT_EQUAL(3, nr.getPtr()->ob_refcnt);
+
+    Object obj3(nr);
+    CPPUNIT_ASSERT_EQUAL(4, nr.getPtr()->ob_refcnt);
+
+    Py_DECREF(nr.getPtr());
 }

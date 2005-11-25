@@ -7,7 +7,7 @@
 
 namespace pw
 {
-    class _PW_EXPORT Dict : public Object
+    class PW_EXPORT Dict : public Object
     {
     public:
         typedef SequenceEntry<Dict, Object> DictEntry;
@@ -40,6 +40,8 @@ namespace pw
 
         virtual DictEntry operator[](const Object &key);
         virtual DictEntry operator[](char *key);
+
+        Dict copy();
     };
 }
 

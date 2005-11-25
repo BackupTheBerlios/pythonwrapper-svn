@@ -49,7 +49,7 @@ Tuple Tuple::getSlice(int start, int stop) const
 }
 
 
-int Tuple::size() const
+int Tuple::length() const
 {
     return PyTuple_Size(mPtr);
 }

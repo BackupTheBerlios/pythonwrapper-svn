@@ -1,6 +1,8 @@
 #ifndef _PWSequenceEntry_h_
 #define _PWSequenceEntry_h_
 
+#include "PWObject.h"
+
 namespace pw
 {
     template <class SeqType, class IndexType>

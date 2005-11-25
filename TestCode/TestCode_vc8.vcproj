@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="PythonWrapper"
-	ProjectGUID="{F5A2C541-9DBE-4482-9CCE-A37D7C3BE1CF}"
+	Name="TestCode"
+	ProjectGUID="{114D085C-EB8F-48DA-9503-EE40E5F08BD1}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -16,9 +16,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="bin\$(ConfigurationName)"
-			IntermediateDirectory="bin\intermediate\$(ConfigurationName)"
-			ConfigurationType="2"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
 			>
@@ -40,11 +40,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;..\dependencies\python\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS;_PW_LIBRARY_BUILD;_CRT_SECURE_NO_DEPRECATE"
+				AdditionalIncludeDirectories="include;..\dependencies\python\include;..\dependencies\cppunit\include;..\PythonWrapper\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -61,14 +61,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="python24.lib"
-				OutputFile="$(OutDir)/PythonWrapper_d.dll"
+				AdditionalDependencies="cppunitd.lib PythonWrapper_d.lib python24.lib"
+				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\dependencies\lib"
+				AdditionalLibraryDirectories="..\PythonWrapper\bin\debug;..\dependencies\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/PythonWrapper.pdb"
-				SubSystem="2"
-				ImportLibrary="$(OutDir)/PythonWrapper_d.lib"
+				ProgramDatabaseFile="$(OutDir)/TestCode.pdb"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -94,14 +93,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy bin\debug\PythonWrapper_d.dll ..\TestCode\Debug"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="bin\$(ConfigurationName)"
-			IntermediateDirectory="bin\intermediate\$(ConfigurationName)"
-			ConfigurationType="2"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
 			>
@@ -122,9 +120,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="include;..\dependencies\python\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PYTHONWRAPPER_EXPORTS;_PW_LIBRARY_BUILD"
-				RuntimeLibrary="0"
+				AdditionalIncludeDirectories="include;..\dependencies\python\include;..\dependencies\cppunit\include;..\PythonWrapper\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -141,15 +139,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="python24.lib"
-				OutputFile="$(OutDir)/PythonWrapper.dll"
+				AdditionalDependencies="cppunit.lib PythonWrapper.lib python24.lib"
+				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\dependencies\lib"
+				AdditionalLibraryDirectories="..\PythonWrapper\bin\release;..\dependencies\lib"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/PythonWrapper.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -175,7 +172,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy bin\release\PythonWrapper.dll ..\TestCode\Release"
 			/>
 		</Configuration>
 	</Configurations>
@@ -188,43 +184,35 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\source\PWDict.cpp"
+				RelativePath=".\source\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWExceptions.cpp"
+				RelativePath=".\source\TestDict.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWExtract.cpp"
+				RelativePath=".\source\TestExtract.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWList.cpp"
+				RelativePath=".\source\TestHandler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWNumber.cpp"
+				RelativePath=".\source\TestList.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWObject.cpp"
+				RelativePath=".\source\TestNumber.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWSequence.cpp"
+				RelativePath=".\source\TestSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWString.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\source\PWSystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\source\PWTuple.cpp"
+				RelativePath=".\source\TestTuple.cpp"
 				>
 			</File>
 		</Filter>
@@ -234,59 +222,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\PWCommon.h"
+				RelativePath=".\include\TestDict.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWDict.h"
+				RelativePath=".\include\TestExtract.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWExceptions.h"
+				RelativePath=".\include\TestHandler.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWExtract.h"
+				RelativePath=".\include\TestList.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWHandler.h"
+				RelativePath=".\include\TestNumber.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWList.h"
+				RelativePath=".\include\TestSystem.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWNumber.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWObject.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWSequence.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWSequenceEntry.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWString.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWSystem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWTuple.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PythonWrapper.h"
+				RelativePath=".\include\TestTuple.h"
 				>
 			</File>
 		</Filter>

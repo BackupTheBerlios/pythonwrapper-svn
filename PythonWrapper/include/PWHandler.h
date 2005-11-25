@@ -1,4 +1,4 @@
-#ifndef _PWHander_h_
+#ifndef _PWHandler_h_
 #define _PWHandler_h_
 
 #include "PWCommon.h"
@@ -11,7 +11,7 @@ namespace pw
      * @see NewReference
      * @see BorrowedReference
      */
-    class _PW_EXPORT ReferenceHandler
+    class PW_EXPORT ReferenceHandler
     {
     public:
         inline ReferenceHandler() {}
@@ -35,7 +35,7 @@ namespace pw
      * class (which does call Py_INCREF).
      * @see BorrowedReference
      */
-    class _PW_EXPORT NewReference : public ReferenceHandler
+    class PW_EXPORT NewReference : public ReferenceHandler
     {
     public:
         /**
@@ -104,7 +104,7 @@ namespace pw
      * NewReference class should be used.
      * @see NewReference
      */
-    class _PW_EXPORT BorrowedReference : public NewReference
+    class PW_EXPORT BorrowedReference : public NewReference
     {
     public:
         /**

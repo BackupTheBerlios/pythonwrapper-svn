@@ -8,7 +8,7 @@ namespace pw
     /**
      * Wrapper for the basic PyObject struct.
      */
-    class _PW_EXPORT Object
+    class PW_EXPORT Object
     {
     public:
         /**

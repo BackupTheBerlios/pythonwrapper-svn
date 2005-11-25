@@ -8,7 +8,7 @@ namespace pw
     class Tuple;
     class List;
 
-    class _PW_EXPORT Sequence : public Object
+    class PW_EXPORT Sequence : public Object
     {
     public:
         Sequence(ReferenceHandler &ref);

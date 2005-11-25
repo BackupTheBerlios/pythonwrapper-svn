@@ -114,7 +114,7 @@ Object System::runFile(const char *fileName)
 
     PyObject *ret = PyRun_File(fp, fileName, Py_file_input,
                                mNamespace.borrowReference(),
-                               mNamespace.borrowReference());
+                               0);
 
     fclose(fp);
 
@@ -148,3 +148,8 @@ Object System::getObject(char *object)
 
     return mNamespace[object];
 } // getObject(const std::string &)
+
+const Dict &System::getNamespace() const
+{
+    return mNamespace;
+}

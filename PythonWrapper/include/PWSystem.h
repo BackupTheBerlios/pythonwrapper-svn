@@ -17,7 +17,7 @@ namespace pw
      *      instances, use pointers and references, or use the copy
      *      constructor or the = operator.
      */
-    class _PW_EXPORT System
+    class PW_EXPORT System
     {
     public:
         typedef void (*InitFunction)();
@@ -131,6 +131,12 @@ namespace pw
          *      All variables are cleared and reset to their initial value.
         */
         virtual void reset();
+
+
+        /** Returns the namespace that this object uses.
+         *  @returns the namespace (Dict) that this object uses
+         */
+        virtual const Dict &getNamespace() const;
 
 
         // Static methods.

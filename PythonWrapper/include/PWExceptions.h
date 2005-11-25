@@ -1,7 +1,6 @@
 #ifndef _PWExceptions_h_
 #define _PWExceptions_h_
 
-#include <string>
 #include "PWCommon.h"
 #include "PWObject.h"
 
@@ -13,14 +12,14 @@
 
 namespace pw
 {
-    class Exception
+    class PW_EXPORT Exception
     {
     public:
         inline Exception() {}
         virtual inline ~Exception() {}
     };
 
-    class PythonException : public Exception
+    class PW_EXPORT PythonException : public Exception
     {
     public:
         PythonException();
@@ -35,7 +34,7 @@ namespace pw
         Object mValue;
     };
 
-    class NullObjectException : public Exception
+    class PW_EXPORT NullObjectException : public Exception
     {
     public:
         inline NullObjectException() {}

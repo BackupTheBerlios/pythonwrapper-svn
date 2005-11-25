@@ -7,7 +7,8 @@
 
 namespace pw
 {
-    class _PW_EXPORT List : public Object
+    
+    class PW_EXPORT List : public Object
     {
     public:
         typedef SequenceEntry<List, int> ListEntry;

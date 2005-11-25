@@ -123,16 +123,31 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\source\PWDict.cpp">
+			</File>
+			<File
 				RelativePath=".\source\PWExceptions.cpp">
 			</File>
 			<File
+				RelativePath=".\source\PWExtract.cpp">
+			</File>
+			<File
 				RelativePath=".\source\PWList.cpp">
+			</File>
+			<File
+				RelativePath=".\source\PWNumber.cpp">
 			</File>
 			<File
 				RelativePath=".\source\PWObject.cpp">
 			</File>
 			<File
 				RelativePath=".\source\PWSequence.cpp">
+			</File>
+			<File
+				RelativePath=".\source\PWString.cpp">
+			</File>
+			<File
+				RelativePath=".\source\PWSystem.cpp">
 			</File>
 			<File
 				RelativePath=".\source\PWTuple.cpp">
@@ -149,7 +164,13 @@
 				RelativePath=".\include\PWCommon.h">
 			</File>
 			<File
+				RelativePath=".\include\PWDict.h">
+			</File>
+			<File
 				RelativePath=".\include\PWExceptions.h">
+			</File>
+			<File
+				RelativePath=".\include\PWExtract.h">
 			</File>
 			<File
 				RelativePath=".\include\PWHandler.h">
@@ -158,13 +179,28 @@
 				RelativePath=".\include\PWList.h">
 			</File>
 			<File
+				RelativePath=".\include\PWNumber.h">
+			</File>
+			<File
 				RelativePath=".\include\PWObject.h">
 			</File>
 			<File
 				RelativePath=".\include\PWSequence.h">
 			</File>
 			<File
+				RelativePath=".\include\PWSequenceEntry.h">
+			</File>
+			<File
+				RelativePath=".\include\PWString.h">
+			</File>
+			<File
+				RelativePath=".\include\PWSystem.h">
+			</File>
+			<File
 				RelativePath=".\include\PWTuple.h">
+			</File>
+			<File
+				RelativePath=".\include\PythonWrapper.h">
 			</File>
 		</Filter>
 		<Filter

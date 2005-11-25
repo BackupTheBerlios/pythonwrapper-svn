@@ -3,16 +3,16 @@
 
 #if defined(__WIN32__) || defined(_WIN32)
 #	if defined(__MINGW32__)
-#       define _PW_EXPORT
+#       define PW_EXPORT
 #   else
 #       if defined(_PW_LIBRARY_BUILD)
-#           define _PW_EXPORT  __declspec(dllexport)
+#           define PW_EXPORT  __declspec(dllexport)
 #       else
-#           define _PW_EXPORT  __declspec(dllimport)
+#           define PW_EXPORT  __declspec(dllimport)
 #       endif
 #	endif
 #else
-#   define _PW_EXPORT
+#   define PW_EXPORT
 #endif
 
 #include <Python.h>
@@ -27,6 +27,7 @@ namespace pw
     class Sequence;
     class ReferenceHandler;
     class String;
+    class Number;
 }
 
 #endif

@@ -9,11 +9,21 @@ using namespace pw;
 Dict::Dict()
 : Object(NewReference(PyDict_New()))
 {
+    if (! PyDict_Check(mPtr))
+    {
+        Py_DECREF(mPtr);
+        PYTHON_EXCEPTION_THROW;
+    }
 }
 
 Dict::Dict(const Dict &copy)
-: Object(BorrowedReference(copy.borrowReference()))
+: Object(NewReference(PyDict_Copy(copy.borrowReference())))
 {
+    if (! PyDict_Check(mPtr))
+    {
+        Py_DECREF(mPtr);
+        PYTHON_EXCEPTION_THROW;
+    }
 }
 
 
@@ -132,4 +142,10 @@ void Dict::delItem(char *key)
 {
     PyObject_DelItemString(mPtr, key);
     PYTHON_EXCEPTION_CHECK;
+}
+
+
+Dict Dict::copy()
+{
+    return Dict(NewReference(PyDict_Copy(mPtr)));
 }
