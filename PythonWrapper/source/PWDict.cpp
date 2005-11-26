@@ -2,7 +2,7 @@
 #include "PWHandler.h"
 #include "PWList.h"
 #include "PWExceptions.h"
-#include "PWString.h"
+#include "PWBuild.h"
 
 using namespace pw;
 
@@ -114,10 +114,10 @@ Dict::DictEntry Dict::operator[](char *key)
 {
     PyObject *toReturn = PyDict_GetItemString(mPtr, key);
     if (toReturn)
-        return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, String(key));
+        return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, build(key));
 
     PyErr_Clear();
-    return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, String(key));
+    return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, build(key));
 }
 
 

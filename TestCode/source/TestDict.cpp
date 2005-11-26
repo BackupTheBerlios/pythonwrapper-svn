@@ -1,6 +1,5 @@
 #include "TestDict.h"
 #include "PWHandler.h"
-#include "PWString.h"
 #include "PWList.h"
 #include "PythonWrapper.h"
 
@@ -127,19 +126,19 @@ void TestDict::testStringGetThrow()
 
 void TestDict::testGetThrow()
 {
-    String str("test");
+    Object str = build("test");
     mDict->getItem(str);
 }
 
 
 void TestDict::testOperatorGetNull()
 {
-    String test("test");
+    Object test = build("test");
 
     CPPUNIT_ASSERT((*mDict)["test"].borrowReference() == Py_None);
     CPPUNIT_ASSERT(!mDict->contains(test));
 
-    Number n((short)7);
+    Object n = build((short)7);
 
     CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_None);
     CPPUNIT_ASSERT(!mDict->contains(n));
@@ -148,23 +147,23 @@ void TestDict::testOperatorGetNull()
 
 void TestDict::testOperatorSetNull()
 {
-    String test("test2");
+    Object test = build("test2");
 
     CPPUNIT_ASSERT((*mDict)["test2"].borrowReference() == Py_None);
     (*mDict)["test2"] = BorrowedReference(Py_False);
     CPPUNIT_ASSERT(mDict->contains(test));
     CPPUNIT_ASSERT((*mDict)["test2"].borrowReference() == Py_False);
 
-    Number n((short)7);
+    Object n = build((short)7);
 
     CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_None);
     (*mDict)[n] = BorrowedReference(Py_False);
     CPPUNIT_ASSERT(mDict->contains(n));
     CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_False);
 
-    (*mDict)["test"] = Number((short)7);
-    CPPUNIT_ASSERT((*mDict).contains(String("test")));
-    CPPUNIT_ASSERT_EQUAL((short)7, extract<short>((*mDict).getItem(String("test"))));
+    (*mDict)["test"] = build((short)7);
+    CPPUNIT_ASSERT((*mDict).contains(build("test")));
+    CPPUNIT_ASSERT_EQUAL((short)7, extract<short>((*mDict).getItem(build("test"))));
     CPPUNIT_ASSERT_EQUAL((short)7, extract<short>((*mDict).getItem("test")));
 }
 
@@ -177,7 +176,7 @@ void TestDict::testStringDelThrow()
 
 void TestDict::testDelThrow()
 {
-    String str("test");
+    Object str = build("test");
     mDict->delItem(str);
 }
 
@@ -223,9 +222,9 @@ void TestDict::testKeys()
     List l = mDict->keys();
 
     CPPUNIT_ASSERT_EQUAL(3, l.length());
-    CPPUNIT_ASSERT(l.contains(String("key1")));
-    CPPUNIT_ASSERT(l.contains(String("key2")));
-    CPPUNIT_ASSERT(l.contains(String("key3")));
+    CPPUNIT_ASSERT(l.contains(build("key1")));
+    CPPUNIT_ASSERT(l.contains(build("key2")));
+    CPPUNIT_ASSERT(l.contains(build("key3")));
 }
 
 
@@ -234,17 +233,17 @@ void TestDict::testValues()
     List l = mDict->values();
 
     CPPUNIT_ASSERT_EQUAL(3, l.length());
-    CPPUNIT_ASSERT(l.contains(String("value1")));
-    CPPUNIT_ASSERT(l.contains(String("value2")));
-    CPPUNIT_ASSERT(l.contains(String("value3")));
+    CPPUNIT_ASSERT(l.contains(build("value1")));
+    CPPUNIT_ASSERT(l.contains(build("value2")));
+    CPPUNIT_ASSERT(l.contains(build("value3")));
 }
 
 
 void TestDict::testContains()
 {
-    CPPUNIT_ASSERT(mDict->contains(String("key1")));
-    CPPUNIT_ASSERT(mDict->contains(String("key2")));
-    CPPUNIT_ASSERT(mDict->contains(String("key3")));
+    CPPUNIT_ASSERT(mDict->contains(build("key1")));
+    CPPUNIT_ASSERT(mDict->contains(build("key2")));
+    CPPUNIT_ASSERT(mDict->contains(build("key3")));
 }
 
 

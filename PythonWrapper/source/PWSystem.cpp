@@ -3,7 +3,7 @@
 #include "PWHandler.h"
 #include "PWExceptions.h"
 #include "PWDict.h"
-#include "PWString.h"
+#include "PWBuild.h"
 
 using namespace pw;
 
@@ -122,24 +122,16 @@ Object System::runFile(const char *fileName)
     char *buffer = new char[length];
     fread(buffer, 1, length, fp);
     buffer[length-1] = 0;
-    
 
+    fclose(fp);
+    
     // run the string
-    PyObject *ret = PyRun_String(buffer, Py_eval_input,
-                                 mNamespace.borrowReference(),
-                                 mNamespace.borrowReference());
+    Object obj = runString(buffer);
 
     // clean up
     delete [] buffer;
-    fclose(fp);
-
-    if (PyErr_Occurred())
-    {
-        Py_XDECREF(ret);
-        PYTHON_EXCEPTION_THROW;
-    } // if
     
-    return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
+    return obj;
 } // runFile(const std::string &)
 
 
@@ -155,7 +147,7 @@ void System::loadModule(char *moduleName, System::InitFunction f)
 
 Object System::getObject(char *object)
 {
-    if (! mNamespace.contains(String(object)))
+    if (! mNamespace.contains(build(object)))
     {
         // todo: make this meaningful
         PYTHON_EXCEPTION_THROW;

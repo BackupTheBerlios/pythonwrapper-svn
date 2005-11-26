@@ -26,8 +26,6 @@ namespace pw
     class Tuple;
     class Sequence;
     class ReferenceHandler;
-    class String;
-    class Number;
 }
 
 #endif

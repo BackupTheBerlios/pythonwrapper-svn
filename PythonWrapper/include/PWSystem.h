@@ -146,20 +146,20 @@ namespace pw
           *     This is not for importing modules; if you wish to import a module,
           *     call runString("import ModuleName").  This method is for loading
           *     modules that are constructed using either the Python/C API or
-          *     Boost.Python's BOOST_PYTHON_MODULE.  This is static, and you may
-          *     call it before ever creating a System object.  Calling this
-          *     function loads the module for ALL instances of System.
+          *     SWIG.  You must call this function before ever creating a System
+          *     object if you want to use it.  Calling this function loads the
+          *     module for ALL instances of System.
           * @note
-          *     If you use BOOST_PYTHON_MODULE, the init_function will be
-          *     init[modulename] where [modulename] is the name of the module you
-          *     specified to BOOST_PYTHON_MODULE.
-          * @throws ImportException
+          *     If you use SWIG, the init_function will be
+          *     init_[modulename] where [modulename] is the name of the module
+          *     you specified with %module.
+          * @throws PythonException
           *     Throws PythonException if there was an error while loading the
           *     module.
           * @param moduleName
           *     An arbitrary name for the module.  You can later import it using
-          *     "import moduleName".
-          * @param initFunction
+          *     "import [ModuleName]".
+          * @param f
           *     The initialization function for the module.
           */
         static void loadModule(char *moduleName, System::InitFunction f);

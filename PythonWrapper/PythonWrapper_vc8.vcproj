@@ -204,19 +204,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWNumber.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\source\PWObject.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\source\PWSequence.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\source\PWString.cpp"
 				>
 			</File>
 			<File
@@ -233,6 +225,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\include\PWBuild.h"
+				>
+			</File>
 			<File
 				RelativePath=".\include\PWCommon.h"
 				>
@@ -258,10 +254,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\PWNumber.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\PWObject.h"
 				>
 			</File>
@@ -271,10 +263,6 @@
 			</File>
 			<File
 				RelativePath=".\include\PWSequenceEntry.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWString.h"
 				>
 			</File>
 			<File

@@ -3,8 +3,6 @@
 
 #include "PWExtract.h"
 #include "PWObject.h"
-#include "PWNumber.h"
-#include "PWString.h"
 using namespace pw;
 
 #include <cppunit/extensions/HelperMacros.h>
@@ -50,9 +48,9 @@ public:
         short two = 1234;
         double three = 1000.1234; 
 
-        Number _pyLong((long long)one);
-        Number _pyInt((short)two);
-        Number _pyFloat(three);
+        Object _pyLong = build((long long)one);
+        Object _pyInt = build((short)two);
+        Object _pyFloat = build(three);
 
         CPPUNIT_ASSERT_EQUAL((T)one, extract<T>(_pyLong));
         CPPUNIT_ASSERT_EQUAL((T)two, extract<T>(_pyInt));

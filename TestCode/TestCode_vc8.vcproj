@@ -188,6 +188,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TestBuild.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TestDict.cpp"
 				>
 			</File>
@@ -201,10 +205,6 @@
 			</File>
 			<File
 				RelativePath=".\source\TestList.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\source\TestNumber.cpp"
 				>
 			</File>
 			<File
@@ -226,6 +226,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\include\TestBuild.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\TestDict.h"
 				>
 			</File>
@@ -243,10 +247,6 @@
 			</File>
 			<File
 				RelativePath=".\include\TestNumber.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TestObject.h"
 				>
 			</File>
 			<File

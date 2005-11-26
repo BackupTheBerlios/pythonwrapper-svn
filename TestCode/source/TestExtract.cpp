@@ -1,22 +1,22 @@
 #include "TestExtract.h"
-#include <string.h>
+#include "PWBuild.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestExtract);
 
 void TestExtract::testBool()
 {
-    Number f1((short)0);
-    String f2("");
-    Number f3((long)0);
-    Number f4(0.0);
-    BorrowedReference f5(Py_False);
+    Object f1 = build((short)0);
+    Object f2 = build("");
+    Object f3 = build((long)0);
+    Object f4 = build(0.0);
+    Object f5 = build(false);
     BorrowedReference f6(Py_None);
 
-    Number t1((short)1);
-    String t2("test");
-    String t3("1");
-    Number t4(1.0);
-    BorrowedReference t5(Py_True);
+    Object t1 = build((short)1);
+    Object t2 = build("test");
+    Object t3 = build("1");
+    Object t4 = build(1.0);
+    Object t5 = build(true);
 
     CPPUNIT_ASSERT_EQUAL(false, extract<bool>(f1));
     CPPUNIT_ASSERT_EQUAL(false, extract<bool>(f2));
@@ -35,6 +35,6 @@ void TestExtract::testBool()
 
 void TestExtract::testString()
 {
-    String str("Test");
+    Object str = build("Test");
     CPPUNIT_ASSERT(strcmp("Test", extract<const char *>(str)) == 0);
 }

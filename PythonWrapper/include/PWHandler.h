@@ -2,6 +2,7 @@
 #define _PWHandler_h_
 
 #include "PWCommon.h"
+#include "PWObject.h"
 
 namespace pw
 {
