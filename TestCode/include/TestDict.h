@@ -19,12 +19,13 @@ class TestDict : public CPPUNIT_NS::TestFixture
         CPPUNIT_TEST(testContains);
         CPPUNIT_TEST(testOperatorGet);
         CPPUNIT_TEST(testOperatorSet);
+        CPPUNIT_TEST(testOperatorGetNull);
+        CPPUNIT_TEST(testOperatorSetNull);
+
         CPPUNIT_TEST_EXCEPTION(testStringGetThrow, PythonException);
         CPPUNIT_TEST_EXCEPTION(testGetThrow, PythonException);
         CPPUNIT_TEST_EXCEPTION(testStringDelThrow, PythonException);
         CPPUNIT_TEST_EXCEPTION(testDelThrow, PythonException);
-        CPPUNIT_TEST_EXCEPTION(testOperatorThrow, PythonException);
-        CPPUNIT_TEST_EXCEPTION(testStringOperatorThrow, PythonException);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testStrings();
@@ -37,14 +38,14 @@ public:
     void testContains();
 
     void testOperatorGet();
+    void testOperatorGetNull();
     void testOperatorSet();
+    void testOperatorSetNull();
 
     void testStringGetThrow();
     void testGetThrow();
     void testStringDelThrow();
     void testDelThrow();
-    void testOperatorThrow();
-    void testStringOperatorThrow();
 
     void setUp();
     void tearDown();

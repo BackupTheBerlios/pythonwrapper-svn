@@ -2,6 +2,7 @@
 #include "PWHandler.h"
 #include "PWString.h"
 #include "PWList.h"
+#include "PythonWrapper.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestDict);
 
@@ -131,16 +132,40 @@ void TestDict::testGetThrow()
 }
 
 
-void TestDict::testOperatorThrow()
+void TestDict::testOperatorGetNull()
 {
-    String str("test");
-    (*mDict)[str];
+    String test("test");
+
+    CPPUNIT_ASSERT((*mDict)["test"].borrowReference() == Py_None);
+    CPPUNIT_ASSERT(!mDict->contains(test));
+
+    Number n((short)7);
+
+    CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_None);
+    CPPUNIT_ASSERT(!mDict->contains(n));
 }
 
 
-void TestDict::testStringOperatorThrow()
+void TestDict::testOperatorSetNull()
 {
-    (*mDict)["test"];
+    String test("test2");
+
+    CPPUNIT_ASSERT((*mDict)["test2"].borrowReference() == Py_None);
+    (*mDict)["test2"] = BorrowedReference(Py_False);
+    CPPUNIT_ASSERT(mDict->contains(test));
+    CPPUNIT_ASSERT((*mDict)["test2"].borrowReference() == Py_False);
+
+    Number n((short)7);
+
+    CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_None);
+    (*mDict)[n] = BorrowedReference(Py_False);
+    CPPUNIT_ASSERT(mDict->contains(n));
+    CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_False);
+
+    (*mDict)["test"] = Number((short)7);
+    CPPUNIT_ASSERT((*mDict).contains(String("test")));
+    CPPUNIT_ASSERT_EQUAL((short)7, extract<short>((*mDict).getItem(String("test"))));
+    CPPUNIT_ASSERT_EQUAL((short)7, extract<short>((*mDict).getItem("test")));
 }
 
 

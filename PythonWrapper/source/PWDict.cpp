@@ -16,8 +16,8 @@ Dict::Dict()
     }
 }
 
-Dict::Dict(const Dict &copy)
-: Object(NewReference(PyDict_Copy(copy.borrowReference())))
+Dict::Dict(const Dict &rhs)
+: Object(NewReference(rhs.borrowReference()))
 {
     if (! PyDict_Check(mPtr))
     {
@@ -43,12 +43,9 @@ Dict::~Dict()
 }
 
 
-Dict &Dict::operator=(const Dict &rhs)
+Dict Dict::copy() const
 {
-    Py_DECREF(mPtr);
-    mPtr = PyDict_Copy(rhs.borrowReference());
-
-    return *this;
+    return Dict(BorrowedReference(borrowReference()));
 }
 
 
@@ -106,19 +103,21 @@ List Dict::values() const
 Dict::DictEntry Dict::operator[](const Object &key)
 {
     PyObject *toReturn = PyDict_GetItem(mPtr, key.borrowReference());
-    if (! toReturn)
-        PYTHON_EXCEPTION_THROW;
+    if (toReturn)
+        return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, key);
 
-    return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, key);
+    PyErr_Clear();
+    return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, key);
 }
 
 Dict::DictEntry Dict::operator[](char *key)
 {
     PyObject *toReturn = PyDict_GetItemString(mPtr, key);
-    if (! toReturn)
-        PYTHON_EXCEPTION_THROW;
+    if (toReturn)
+        return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, String(key));
 
-    return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, String(key));
+    PyErr_Clear();
+    return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, String(key));
 }
 
 

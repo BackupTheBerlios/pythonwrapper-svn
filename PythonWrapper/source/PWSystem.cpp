@@ -57,7 +57,7 @@ System::~System()
 
 void System::init()
 {
-    mNamespace = Dict(sModule->getAttr("__dict__"));
+    mNamespace = Dict(sModule->getAttr("__dict__")).copy();
 } // init
 
 
@@ -84,7 +84,7 @@ Object System::runString(const char *str)
 
 void System::reset()
 {
-    mNamespace = Dict(sModule->getAttr("__dict__"));
+    mNamespace = Dict(sModule->getAttr("__dict__")).copy();
 }
 
 
@@ -93,6 +93,8 @@ Object System::evaluate(const char *expression)
     PyObject *ret = PyRun_String(expression, Py_eval_input,
                                  mNamespace.borrowReference(),
                                  mNamespace.borrowReference());
+
+    PyObject *namesp = mNamespace.borrowReference();
 
     if (PyErr_Occurred())
     {
@@ -106,16 +108,29 @@ Object System::evaluate(const char *expression)
 
 Object System::runFile(const char *fileName)
 {
-    FILE *fp;
-    
-    fp = fopen(fileName, "r");
+    // open the file
+    FILE *fp = fopen(fileName, "r");
     if (!fp)
         EXCEPTION_THROW;
 
-    PyObject *ret = PyRun_File(fp, fileName, Py_file_input,
-                               mNamespace.borrowReference(),
-                               0);
+    // get the length of the file
+    fseek(fp, 0, SEEK_END);
+    long length = ftell(fp);
+    rewind(fp);
 
+    // create an array of that length, null terminated
+    char *buffer = new char[length];
+    fread(buffer, 1, length, fp);
+    buffer[length-1] = 0;
+    
+
+    // run the string
+    PyObject *ret = PyRun_String(buffer, Py_eval_input,
+                                 mNamespace.borrowReference(),
+                                 mNamespace.borrowReference());
+
+    // clean up
+    delete [] buffer;
     fclose(fp);
 
     if (PyErr_Occurred())

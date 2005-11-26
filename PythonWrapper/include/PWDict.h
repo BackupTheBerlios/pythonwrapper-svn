@@ -14,11 +14,11 @@ namespace pw
 
     public:
         Dict();
-        Dict(const Dict &copy);
+        Dict(const Dict &rhs);
         Dict(const Object &obj);
         virtual ~Dict();
 
-        virtual Dict &operator=(const Dict &rhs);
+        virtual Dict copy() const;
 
         virtual bool contains(const Object &key) const;
 

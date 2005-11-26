@@ -208,6 +208,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TestObject.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TestSystem.cpp"
 				>
 			</File>
@@ -239,6 +243,10 @@
 			</File>
 			<File
 				RelativePath=".\include\TestNumber.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\TestObject.h"
 				>
 			</File>
 			<File

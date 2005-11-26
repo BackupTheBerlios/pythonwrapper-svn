@@ -15,9 +15,9 @@ Object::Object(ReferenceHandler &ref)
 
 
 Object::Object(const Object &rhs)
-: mPtr(rhs.mPtr)
+: mPtr(rhs.borrowReference())
 {
-    assert(rhs.mPtr);
+    assert(rhs.borrowReference());
     Py_INCREF(mPtr);
 } // Object(const Object &)
 
@@ -37,17 +37,17 @@ Object::Object()
 
 Object &Object::operator=(const Object &rhs)
 {
-    assert(rhs.mPtr);
+    assert(rhs.borrowReference());
 
     // this if takes care of the case when the pointer is the same; if we
     // did not do this check the following code below would bomb if
     // mPtr == rhs.mPtr and the refcount was at 1
-    if (mPtr != rhs.mPtr)
+    if (mPtr != rhs.borrowReference())
     {
         // mPtr could be 0 if we called this from the copy constructor
         Py_DECREF(mPtr);
 
-        mPtr = rhs.mPtr;
+        mPtr = rhs.borrowReference();
         Py_INCREF(mPtr);
     } // if
 

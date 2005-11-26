@@ -25,6 +25,6 @@ int main(int argc, char* argv[])
     PyErr_Clear();
     sys.~System();
 
-    // Return error code 1 if the one of test failed.
+    // Return error code 1 if one of the tests failed.
     return wasSucessful ? 0 : 1;
 }

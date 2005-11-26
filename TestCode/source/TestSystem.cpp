@@ -1,5 +1,5 @@
 #include "TestSystem.h"
-#include "PWExtract.h"
+#include "PythonWrapper.h"
 #include <string.h>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSystem);
@@ -70,13 +70,11 @@ void TestSystem::testRunStringException()
 
 void TestSystem::testRunFile()
 {
-    CPPUNIT_FAIL("System::runFile crashes.");
     sys->runFile("NoErrors.py");
 }
 
 void TestSystem::testRunFileException()
 {
-    CPPUNIT_FAIL("System::runFile crashes.");
     sys->runFile("Errors.py");
 }
 
@@ -89,4 +87,26 @@ void TestSystem::testNamespaceCopy()
         sys2.getNamespace().borrowReference());
 
     CPPUNIT_ASSERT(PyDict_Check(sys->getNamespace().borrowReference()));
+}
+
+
+void TestSystem::testNamespaceSet()
+{
+    Dict namesp = sys->getNamespace();
+    namesp["test"] = Number((short)7);
+
+    CPPUNIT_ASSERT(namesp.contains(String("test")));
+    CPPUNIT_ASSERT_EQUAL((short)7, extract<short>(namesp.getItem("test")));
+    CPPUNIT_ASSERT_EQUAL(true, extract<bool>(sys->evaluate("test == 7")));
+}
+
+
+void TestSystem::testNamespaceGet()
+{
+    Dict namesp = sys->getNamespace();
+    sys->runString("test = 70");
+
+    CPPUNIT_ASSERT(namesp.contains(String("test")));
+    CPPUNIT_ASSERT_EQUAL((short)70, extract<short>(namesp.getItem("test")));
+    CPPUNIT_ASSERT_EQUAL((short)70, extract<short>(namesp["test"]));
 }

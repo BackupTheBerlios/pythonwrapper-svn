@@ -164,6 +164,31 @@ namespace pw
          */
         virtual Object operator()(const Tuple &args, const Dict &namedArgs);
 
+
+        /**
+         * Calls function in the object with no parameters.  Equivalent to:
+         * object.function()
+         */
+        virtual inline Object call(char *function)
+        { return getAttr(function)(); }
+
+
+        /**
+         * Calls the function specified with args.  Equivalent to:
+         * object.function(*args)
+         */
+        virtual inline Object call(char *function, const Tuple &args)
+        { return getAttr(function)(args); }
+
+        /**
+         * Calls the function specified with args and named arguments.
+         * Equivalent to:
+         * object.function(*args, key1=value1, key2=value2, ...)
+         */
+        virtual inline Object call(char *function, const Tuple &args,
+                                   const Dict &namedArgs)
+        { return getAttr(function)(args, namedArgs); }
+
     public:
         static void check(PyObject *ptr);
 
