@@ -192,6 +192,34 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\PWDLib.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PWDLibLinux.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\source\PWDLibWin.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\PWExceptions.cpp"
 				>
 			</File>
@@ -201,6 +229,14 @@
 			</File>
 			<File
 				RelativePath=".\source\PWList.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PWModule.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PWModuleManager.cpp"
 				>
 			</File>
 			<File
@@ -238,6 +274,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWDLib.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PWDLibLinux.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PWDLibWin.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWExceptions.h"
 				>
 			</File>
@@ -254,6 +302,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWModule.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PWModuleManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWObject.h"
 				>
 			</File>
@@ -266,6 +322,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWSingleton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PWString.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWSystem.h"
 				>
 			</File>
@@ -275,6 +339,10 @@
 			</File>
 			<File
 				RelativePath=".\include\PythonWrapper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\SWIGWrapper.h"
 				>
 			</File>
 		</Filter>

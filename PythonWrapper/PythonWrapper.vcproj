@@ -135,16 +135,10 @@
 				RelativePath=".\source\PWList.cpp">
 			</File>
 			<File
-				RelativePath=".\source\PWNumber.cpp">
-			</File>
-			<File
 				RelativePath=".\source\PWObject.cpp">
 			</File>
 			<File
 				RelativePath=".\source\PWSequence.cpp">
-			</File>
-			<File
-				RelativePath=".\source\PWString.cpp">
 			</File>
 			<File
 				RelativePath=".\source\PWSystem.cpp">
@@ -158,7 +152,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\include\PW_Python.h">
+				RelativePath=".\include\PWBuild.h">
 			</File>
 			<File
 				RelativePath=".\include\PWCommon.h">
@@ -179,9 +173,6 @@
 				RelativePath=".\include\PWList.h">
 			</File>
 			<File
-				RelativePath=".\include\PWNumber.h">
-			</File>
-			<File
 				RelativePath=".\include\PWObject.h">
 			</File>
 			<File
@@ -189,9 +180,6 @@
 			</File>
 			<File
 				RelativePath=".\include\PWSequenceEntry.h">
-			</File>
-			<File
-				RelativePath=".\include\PWString.h">
 			</File>
 			<File
 				RelativePath=".\include\PWSystem.h">

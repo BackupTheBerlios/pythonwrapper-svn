@@ -118,8 +118,45 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath=".\include\TestBuild.h">
+			</File>
+			<File
+				RelativePath=".\include\TestDict.h">
+			</File>
+			<File
+				RelativePath=".\include\TestExtract.h">
+			</File>
+			<File
+				RelativePath=".\include\TestHandler.h">
+			</File>
+			<File
+				RelativePath=".\include\TestList.h">
+			</File>
+			<File
+				RelativePath=".\include\TestObject.h">
+			</File>
+			<File
+				RelativePath=".\include\TestSystem.h">
+			</File>
+			<File
+				RelativePath=".\include\TestTuple.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
 				RelativePath=".\source\main.cpp">
+			</File>
+			<File
+				RelativePath=".\source\TestBuild.cpp">
 			</File>
 			<File
 				RelativePath=".\source\TestDict.cpp">
@@ -134,7 +171,7 @@
 				RelativePath=".\source\TestList.cpp">
 			</File>
 			<File
-				RelativePath=".\source\TestNumber.cpp">
+				RelativePath=".\source\TestObject.cpp">
 			</File>
 			<File
 				RelativePath=".\source\TestSystem.cpp">
@@ -142,37 +179,6 @@
 			<File
 				RelativePath=".\source\TestTuple.cpp">
 			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-			<File
-				RelativePath=".\include\TestDict.h">
-			</File>
-			<File
-				RelativePath=".\include\TestExtract.h">
-			</File>
-			<File
-				RelativePath=".\include\TestHandler.h">
-			</File>
-			<File
-				RelativePath=".\include\TestList.h">
-			</File>
-			<File
-				RelativePath=".\include\TestNumber.h">
-			</File>
-			<File
-				RelativePath=".\include\TestSystem.h">
-			</File>
-			<File
-				RelativePath=".\include\TestTuple.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
 	</Files>
 	<Globals>

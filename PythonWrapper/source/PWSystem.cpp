@@ -135,7 +135,7 @@ Object System::runFile(const char *fileName)
 } // runFile(const std::string &)
 
 
-void System::loadModule(char *moduleName, System::InitFunction f)
+void System::loadModule(char *moduleName, Module::InitFunction f)
 {
     if (PyImport_AppendInittab(moduleName, f) == -1)
     {

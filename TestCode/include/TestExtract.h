@@ -35,7 +35,6 @@ class TestExtract : public CPPUNIT_NS::TestFixture
         CPPUNIT_TEST_EXCEPTION(testThrows<long long>, PythonException);
         CPPUNIT_TEST_EXCEPTION(testThrows<float>, PythonException);
         CPPUNIT_TEST_EXCEPTION(testThrows<const char *>, PythonException);
-
     CPPUNIT_TEST_SUITE_END();
 public:
     void testBool();

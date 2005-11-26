@@ -3,6 +3,7 @@
 
 #include "PWCommon.h"
 #include "PWDict.h"
+#include "PWModuleManager.h"
 
 namespace pw
 {
@@ -19,8 +20,6 @@ namespace pw
      */
     class PW_EXPORT System
     {
-    public:
-        typedef void (*InitFunction)();
     public:
         /** Constructor.
          *  @remarks
@@ -162,7 +161,7 @@ namespace pw
           * @param f
           *     The initialization function for the module.
           */
-        static void loadModule(char *moduleName, System::InitFunction f);
+        static void loadModule(char *moduleName, Module::InitFunction f);
     protected:
         /** Intializes the System.
             @remarks
