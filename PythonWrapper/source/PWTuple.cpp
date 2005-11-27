@@ -15,7 +15,8 @@ Tuple::Tuple(ReferenceHandler &ref)
 : Object(ref)
 {
     if (! PyTuple_Check(mPtr))
-        PYTHON_EXCEPTION_THROW;
+        PW_Except("Non-tuple object passed into Tuple.",
+                  "Tuple::Tuple(ReferenceHandler &)");
 }
 
 
@@ -33,7 +34,7 @@ Tuple::~Tuple()
 void Tuple::setItem(int index, const Object &obj)
 {
     PyTuple_SetItem(mPtr, index, obj.newReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Tuple::setItem");
 }
 
 

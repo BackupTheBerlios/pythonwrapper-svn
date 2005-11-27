@@ -8,7 +8,7 @@ List::List()
 : Object(NewReference(PyList_New(0)))
 {
     if (! PyList_Check(mPtr))
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("List::List()");
 }
 
 
@@ -32,7 +32,7 @@ Object List::getItem(int index) const
 void List::setItem(int index, const Object &obj)
 {
      PyList_SetItem(mPtr, index, obj.newReference());
-     PYTHON_EXCEPTION_CHECK;
+     PW_PyExcept_Check("List::setItem");
 }
 
 List List::getSlice(int start, int stop) const
@@ -44,21 +44,21 @@ List List::getSlice(int start, int stop) const
 void List::setSlice(int start, int stop, const Object &obj)
 {
     PyList_SetSlice(mPtr, start, stop, obj.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::setSlice");
 }
 
 
 void List::insert(int index, const Object &obj)
 {
     PyList_Insert(mPtr, index, obj.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::insert");
 }
 
 
 void List::append(const Object &obj)
 {
     PyList_Append(mPtr, obj.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::append");
 }
 
 int List::size() const
@@ -80,8 +80,9 @@ bool List::exact() const
 List &List::operator+=(const List &rhs)
 {
     PyObject *obj = PySequence_InPlaceConcat(mPtr, rhs.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::operator+=");
     Py_DECREF(obj);
+
     return *this;
 }
 
@@ -94,13 +95,13 @@ List List::operator+(const List &rhs)
 void List::delItem(int index)
 {
     PySequence_DelItem(mPtr, index);
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::delItem");;
 }
 
 void List::delSlice(int start, int stop)
 {
     PySequence_DelSlice(mPtr, start, stop);
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::delSlice");;
 }
 
 void List::reverse()
@@ -117,7 +118,7 @@ void List::sort()
 bool List::contains(const Object &obj)
 {
     bool toReturn = PySequence_Contains(mPtr, obj.borrowReference()) == 1;
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("List::contains");;
     return toReturn;
 }
 

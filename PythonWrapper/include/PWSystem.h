@@ -69,7 +69,7 @@ namespace pw
          *  @see runFile
          *  @see evaluate
         */
-        virtual Object runString(const char *str);
+        virtual Object runString(const String &str);
 
 
         /** Runs the file specified by file_name.
@@ -88,7 +88,7 @@ namespace pw
          *      The path to the file you wish to execute.
          *  @see runString
         */
-        virtual Object runFile(const char *fileName);
+        virtual Object runFile(const String &fileName);
 
 
         /** Evaluates a python expression and returns the result.
@@ -109,7 +109,7 @@ namespace pw
          *      The Boost.Python object which contains the result of the
          *      expression.
         */
-        virtual Object evaluate(const char *expression);
+        virtual Object evaluate(const String &expression);
 
 
         /** Returns a python object that's in the namespace.  (Including
@@ -122,7 +122,7 @@ namespace pw
          *  @return
          *      Returns the Python object in the local namespace.
          */
-        virtual Object getObject(char *name);
+        virtual Object getObject(const String &name);
 
 
         /** Resets the interpreter back to its initial state.
@@ -140,7 +140,7 @@ namespace pw
 
         // Static methods.
         /** Loads a user defined module into the interpreter.  YOU MUST CALL THIS
-          * BEFORE CREATING ANY System OBJECTS!
+          * BEFORE CALLING System::Initialize!
           * @remarks
           *     This is not for importing modules; if you wish to import a module,
           *     call runString("import ModuleName").  This method is for loading
@@ -161,25 +161,11 @@ namespace pw
           * @param f
           *     The initialization function for the module.
           */
-        static void loadModule(char *moduleName, Module::InitFunction f);
+        static void loadModule(const String &moduleName, Module::InitFunction f);
+
+        static void Initialize();
+        static void Finalize();
     protected:
-        /** Intializes the System.
-            @remarks
-                This function is called by the System constructor.  This
-                sets up the mNamespace dictionary.  If you subclass this function
-                you need to either call this init function, or setup the mNamespace
-                dictionary yourself.
-        */
-        virtual void init();
-
-
-        /** Clears the System class.
-            @remarks
-                This function is called by the System destructor.
-        */
-        virtual void deinit();
-
-
         /** The python namespace (ie the instance) of the object.
             @remarks
                 This object IS the interpreter's variable set.  Since each
@@ -193,18 +179,6 @@ namespace pw
         /** The __main__ module, used to create all System namespaces.
         */
         static Object *sModule;
-    private:
-        /** The number of instances of System (and its subclasses).
-            @remarks
-                Before any Python code can be run, the interpreter must be
-                initialized.  When the sInstanceCount varaible goes from 0 to 1,
-                the interpreter is started.  When it goes from 1 to 0, it is
-                finalized.  The interpreter must be finalized in order to avoid
-                memory leaks.  If you do not want to incur a penalty for the
-                initialization and finalization of the Python interpreter, either
-                keep at least one System running or none.
-        */
-        static unsigned int sInstanceCount;
     }; // class System
 } // namespace OP
 #endif

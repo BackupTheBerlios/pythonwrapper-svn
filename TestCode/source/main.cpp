@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-    pw::System sys;
+    pw::System::Initialize();
 
     // Get the top level suite from the registry
     CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
@@ -22,8 +22,7 @@ int main(int argc, char* argv[])
     // Run the tests.
     bool wasSucessful = runner.run();
 
-    PyErr_Clear();
-    sys.~System();
+    pw::System::Finalize();
 
     // Return error code 1 if one of the tests failed.
     return wasSucessful ? 0 : 1;

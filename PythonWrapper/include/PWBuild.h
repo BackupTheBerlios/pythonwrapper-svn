@@ -3,42 +3,39 @@
 
 #include "PWCommon.h"
 #include "PWHandler.h"
+#include "PWString.h"
 
 namespace pw
 {
-    inline NewReference build(unsigned short val)
-    { return NewReference(PyLong_FromUnsignedLong((unsigned long)val)); }
+    inline Object build(unsigned short val)
+    { return Object(NewReference(PyLong_FromUnsignedLong((unsigned long)val))); }
 
+    inline Object build(unsigned long val)
+    { return Object(NewReference(PyLong_FromUnsignedLong(val))); }
 
-    inline NewReference build(unsigned long val)
-    { return NewReference(PyLong_FromUnsignedLong(val)); }
+    inline Object build(unsigned long long val)
+    { return Object(NewReference(PyLong_FromUnsignedLongLong(val))); }
 
+    inline Object build(short val)
+    { return Object(NewReference(PyInt_FromLong((long)val))); }
 
-    inline NewReference build(unsigned long long val)
-    { return NewReference(PyLong_FromUnsignedLongLong(val)); }
+    inline Object build(long val)
+    { return Object(NewReference(PyInt_FromLong(val))); }
 
+    inline Object build(long long val)
+    { return Object(NewReference(PyLong_FromLongLong(val))); }
 
-    inline NewReference build(short val)
-    { return NewReference(PyInt_FromLong((long)val)); }
+    inline Object build(double val)
+    { return Object(NewReference(PyFloat_FromDouble(val))); }
 
+    inline Object build(const char *str)
+    { return Object(NewReference(PyString_FromString(str))); }
 
-    inline NewReference build(long val)
-    { return NewReference(PyInt_FromLong(val)); }
+    inline Object build(const String &str)
+    { return Object(NewReference(PyString_FromString(str.c_str()))); }
 
-
-    inline NewReference build(long long val)
-    { return NewReference(PyLong_FromLongLong(val)); }
-
-
-    inline NewReference build(double val)
-    { return NewReference(PyFloat_FromDouble(val)); }
-
-
-    inline NewReference build(const char *str)
-    { return NewReference(PyString_FromString(str)); }
-
-    inline BorrowedReference build(bool val)
-    { return BorrowedReference(val ? Py_True : Py_False); }
+    inline Object build(bool val)
+    { return Object(BorrowedReference(val ? Py_True : Py_False)); }
 }
 
 #endif

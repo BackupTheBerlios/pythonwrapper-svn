@@ -19,7 +19,7 @@ class TestSystem : public CPPUNIT_NS::TestFixture
         CPPUNIT_TEST(testNamespaceGet);
         CPPUNIT_TEST(testNamespaceCopy);
 
-        CPPUNIT_TEST_EXCEPTION(testGetObjectException, PythonException);
+        CPPUNIT_TEST_EXCEPTION(testGetObjectException, Exception);
         CPPUNIT_TEST_EXCEPTION(testEvaluateException, PythonException);
         CPPUNIT_TEST_EXCEPTION(testRunStringException, PythonException);
     CPPUNIT_TEST_SUITE_END();

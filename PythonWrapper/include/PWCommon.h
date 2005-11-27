@@ -5,6 +5,7 @@
 #	if defined(__MINGW32__)
 #       define PW_EXPORT
 #   else
+#       pragma warning (disable : 4251)
 #       if defined(_PW_LIBRARY_BUILD)
 #           define PW_EXPORT  __declspec(dllexport)
 #       else

@@ -1,11 +1,12 @@
 #ifndef _PWDLib_h_
 #define _PWDLib_h_
 
+#include "PWCommon.h"
 #include "PWString.h"
 
 namespace pw
 {
-    class DLib
+    class PW_EXPORT DLib
     {
     public:
         DLib(const String &libraryName);

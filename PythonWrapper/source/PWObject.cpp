@@ -55,16 +55,6 @@ Object &Object::operator=(const Object &rhs)
 } // operator=
 
 
-void Object::check(PyObject *ptr)
-{
-    if (!ptr)
-    {
-        PYTHON_EXCEPTION_CHECK;
-        NULL_OBJECT_EXCEPTION_THROW;
-    } // if
-} // check(PyObject *)
-
-
 int Object::length() const
 {
     return PyObject_Size(mPtr);
@@ -80,32 +70,32 @@ Object Object::getAttr(const Object &attr) const
 void Object::setAttr(const Object &attr, const Object &value)
 {
     PyObject_SetAttr(mPtr, attr.borrowReference(), value.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Object::setAttr");
 }
 
 
 void Object::delAttr(const Object &attr)
 {
     bool toReturn = PyObject_DelAttr(mPtr, attr.borrowReference()) != -1;
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Object::delAttr");
 }
 
 
-Object Object::getAttr(char *attr) const
+Object Object::getAttr(const String &attr) const
 {
-    return Object(NewReference(PyObject_GetAttrString(mPtr, attr)));
+    return Object(NewReference(PyObject_GetAttrString(mPtr, (char *)attr.c_str())));
 }
 
 
-void Object::setAttr(char *attr, const Object &value)
+void Object::setAttr(const String &attr, const Object &value)
 {
-    PyObject_SetAttrString(mPtr, attr, value.borrowReference());
+    PyObject_SetAttrString(mPtr, (char *)attr.c_str(), value.borrowReference());
 }
 
 
-void Object::delAttr(char *attr)
+void Object::delAttr(const String &attr)
 {
-    PyObject_DelAttrString(mPtr, attr);
+    PyObject_DelAttrString(mPtr, (char *)attr.c_str());
 }
 
 

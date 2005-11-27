@@ -3,7 +3,7 @@
 using namespace pw;
 
 Module::Module(const String &library)
-: mDLib(library), mName(library)
+: mDLib(library)
 {
 }
 
@@ -31,5 +31,5 @@ void Module::unload()
 
 const String &Module::getName() const
 {
-    return mName;
+    return mDLib.getLibraryName();
 }

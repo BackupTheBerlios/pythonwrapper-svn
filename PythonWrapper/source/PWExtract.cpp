@@ -116,4 +116,9 @@ namespace pw
     {
         val = PyString_AsString(obj);
     }
+
+    void _extract(PyObject *obj, String &val)
+    {
+        val = PyString_AsString(obj);
+    }
 }

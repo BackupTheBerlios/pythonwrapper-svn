@@ -2,7 +2,7 @@
 #define _PWHandler_h_
 
 #include "PWCommon.h"
-#include "PWObject.h"
+#include "PWExceptions.h"
 
 namespace pw
 {
@@ -52,7 +52,12 @@ namespace pw
         explicit inline NewReference(PyObject *obj)
             : mObj(obj), mContained(false)
         {
-            Object::check(mObj);
+            if (!obj)
+            {
+                PW_PyExcept_Check("NewReference::NewReference(PyObject *)");
+                PW_NullExcept("NULL value passed into NewReference constructor.",
+                              "Object::check");
+            } // if
         } // NewReference(PyObject *)
 
 

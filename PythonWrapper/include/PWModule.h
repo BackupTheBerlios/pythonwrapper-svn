@@ -15,15 +15,14 @@ namespace pw
         
     public:
         Module(const String &library);
-        ~Module();
+        virtual ~Module();
 
-        void load();
-        void unload();
+        virtual void load();
+        virtual void unload();
 
-        const String &getName() const;
+        virtual const String &getName() const;
     protected:
         PW_DLIB mDLib;
-        String mName;
     };
 }
 

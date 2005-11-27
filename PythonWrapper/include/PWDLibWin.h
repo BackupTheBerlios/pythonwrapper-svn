@@ -11,7 +11,7 @@ typedef struct HINSTANCE__* hInstance;
 
 namespace pw
 {
-    class DLibWin : public DLib
+    class PW_EXPORT DLibWin : public DLib
     {
     public:
         DLibWin(const String &libraryName);

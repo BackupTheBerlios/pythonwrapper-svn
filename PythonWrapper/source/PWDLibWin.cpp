@@ -23,7 +23,8 @@ void DLibWin::load()
     mLib = (hInstance)LoadLibrary(mLibraryName.c_str());
 
     if (!mLib)
-        EXCEPTION_THROW;
+        PW_Except("An error occurred while loading " + mLibraryName + ".",
+                  "DLibWin::load");
 }
 
 
@@ -35,7 +36,8 @@ void DLibWin::unload()
         mLib = 0;
 
         if (! rval)
-            EXCEPTION_THROW;
+            PW_Except("An error occurred while unloading " + mLibraryName + ".",
+                      "DLibWin::unload");
     } // if
 }
 

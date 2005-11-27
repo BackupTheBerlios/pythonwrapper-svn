@@ -2,6 +2,7 @@
 #define _PWObject_h_
 
 #include "PWCommon.h"
+#include "PWString.h"
 
 namespace pw
 {
@@ -122,19 +123,19 @@ namespace pw
         /**
          * Returns the attribute.
          */
-        virtual Object getAttr(char *attr) const;
+        virtual Object getAttr(const String &attr) const;
 
 
         /**
          * Sets the attribute.
          */
-        virtual void setAttr(char *attr, const Object &value);
+        virtual void setAttr(const String &attr, const Object &value);
 
 
         /**
          * Deletes the attribute.
          */
-        virtual void delAttr(char *attr);
+        virtual void delAttr(const String &attr);
 
 
         /**
@@ -169,7 +170,7 @@ namespace pw
          * Calls function in the object with no parameters.  Equivalent to:
          * object.function()
          */
-        virtual inline Object call(char *function)
+        virtual inline Object call(const String &function)
         { return getAttr(function)(); }
 
 
@@ -177,7 +178,7 @@ namespace pw
          * Calls the function specified with args.  Equivalent to:
          * object.function(*args)
          */
-        virtual inline Object call(char *function, const Tuple &args)
+        virtual inline Object call(const String &function, const Tuple &args)
         { return getAttr(function)(args); }
 
         /**
@@ -185,12 +186,9 @@ namespace pw
          * Equivalent to:
          * object.function(*args, key1=value1, key2=value2, ...)
          */
-        virtual inline Object call(char *function, const Tuple &args,
+        virtual inline Object call(const String &function, const Tuple &args,
                                    const Dict &namedArgs)
         { return getAttr(function)(args, namedArgs); }
-
-    public:
-        static void check(PyObject *ptr);
 
     protected:
         /**

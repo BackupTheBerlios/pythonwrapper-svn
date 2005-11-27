@@ -20,7 +20,7 @@ void DLibLinux::load()
     mLib = dlopen(mLibraryName.c_str(), RTLD_LAZY);
 
     if (!mLib)
-        EXCEPTION_THROW;
+        PW_Except("Could not load library " + mLibraryName + ".", "DLibLinux::load");
 }
 
 
@@ -32,7 +32,7 @@ void DLibLinux::unload()
         {
             mLib = 0;
             if (! rval)
-                EXCEPTION_THROW;
+                PW_Except("Error unloading " + mLibraryName + ".", "DLibLinux::unload");
         }
 
         mLib = 0;

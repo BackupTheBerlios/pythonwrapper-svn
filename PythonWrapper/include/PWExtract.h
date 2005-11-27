@@ -3,6 +3,7 @@
 
 #include "PWCommon.h"
 #include "PWExceptions.h"
+#include "PWString.h"
 
 namespace pw
 {
@@ -18,13 +19,14 @@ namespace pw
     void PW_EXPORT _extract(PyObject *obj, long long &val);
     void PW_EXPORT _extract(PyObject *obj, float &val);
     void PW_EXPORT _extract(PyObject *obj, const char *&val);
+    void PW_EXPORT _extract(PyObject *obj, String &val);
 
     template <class T>
     T extract(const Object &object)
     {
         T val;
         _extract(object.borrowReference(), val);
-        PYTHON_EXCEPTION_CHECK;
+        PW_PyExcept_Check("extract<T>(const Object &)");
         return val;
     } // extract
 }

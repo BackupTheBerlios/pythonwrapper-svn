@@ -22,7 +22,7 @@ class TestDict : public CPPUNIT_NS::TestFixture
         CPPUNIT_TEST(testOperatorGetNull);
         CPPUNIT_TEST(testOperatorSetNull);
 
-        CPPUNIT_TEST_EXCEPTION(testStringGetThrow, PythonException);
+        CPPUNIT_TEST_EXCEPTION(testStringGetThrow, Exception);
         CPPUNIT_TEST_EXCEPTION(testGetThrow, PythonException);
         CPPUNIT_TEST_EXCEPTION(testStringDelThrow, PythonException);
         CPPUNIT_TEST_EXCEPTION(testDelThrow, PythonException);

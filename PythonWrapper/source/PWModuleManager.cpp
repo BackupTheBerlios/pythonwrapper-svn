@@ -31,8 +31,9 @@ Module *ModuleManager::loadModule(const String &dllName)
     ModuleMap::iterator itr;
 
     itr = mModules.find(dllName);
-    if (itr == mModules.end())
-        EXCEPTION_THROW;
+    if (itr != mModules.end())
+        PW_Except("Already loaded module with name " + dllName + ".",
+                  "ModuleManager::loadModule");
 
     Module *toReturn = 0;
 
@@ -54,13 +55,12 @@ Module *ModuleManager::loadModule(const String &dllName)
 }
 
 
-void ModuleManager::unloadModule(Module *module)
+void ModuleManager::unloadModule(const String &name)
 {
-    assert(module);
-
-    ModuleMap::iterator itr = mModules.find(module->getName());
+    ModuleMap::iterator itr = mModules.find(name);
     if (itr == mModules.end())
-        EXCEPTION_THROW;
+        PW_Except("Module " + name + " is not registered in the ModuleManager.",
+                  "ModuleManager::unloadModule");
 
     itr->second->unload();
     delete itr->second;

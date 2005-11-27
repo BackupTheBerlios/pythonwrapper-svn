@@ -1,10 +1,42 @@
 #include "PWExceptions.h"
 #include "PWHandler.h"
-#include <cassert>
 
 using namespace pw;
 
-PythonException::PythonException()
+Exception::Exception(const String &msg, const String &funct,
+                     const String &file, unsigned int line)
+: mMsg(msg), mFunct(funct), mFile(file), mLine(line)
+{
+} // Exception
+
+
+const String &Exception::getMessage() const
+{
+    return mMsg;
+} // getMessage
+
+
+const String &Exception::getFunction() const
+{
+    return mFunct;
+} // getFunction
+
+
+const String &Exception::getFile() const
+{
+    return mFile;
+} // getFile
+
+
+unsigned int Exception::getLine() const
+{
+    return mLine;
+} // getLine
+
+
+PythonException::PythonException(const String &funct, const String &file,
+                                 unsigned int line)
+: Exception("", funct, file, line)
 {
     PyObject *type = 0,
              *value = 0,
@@ -23,11 +55,6 @@ PythonException::PythonException()
 }
 
 
-PythonException::~PythonException()
-{
-}
-
-
 const Object &PythonException::getType() const
 {
     return mType;
@@ -43,4 +70,11 @@ const Object &PythonException::getStackTrace() const
 const Object &PythonException::getValue() const
 {
     return mValue;
+}
+
+
+NullObjectException::NullObjectException(const String &msg,
+              const String &funct, const String &file, unsigned int line)
+: Exception(msg, funct, file, line)
+{
 }

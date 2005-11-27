@@ -8,74 +8,70 @@
 using namespace pw;
 
 Object *System::sModule = 0;
-unsigned int System::sInstanceCount = 0;
 
 System::System()
 {
-    if (sInstanceCount++ == 0)
-    {
-        Py_Initialize();
+    if (!sModule)
+        PW_Except("System object created without calling System::Initialize first.",
+                  "System::System");
 
-        assert(sModule == 0);
-        sModule = new Object(BorrowedReference(PyImport_AddModule("__main__")));
-    }
-
-    init();
+    mNamespace = Dict(sModule->getAttr("__dict__")).copy();
 } // System
 
 
 System::System(const System &pw)
+: mNamespace(pw.mNamespace)
 {
-    *this = pw;
-    sInstanceCount++;
 } // System(const System &)
 
 
 const System &System::operator=(const System &sys)
 {
-    assert(sInstanceCount > 0);
-    mNamespace = Dict(sys.mNamespace);
-
     return *this;
 }
 
 
 System::~System()
 {
-    deinit();
-
-    if (--sInstanceCount == 0)
-    {
-        assert(sModule != 0);
-        delete sModule;
-        sModule = 0;
-
-        Py_Finalize();
-    }
 } // ~System
 
 
-void System::init()
+void System::Initialize()
 {
-    mNamespace = Dict(sModule->getAttr("__dict__")).copy();
+    if (!Py_IsInitialized())
+        Py_Initialize();
+
+    if (!sModule)
+        sModule = new Object(BorrowedReference(PyImport_AddModule("__main__")));
 } // init
 
 
-void System::deinit()
+void System::Finalize()
 {
+    if (sModule)
+    {
+        delete sModule;
+        sModule = 0;
+    } // if
+
+    if (Py_IsInitialized())
+    {
+        PyErr_Clear();
+        Py_Finalize();
+    } // if
 } // deinit
 
 
-Object System::runString(const char *str)
+Object System::runString(const String &str)
 {
-    PyObject *ret = PyRun_String(str, Py_file_input,
+    PyObject *ret = PyRun_String(str.c_str(), Py_file_input,
                                  mNamespace.borrowReference(),
                                  mNamespace.borrowReference());
 
     if (PyErr_Occurred())
     {
         Py_XDECREF(ret);
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("System::runString");
     } // if
 
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
@@ -88,9 +84,9 @@ void System::reset()
 }
 
 
-Object System::evaluate(const char *expression)
+Object System::evaluate(const String &expression)
 {
-    PyObject *ret = PyRun_String(expression, Py_eval_input,
+    PyObject *ret = PyRun_String(expression.c_str(), Py_eval_input,
                                  mNamespace.borrowReference(),
                                  mNamespace.borrowReference());
 
@@ -99,19 +95,19 @@ Object System::evaluate(const char *expression)
     if (PyErr_Occurred())
     {
         Py_XDECREF(ret);
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("System::evaluate");
     } // if
 
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
 } // evaluate(const std::string &)
 
 
-Object System::runFile(const char *fileName)
+Object System::runFile(const String &fileName)
 {
     // open the file
-    FILE *fp = fopen(fileName, "r");
+    FILE *fp = fopen(fileName.c_str(), "r");
     if (!fp)
-        EXCEPTION_THROW;
+        PW_Except("Could open file " + fileName + ".", "System::runFile");
 
     // get the length of the file
     fseek(fp, 0, SEEK_END);
@@ -135,23 +131,20 @@ Object System::runFile(const char *fileName)
 } // runFile(const std::string &)
 
 
-void System::loadModule(char *moduleName, Module::InitFunction f)
+void System::loadModule(const String &moduleName, Module::InitFunction f)
 {
-    if (PyImport_AppendInittab(moduleName, f) == -1)
+    if (PyImport_AppendInittab((char *)moduleName.c_str(), f) == -1)
     {
         // todo, does this even set the python exception?
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("System::loadModule");
     } // if
 } // loadModule(const std::string &, void (*)(void))
 
 
-Object System::getObject(char *object)
+Object System::getObject(const String &object)
 {
     if (! mNamespace.contains(build(object)))
-    {
-        // todo: make this meaningful
-        PYTHON_EXCEPTION_THROW;
-    } // if
+        PW_Except("This system object does not contain an object.", "System::getObject");
 
     return mNamespace[object];
 } // getObject(const std::string &)

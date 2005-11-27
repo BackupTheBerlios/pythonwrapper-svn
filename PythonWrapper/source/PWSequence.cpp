@@ -11,7 +11,8 @@ Sequence::Sequence(ReferenceHandler &ref)
 : Object(ref)
 {
     if (! PySequence_Check(mPtr))
-        PYTHON_EXCEPTION_THROW;
+        PW_Except("Non-Sequence object passed into Sequence.",
+                  "Sequence::Sequence(ReferenceHandler &)");
 }
 
 Sequence::~Sequence()
@@ -54,14 +55,14 @@ Object Sequence::getItem(int index) const
 void Sequence::setItem(int index, const Object &obj)
 {
     PySequence_SetItem(mPtr, index, obj.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Sequence::setItem");
 }
 
 
 void Sequence::delItem(int index)
 {
     PySequence_DelItem(mPtr, index);
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Sequence::delItem");
 }
 
 
@@ -74,13 +75,13 @@ Sequence Sequence::getSlice(int start, int stop) const
 void Sequence::setSlice(int start, int stop, const Object &obj)
 {
     PySequence_SetSlice(mPtr, start, stop, obj.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Sequence::setSlice");
 }
 
 void Sequence::delSlice(int start, int stop)
 {
     PySequence_DelSlice(mPtr, start, stop);
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Sequence::delSlice");
 }
 
 int Sequence::size() const

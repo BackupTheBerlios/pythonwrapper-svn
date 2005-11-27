@@ -2,6 +2,7 @@
 #define _PWDict_h_
 
 #include "PWCommon.h"
+#include "PWString.h"
 #include "PWObject.h"
 #include "PWSequenceEntry.h"
 
@@ -14,7 +15,6 @@ namespace pw
 
     public:
         Dict();
-        Dict(const Dict &rhs);
         Dict(const Object &obj);
         virtual ~Dict();
 
@@ -22,14 +22,14 @@ namespace pw
 
         virtual bool contains(const Object &key) const;
 
-        virtual void setItem(char *key, const Object &value);
+        virtual void setItem(const String &key, const Object &value);
         virtual void setItem(const Object &key, const Object &value);
 
         virtual Object getItem(const Object &key) const;
-        virtual Object getItem(char *key) const;
+        virtual Object getItem(const String &key) const;
 
         virtual void delItem(const Object &key);
-        virtual void delItem(char *key);
+        virtual void delItem(const String &key);
 
         virtual inline int length() const
         { return PyDict_Size(mPtr); }
@@ -39,7 +39,7 @@ namespace pw
         virtual List values() const;
 
         virtual DictEntry operator[](const Object &key);
-        virtual DictEntry operator[](char *key);
+        virtual DictEntry operator[](const String &key);
 
         Dict copy();
     };

@@ -12,17 +12,7 @@ Dict::Dict()
     if (! PyDict_Check(mPtr))
     {
         Py_DECREF(mPtr);
-        PYTHON_EXCEPTION_THROW;
-    }
-}
-
-Dict::Dict(const Dict &rhs)
-: Object(NewReference(rhs.borrowReference()))
-{
-    if (! PyDict_Check(mPtr))
-    {
-        Py_DECREF(mPtr);
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("Dict::Dict()");
     }
 }
 
@@ -33,7 +23,7 @@ Dict::Dict(const Object &obj)
     if (! PyDict_Check(mPtr))
     {
         Py_DECREF(mPtr);
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("Dict::Dict(const Object &)");
     }
 }
 
@@ -53,7 +43,7 @@ bool Dict::contains(const Object &key) const
 {
     bool toReturn = PyDict_Contains(mPtr, key.borrowReference()) == 1;
     
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Dict::contains");
     return toReturn;
 }
 
@@ -61,7 +51,7 @@ bool Dict::contains(const Object &key) const
 void Dict::setItem(const Object &key, const Object &value)
 {
     PyDict_SetItem(mPtr, key.borrowReference(), value.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Dict::setItem");
 }
 
 
@@ -69,7 +59,7 @@ Object Dict::getItem(const Object &key) const
 {
     PyObject *toReturn = PyDict_GetItem(mPtr, key.borrowReference());
     if (! toReturn)
-        PYTHON_EXCEPTION_THROW;
+        PW_PyExcept("Dict::getItem");
 
     return Object(BorrowedReference(toReturn));
 }
@@ -78,7 +68,7 @@ Object Dict::getItem(const Object &key) const
 void Dict::delItem(const Object &key)
 {
     PyObject_DelItem(mPtr, key.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PW_PyExcept_Check("Dict::delItem");
 }
 
 
@@ -110,37 +100,37 @@ Dict::DictEntry Dict::operator[](const Object &key)
     return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, key);
 }
 
-Dict::DictEntry Dict::operator[](char *key)
+Dict::DictEntry Dict::operator[](const String &key)
 {
-    PyObject *toReturn = PyDict_GetItemString(mPtr, key);
+    PyObject *toReturn = PyDict_GetItemString(mPtr, key.c_str());
     if (toReturn)
-        return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, build(key));
+        return SequenceEntry<Dict, Object>(BorrowedReference(toReturn), *this, build(key.c_str()));
 
     PyErr_Clear();
-    return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, build(key));
+    return SequenceEntry<Dict, Object>(BorrowedReference(Py_None), *this, build(key.c_str()));
 }
 
 
-void Dict::setItem(char *key, const Object &value)
+void Dict::setItem(const String &key, const Object &value)
 {
-    PyDict_SetItemString(mPtr, key, value.borrowReference());
-    PYTHON_EXCEPTION_CHECK;
+    PyDict_SetItemString(mPtr, key.c_str(), value.borrowReference());
+    PW_PyExcept_Check("Dict::setItem");
 }
 
 
-Object Dict::getItem(char *key) const
+Object Dict::getItem(const String &key) const
 {
-    PyObject *toReturn = PyDict_GetItemString(mPtr, key);
+    PyObject *toReturn = PyDict_GetItemString(mPtr, key.c_str());
     if (! toReturn)
-        PYTHON_EXCEPTION_THROW;
+        PW_Except("Key " + key + " not found.", "Dict::getItem");
 
     return Object(BorrowedReference(toReturn));
 }
 
-void Dict::delItem(char *key)
+void Dict::delItem(const String &key)
 {
-    PyObject_DelItemString(mPtr, key);
-    PYTHON_EXCEPTION_CHECK;
+    PyObject_DelItemString(mPtr, (char *)key.c_str());
+    PW_PyExcept_Check("Dict::delItem");
 }
 
 

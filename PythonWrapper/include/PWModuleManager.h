@@ -21,7 +21,7 @@ namespace pw
         ~ModuleManager();
 
         Module *loadModule(const String &dllName);
-        void unloadModule(Module *module);
+        void unloadModule(const String &name);
 
         void unloadAll();
 
