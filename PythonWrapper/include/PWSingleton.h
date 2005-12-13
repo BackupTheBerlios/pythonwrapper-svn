@@ -1,5 +1,5 @@
-#ifndef _SWSingleton_h_
-#define _SWSingleton_h_
+#ifndef _PWSingleton_h_
+#define _PWSingleton_h_
 
 #include "PWCommon.h"
 #include <cassert>
@@ -9,6 +9,17 @@ namespace pw
     template <class T>
     class Singleton
     {
+    public:
+        static T &getSingleton(void)
+		{
+            assert(sInstance);
+            return *sInstance;
+        }
+
+        static T* getSingletonPtr(void)
+		{
+            return sInstance;
+        }
     public:
         Singleton();
         virtual ~Singleton();

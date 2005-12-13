@@ -4,6 +4,7 @@
 #include "PWCommon.h"
 #include "PWExceptions.h"
 #include "PWString.h"
+#include "PWTypeManager.h"
 
 namespace pw
 {
@@ -29,6 +30,13 @@ namespace pw
         PW_PyExcept_Check("extract<T>(const Object &)");
         return val;
     } // extract
+
+    template <class T>
+    T *extract(const Object &object, bool disown)
+    {
+        ConverterInterface *converter = TypeManager::getSingleton().findConverter(typeid(T).name());
+        return converter->convert<T>(object.borrowReference(), disown);
+    }
 }
 
 #endif

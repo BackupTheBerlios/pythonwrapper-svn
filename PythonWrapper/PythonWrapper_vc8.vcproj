@@ -248,11 +248,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\PWSwigConverter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PWSwigModule.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\PWSystem.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\source\PWTuple.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PWTypeManager.cpp"
 				>
 			</File>
 		</Filter>
@@ -267,6 +279,10 @@
 			</File>
 			<File
 				RelativePath=".\include\PWCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\PWConverterInterface.h"
 				>
 			</File>
 			<File
@@ -346,6 +362,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWSwigModule.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWSystem.h"
 				>
 			</File>
@@ -354,11 +374,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\PythonWrapper.h"
+				RelativePath=".\include\PWTypeManager.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\SWIGWrapper.h"
+				RelativePath=".\include\PythonWrapper.h"
 				>
 			</File>
 		</Filter>

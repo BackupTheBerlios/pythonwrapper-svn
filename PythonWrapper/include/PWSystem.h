@@ -1,5 +1,5 @@
-#ifndef _System_h_
-#define _System_h_
+#ifndef _PWSystem_h_
+#define _PWSystem_h_
 
 #include "PWCommon.h"
 #include "PWDict.h"

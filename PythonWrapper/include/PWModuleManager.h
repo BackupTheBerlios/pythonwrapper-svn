@@ -1,5 +1,5 @@
-#ifndef _SWModuleManager_h_
-#define _SWModuleManager_h_
+#ifndef _PWModuleManager_h_
+#define _PWModuleManager_h_
 
 #include "PWCommon.h"
 #include "PWString.h"
@@ -20,14 +20,14 @@ namespace pw
         ModuleManager();
         ~ModuleManager();
 
-        Module *loadModule(const String &dllName);
-        void unloadModule(const String &name);
+        void loadModule(const String &dllName);
+        void unloadModule(const String &dllName);
 
         void unloadAll();
 
     private:
-		typedef std::map<String, Module *> ModuleMap;
-		ModuleMap mModules;
+        typedef std::map<String, Module *> ModuleMap;
+        ModuleMap mModules;
     };
 }
 

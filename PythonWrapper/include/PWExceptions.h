@@ -6,6 +6,7 @@
 #include "PWObject.h"
 
 #define PW_Except(msg, funct) throw pw::Exception(msg, funct, __FILE__, __LINE__);
+#define PW_Warn(msg, funct) throw pw::Exception(msg, funct, __FILE__, __LINE__);
 #define PW_PyExcept(funct) throw pw::PythonException(funct, __FILE__, __LINE__);
 #define PW_PyExcept_Check(funct) if (PyErr_Occurred()) throw pw::PythonException(funct, __FILE__, __LINE__);
 #define PW_NullExcept(msg, funct) throw pw::NullObjectException(msg, funct, __FILE__, __LINE__)

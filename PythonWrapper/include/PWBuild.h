@@ -4,6 +4,8 @@
 #include "PWCommon.h"
 #include "PWHandler.h"
 #include "PWString.h"
+#include "PWConverterInterface.h"
+#include "PWTypeManager.h"
 
 namespace pw
 {
@@ -36,6 +38,14 @@ namespace pw
 
     inline Object build(bool val)
     { return Object(BorrowedReference(val ? Py_True : Py_False)); }
+
+    template <class T>
+    inline Object build(T *val, bool disown)
+    {
+        ConverterInterface *converter = TypeManager::getSingleton().findConverter(typeid(T).name());
+        return NewReference(converter->convert<T>(val, disown));
+    }
+
 }
 
 #endif

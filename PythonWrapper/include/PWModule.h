@@ -11,18 +11,21 @@ namespace pw
     {
     public:
         typedef void (*InitFunction)();
-        typedef const char *(*GetModuleName)();
         
     public:
         Module(const String &library);
+        Module(const String &library, const String &name);
         virtual ~Module();
 
         virtual void load();
         virtual void unload();
 
         virtual const String &getName() const;
+        virtual InitFunction getInit() const;
     protected:
         PW_DLIB mDLib;
+        String mName;
+        InitFunction mInit;
     };
 }
 

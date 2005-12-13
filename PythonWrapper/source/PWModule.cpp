@@ -1,11 +1,25 @@
 #include "PWModule.h"
+#include "PWExceptions.h"
 
 using namespace pw;
 
 Module::Module(const String &library)
-: mDLib(library)
+: mDLib(library), mInit(0)
+{
+    size_t pos = library.find(".");
+
+    if (pos != std::string::npos)
+        mName = library.substr(0, library.size() - pos);
+    else
+        mName = library;
+}
+
+
+Module::Module(const String &library, const String &name)
+: mDLib(library), mInit(0), mName(name)
 {
 }
+
 
 Module::~Module()
 {
@@ -13,23 +27,33 @@ Module::~Module()
         mDLib.unload();
 }
 
+
 void Module::load()
 {
-    String init = "init"; 
-    mDLib.load();
+    if (! mDLib.isLoaded())
+        mDLib.load();
 
-    // load module information
-    GetModuleName getModuleName = (GetModuleName)mDLib.getSymbol("PW_getModuleName");
-    InitFunction initFunction = (InitFunction)mDLib.getSymbol(init + getModuleName());
+    mInit = (InitFunction)mDLib.getSymbol("init" + mName);
+    
+    if (!mInit)
+        PW_Except(mDLib.getLibraryName() + " does not contain the function: init" + mName, "Module::load");
 }
+
 
 void Module::unload()
 {
     mDLib.unload();
+    mInit = 0;
 }
 
 
 const String &Module::getName() const
 {
-    return mDLib.getLibraryName();
+    return mName;
+}
+
+
+Module::InitFunction Module::getInit() const
+{
+    return mInit;
 }

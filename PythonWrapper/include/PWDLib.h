@@ -27,14 +27,14 @@ namespace pw
 }
 
 #if defined(__WIN32__) || defined(_WIN32)
-#	if defined(__MINGW32__)
+#    if defined(__MINGW32__)
 #       define PW_EXPORT
 #       define PW_DLIB DLibLinux
 #       include "PWDLibLinux.h"
 #   else
 #       define PW_DLIB DLibWin
 #       include "PWDLibWin.h"
-#	endif
+#    endif
 #else
 #   define PW_EXPORT
 #   define PW_DLIB DLibLinux
