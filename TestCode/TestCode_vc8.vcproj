@@ -208,15 +208,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TestInterpreter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TestList.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\source\TestObject.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\source\TestSystem.cpp"
 				>
 			</File>
 			<File
@@ -250,15 +250,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\TestInterpreter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\TestList.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\TestNumber.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\TestSystem.h"
 				>
 			</File>
 			<File

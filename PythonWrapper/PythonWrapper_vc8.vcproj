@@ -228,6 +228,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\PWInterpreter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\PWList.cpp"
 				>
 			</File>
@@ -249,10 +253,6 @@
 			</File>
 			<File
 				RelativePath=".\source\PWSwigModule.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\source\PWSystem.cpp"
 				>
 			</File>
 			<File
@@ -326,6 +326,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWInterpreter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWList.h"
 				>
 			</File>
@@ -359,10 +363,6 @@
 			</File>
 			<File
 				RelativePath=".\include\PWSwigModule.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWSystem.h"
 				>
 			</File>
 			<File

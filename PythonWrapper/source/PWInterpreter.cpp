@@ -1,4 +1,4 @@
-#include "PWSystem.h"
+#include "PWInterpreter.h"
 #include "PWObject.h"
 #include "PWHandler.h"
 #include "PWExceptions.h"
@@ -7,36 +7,36 @@
 
 using namespace pw;
 
-Object *System::sModule = 0;
+Object *Interpreter::sModule = 0;
 
-System::System()
+Interpreter::Interpreter()
 {
     if (!sModule)
-        PW_Except("System object created without calling System::Initialize first.",
-                  "System::System");
+        PW_Except("Interpreter object created without calling Interpreter::Initialize first.",
+                  "Interpreter::Interpreter");
 
     mNamespace = Dict(sModule->getAttr("__dict__")).copy();
-} // System
+} // Interpreter
 
 
-System::System(const System &pw)
+Interpreter::Interpreter(const Interpreter &pw)
 : mNamespace(pw.mNamespace)
 {
-} // System(const System &)
+} // Interpreter(const Interpreter &)
 
 
-const System &System::operator=(const System &sys)
+const Interpreter &Interpreter::operator=(const Interpreter &sys)
 {
     return *this;
 }
 
 
-System::~System()
+Interpreter::~Interpreter()
 {
-} // ~System
+} // ~Interpreter
 
 
-void System::Initialize()
+void Interpreter::Initialize()
 {
     if (!Py_IsInitialized())
         Py_Initialize();
@@ -46,7 +46,7 @@ void System::Initialize()
 } // init
 
 
-void System::Finalize()
+void Interpreter::Finalize()
 {
     if (sModule)
     {
@@ -62,7 +62,7 @@ void System::Finalize()
 } // deinit
 
 
-Object System::runString(const String &str)
+Object Interpreter::runString(const String &str)
 {
     PyObject *ret = PyRun_String(str.c_str(), Py_file_input,
                                  mNamespace.borrowReference(),
@@ -71,20 +71,20 @@ Object System::runString(const String &str)
     if (PyErr_Occurred())
     {
         Py_XDECREF(ret);
-        PW_PyExcept("System::runString");
+        PW_PyExcept("Interpreter::runString");
     } // if
 
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
 } // runString(const std::string &)
 
 
-void System::reset()
+void Interpreter::reset()
 {
     mNamespace = Dict(sModule->getAttr("__dict__")).copy();
 }
 
 
-Object System::evaluate(const String &expression)
+Object Interpreter::evaluate(const String &expression)
 {
     PyObject *ret = PyRun_String(expression.c_str(), Py_eval_input,
                                  mNamespace.borrowReference(),
@@ -95,19 +95,19 @@ Object System::evaluate(const String &expression)
     if (PyErr_Occurred())
     {
         Py_XDECREF(ret);
-        PW_PyExcept("System::evaluate");
+        PW_PyExcept("Interpreter::evaluate");
     } // if
 
     return Object(ret ? NewReference(ret) : BorrowedReference(Py_None));
 } // evaluate(const std::string &)
 
 
-Object System::runFile(const String &fileName)
+Object Interpreter::runFile(const String &fileName)
 {
     // open the file
     FILE *fp = fopen(fileName.c_str(), "r");
     if (!fp)
-        PW_Except("Could open file " + fileName + ".", "System::runFile");
+        PW_Except("Could open file " + fileName + ".", "Interpreter::runFile");
 
     // get the length of the file
     fseek(fp, 0, SEEK_END);
@@ -131,25 +131,25 @@ Object System::runFile(const String &fileName)
 } // runFile(const std::string &)
 
 
-void System::loadModule(const String &moduleName, Module::InitFunction f)
+void Interpreter::loadModule(const String &moduleName, Module::InitFunction f)
 {
     if (PyImport_AppendInittab((char *)moduleName.c_str(), f) == -1)
     {
         // todo, does this even set the python exception?
-        PW_PyExcept("System::loadModule");
+        PW_PyExcept("Interpreter::loadModule");
     } // if
 } // loadModule(const std::string &, void (*)(void))
 
 
-Object System::getObject(const String &object)
+Object Interpreter::getObject(const String &object)
 {
     if (! mNamespace.contains(build(object)))
-        PW_Except("This system object does not contain an object.", "System::getObject");
+        PW_Except("This system object does not contain an object.", "Interpreter::getObject");
 
     return mNamespace[object];
 } // getObject(const std::string &)
 
-const Dict &System::getNamespace() const
+const Dict &Interpreter::getNamespace() const
 {
     return mNamespace;
 }

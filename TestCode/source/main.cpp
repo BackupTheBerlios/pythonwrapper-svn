@@ -3,13 +3,13 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include <iostream>
-#include "PWSystem.h"
+#include "PWInterpreter.h"
 #include "PWTypeManager.h"
 
 int main(int argc, char* argv[])
 {
 
-    pw::System::Initialize();
+    pw::Interpreter::Initialize();
 
     // Get the top level suite from the registry
     CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     // Run the tests.
     bool wasSucessful = runner.run();
 
-    pw::System::Finalize();
+    pw::Interpreter::Finalize();
 
     // Return error code 1 if one of the tests failed.
     return wasSucessful ? 0 : 1;

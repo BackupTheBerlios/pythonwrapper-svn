@@ -1,5 +1,5 @@
-#ifndef _PWSystem_h_
-#define _PWSystem_h_
+#ifndef _PWInterpreter_h_
+#define _PWInterpreter_h_
 
 #include "PWCommon.h"
 #include "PWDict.h"
@@ -9,25 +9,25 @@ namespace pw
 {
     /** The wrapper for the basic Python/C functions.
      *  @remarks
-     *      The System class hides most of the Python/C API from you to
+     *      The Interpreter class hides most of the Python/C API from you to
      *      abstract away most of the gritty details of embedding Python.
-     *      Note that each instance of the System class is within its own
+     *      Note that each instance of the Interpreter class is within its own
      *      Python context.  This means that modifying the state of the
-     *      System class in one instance will not affect any other instance.
+     *      Interpreter class in one instance will not affect any other instance.
      *      If you wish to have a shared interpreter state between multiple
      *      instances, use pointers and references, or use the copy
      *      constructor or the = operator.
      */
-    class PW_EXPORT System
+    class PW_EXPORT Interpreter
     {
     public:
         /** Constructor.
          *  @remarks
-         *      The base System class does all instance counting and it
+         *      The base Interpreter class does all instance counting and it
          *      ensures the Python interpreter is intialized properly.  Calls
          *      init.
          */
-        System();
+        Interpreter();
 
 
         /** Deep copy constructor.
@@ -35,25 +35,25 @@ namespace pw
          *      This does NOT call init.  Equivilant to operator=.
          *  @see operator=
          */
-        System(const System &pw);
+        Interpreter(const Interpreter &pw);
 
 
-        /** Performs a deep copy of the given System.
+        /** Performs a deep copy of the given Interpreter.
          *  @remarks
-         *      This performs a deep copy of the given System.  When this is
+         *      This performs a deep copy of the given Interpreter.  When this is
          *      called, all variables in the two objects set to be equal,
-         *      and any changes to one instance of the System class affects
+         *      and any changes to one instance of the Interpreter class affects
          *      the other.
          */
-        virtual const System &operator=(const System &);
+        virtual const Interpreter &operator=(const Interpreter &);
 
 
         /** Destructor.
          *  @remarks
          *      This takes care of finalizing the python interpreter if no
-         *      instances of System are left.  Calls deinit.
+         *      instances of Interpreter are left.  Calls deinit.
          */
-        virtual ~System();
+        virtual ~Interpreter();
 
 
         /** Runs the Python code contained in str.
@@ -140,14 +140,14 @@ namespace pw
 
         // Static methods.
         /** Loads a user defined module into the interpreter.  YOU MUST CALL THIS
-          * BEFORE CALLING System::Initialize!
+          * BEFORE CALLING Interpreter::Initialize!
           * @remarks
           *     This is not for importing modules; if you wish to import a module,
           *     call runString("import ModuleName").  This method is for loading
           *     modules that are constructed using either the Python/C API or
-          *     SWIG.  You must call this function before ever creating a System
+          *     SWIG.  You must call this function before ever creating a Interpreter
           *     object if you want to use it.  Calling this function loads the
-          *     module for ALL instances of System.
+          *     module for ALL instances of Interpreter.
           * @note
           *     If you use SWIG, the init_function will be
           *     init_[modulename] where [modulename] is the name of the module
@@ -169,16 +169,16 @@ namespace pw
         /** The python namespace (ie the instance) of the object.
             @remarks
                 This object IS the interpreter's variable set.  Since each
-                System has their own dictionary, every System
+                Interpreter has their own dictionary, every Interpreter
                 is like its own self contained interpreter.
         */
         Dict mNamespace;
 
 
         // Static members
-        /** The __main__ module, used to create all System namespaces.
+        /** The __main__ module, used to create all Interpreter namespaces.
         */
         static Object *sModule;
-    }; // class System
+    }; // class Interpreter
 } // namespace OP
 #endif

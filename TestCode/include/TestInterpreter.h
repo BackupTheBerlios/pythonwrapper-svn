@@ -1,15 +1,15 @@
-#ifndef _TestSystem_h_
-#define _TestSystem_h_
+#ifndef _TestInterpreter_h_
+#define _TestInterpreter_h_
 
-#include "PWSystem.h"
+#include "PWInterpreter.h"
 #include "PWExceptions.h"
 using namespace pw;
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestSystem : public CPPUNIT_NS::TestFixture
+class TestInterpreter : public CPPUNIT_NS::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestSystem);
+    CPPUNIT_TEST_SUITE(TestInterpreter);
         CPPUNIT_TEST_EXCEPTION(testRunFileException, PythonException);
         CPPUNIT_TEST(testEvaluate);
         CPPUNIT_TEST(testRunString);
@@ -40,7 +40,7 @@ public:
     void testRunStringException();
     void testRunFileException();
 private:
-    System *sys;
+    Interpreter *sys;
 };
 
 #endif

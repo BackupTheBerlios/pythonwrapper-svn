@@ -1,21 +1,21 @@
-#include "TestSystem.h"
+#include "TestInterpreter.h"
 #include "PythonWrapper.h"
 #include <string.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestSystem);
+CPPUNIT_TEST_SUITE_REGISTRATION(TestInterpreter);
 
-void TestSystem::setUp()
+void TestInterpreter::setUp()
 {
-    sys = new System();
+    sys = new Interpreter();
 }
 
-void TestSystem::tearDown()
+void TestInterpreter::tearDown()
 {
     delete sys;
 }
 
 
-void TestSystem::testEvaluate()
+void TestInterpreter::testEvaluate()
 {
     Object obj = sys->evaluate("'test' + ' test2'");
     CPPUNIT_ASSERT(strcmp("test test2", extract<const char *>(obj)) == 0);
@@ -25,7 +25,7 @@ void TestSystem::testEvaluate()
 }
 
 
-void TestSystem::testRunString()
+void TestInterpreter::testRunString()
 {
     Object obj = sys->runString("val = 3; obj = `val`");
     CPPUNIT_ASSERT(Py_None == obj.borrowReference());
@@ -38,7 +38,7 @@ void TestSystem::testRunString()
 }
 
 
-void TestSystem::testGetObject()
+void TestInterpreter::testGetObject()
 {
     Object obj = sys->runString("val = 3; obj = `val`");
     CPPUNIT_ASSERT(Py_None == obj.borrowReference());
@@ -51,37 +51,37 @@ void TestSystem::testGetObject()
 }
 
 
-void TestSystem::testGetObjectException()
+void TestInterpreter::testGetObjectException()
 {
     sys->getObject("asdf");
 }
 
-void TestSystem::testEvaluateException()
+void TestInterpreter::testEvaluateException()
 {
     sys->evaluate("asdf");
 }
 
 
-void TestSystem::testRunStringException()
+void TestInterpreter::testRunStringException()
 {
     sys->runString("asdf");
 }
 
 
-void TestSystem::testRunFile()
+void TestInterpreter::testRunFile()
 {
     sys->runFile("NoErrors.py");
 }
 
-void TestSystem::testRunFileException()
+void TestInterpreter::testRunFileException()
 {
     sys->runFile("Errors.py");
 }
 
 
-void TestSystem::testNamespaceCopy()
+void TestInterpreter::testNamespaceCopy()
 {
-    System sys2;
+    Interpreter sys2;
 
     CPPUNIT_ASSERT(sys->getNamespace().borrowReference() !=
         sys2.getNamespace().borrowReference());
@@ -90,7 +90,7 @@ void TestSystem::testNamespaceCopy()
 }
 
 
-void TestSystem::testNamespaceSet()
+void TestInterpreter::testNamespaceSet()
 {
     Dict namesp = sys->getNamespace();
     namesp["test"] = build((short)7);
@@ -101,7 +101,7 @@ void TestSystem::testNamespaceSet()
 }
 
 
-void TestSystem::testNamespaceGet()
+void TestInterpreter::testNamespaceGet()
 {
     Dict namesp = sys->getNamespace();
     sys->runString("test = 70");
