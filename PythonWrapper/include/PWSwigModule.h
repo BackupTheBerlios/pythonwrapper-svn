@@ -31,6 +31,9 @@ namespace pw
             if (! (mLoaded && mToPointer))
                 PW_Except("Module not loaded.", "SwigModule<" + typeid(T).name() + ">::convert");
 
+            if (obj->ob_type != mSwigType)
+                PW_Except("This module did not create the given object.", "SwigModule<" + typeid(T).name() + ">::convert");
+
             return (T *)mToPointer(obj, disown ? 1 : 0);
         }
 

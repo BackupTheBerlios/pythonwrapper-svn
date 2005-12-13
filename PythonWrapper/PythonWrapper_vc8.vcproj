@@ -248,10 +248,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWSwigConverter.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\source\PWSwigModule.cpp"
 				>
 			</File>

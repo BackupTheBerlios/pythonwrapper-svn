@@ -4,9 +4,11 @@
 
 #include <iostream>
 #include "PWSystem.h"
+#include "PWTypeManager.h"
 
 int main(int argc, char* argv[])
 {
+
     pw::System::Initialize();
 
     // Get the top level suite from the registry
