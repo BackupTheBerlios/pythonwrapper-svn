@@ -10,8 +10,11 @@ namespace pw
     class SwigModule : public Module
     {
     public:
+        typedef void (*F_addType)(const char *, const char *, void *);
+        typedef void (*F_addPyType)(PyTypeObject *, const char *);
+
         typedef PyTypeObject *(*F_GetType)();
-        typedef void          (*F_RegisterConverters)(const char *);
+        typedef void          (*F_RegisterConverters)(const char *, F_addType, F_addPyType);
         typedef PyObject *    (*F_ToPyObject)(void *, void *, int);
         typedef void *        (*F_ToPointer)(PyObject *, int);
 

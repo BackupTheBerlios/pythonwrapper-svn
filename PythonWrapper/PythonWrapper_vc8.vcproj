@@ -220,10 +220,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\PWEmbedded.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\source\PWExceptions.cpp"
 				>
 			</File>
@@ -319,10 +315,6 @@
 			</File>
 			<File
 				RelativePath=".\include\PWDLibWin.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\PWEmbedded.h"
 				>
 			</File>
 			<File

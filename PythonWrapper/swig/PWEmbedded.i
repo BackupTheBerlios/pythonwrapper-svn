@@ -6,15 +6,16 @@ extern "C"
 {
 #endif
 
-#include "PWEmbedded.h"
+typedef void (*F_addType)(const char *, const char *, void *);
+typedef void (*F_addPyType)(PyTypeObject *, const char *);
 
 SWIGEXPORT PyTypeObject *PW_GetType()
 { return _PySwigObject_type(); }
 
 
-SWIGEXPORT PyObject *PW_ToPyObject(void *obj, const char *name, int disown)
+SWIGEXPORT PyObject *PW_ToPyObject(void *obj, void *typeInfo, int disown)
 {
-	return SWIG_Python_NewPointerObj(obj, SWIG_TypeQuery(name), disown ? SWIG_POINTER_OWN : 0);
+	return SWIG_Python_NewPointerObj(obj, (swig_type_info*)typeInfo, disown ? SWIG_POINTER_OWN : 0);
 }
 
 
@@ -27,14 +28,14 @@ SWIGEXPORT void *PW_ToPointer(PyObject *obj, int disown)
 }
 
 
-SWIGEXPORT void PW_RegisterConverters(const char *module)
+SWIGEXPORT void PW_RegisterConverters(const char *module, F_addType addType, F_addPyType addPyType)
 {
 	swig_module_info *mi = SWIG_Python_GetModule();
 	size_t i;
 	for (i = 0; i < mi->size; ++i)
-		PW_addType(mi->types[i]->str, module);
+		addType(mi->types[i]->str, module, mi->types[i]);
 	
-	PW_addPyType(PySwigObject_type(), module);
+	addPyType(PySwigObject_type(), module);
 }
 
 #ifdef __cplusplus

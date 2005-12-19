@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\PythonWrapper\include;include;..\dependencies\python\include"
+				AdditionalIncludeDirectories="include;..\dependencies\python\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TESTSWIGLIB_EXPORTS;TS_LIBRARY_BUILD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,10 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Python24.lib PythonWrapper_d.lib"
+				AdditionalDependencies="Python24.lib"
 				OutputFile="$(OutDir)\_TestSwig.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\PythonWrapper\bin\debug;..\dependencies\lib"
+				AdditionalLibraryDirectories="..\dependencies\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\PythonWrapper\include;include;..\dependencies\python\include"
+				AdditionalIncludeDirectories="include;..\dependencies\python\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTSWIGLIB_EXPORTS;TS_LIBRARY_BUILD"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -139,10 +139,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Python24.lib PythonWrapper.lib"
+				AdditionalDependencies="Python24.lib"
 				OutputFile="$(OutDir)\TestSwig.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\PythonWrapper\bin\release;..\dependencies\lib"
+				AdditionalLibraryDirectories="..\dependencies\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
