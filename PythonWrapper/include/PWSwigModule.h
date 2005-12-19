@@ -24,6 +24,7 @@ namespace pw
         virtual void load();
         virtual void unload();
         
+        virtual void initialize();
 
         template <class T>
         T *convert(PyObject *obj, bool disown)
@@ -51,6 +52,7 @@ namespace pw
         PyTypeObject *mSwigType;
         F_ToPyObject  mToPyObject;
         F_ToPointer   mToPointer;
+        F_RegisterConverters mRegister;
     };
 }
 

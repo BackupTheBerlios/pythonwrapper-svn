@@ -97,11 +97,19 @@ void ModuleManager::unloadModule(const String &dllName)
 
 void ModuleManager::unloadAll()
 {
-    for (ModuleMap::iterator itr = mModules.begin(); itr != mModules.end(); ++itr)
+    ModuleMap::iterator itr;
+    for (itr = mModules.begin(); itr != mModules.end(); ++itr)
     {
         itr->second->unload();
         delete itr->second;
     } // if
 
     mModules.clear();
+}
+
+void ModuleManager::initializeModules()
+{
+    ModuleMap::iterator itr;
+    for (itr = mModules.begin(); itr != mModules.end(); ++itr)
+        itr->second->initialize();
 }

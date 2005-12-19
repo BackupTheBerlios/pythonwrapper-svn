@@ -60,3 +60,8 @@ Module::InitFunction Module::getInit() const
 {
     return mInit;
 }
+
+void Module::initialize()
+{
+    mInit();
+}

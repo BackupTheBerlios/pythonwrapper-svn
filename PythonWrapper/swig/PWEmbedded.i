@@ -33,6 +33,8 @@ SWIGEXPORT void PW_RegisterConverters(void *module)
 	size_t i;
 	for (i = 0; i < mi->size; ++i)
 		PW_addType(mi->types[i]->str, module);
+	
+	PW_addPyType(PySwigObject_type(), module);
 }
 
 #ifdef __cplusplus

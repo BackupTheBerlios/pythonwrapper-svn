@@ -25,6 +25,11 @@ TypeManager::TypeManager()
 
 TypeManager::~TypeManager()
 {
+    PyTypeModuleMap::iterator itr;
+    for (itr = mPyTypes.begin(); itr != mPyTypes.end(); ++itr)
+        Py_DECREF(itr->first);
+
+    mPyTypes.clear();
 }
 
 
@@ -64,11 +69,30 @@ void TypeManager::addType(const String &type, ConverterInterface *module)
     mTypes[type] = module;
 }
 
+void TypeManager::addType(PyTypeObject *obj, ConverterInterface *module)
+{
+    PyTypeModuleMap::iterator itr = mPyTypes.find(obj);
+    if (itr != mPyTypes.end())
+        PW_Warn("This PyTypeObject is already registered with TypeManager.", "TypeManager::addType");
+
+    Py_INCREF(obj);
+    mPyTypes[obj] = module;
+}
+
 ConverterInterface *TypeManager::findConverter(const String &type)
 {
     TypeModuleMap::iterator itr = mTypes.find(type);
     if (itr == mTypes.end())
         PW_Except(type + " converter not found.", "TypeManager::findConverter");
+
+    return itr->second;
+}
+
+ConverterInterface *TypeManager::findConverter(PyTypeObject *type)
+{
+    PyTypeModuleMap::iterator itr = mPyTypes.find(type);
+    if (itr == mPyTypes.end())
+        PW_Except("Could not find a converter for specified PyTypeObject.", "TypeManager::findConverter");
 
     return itr->second;
 }

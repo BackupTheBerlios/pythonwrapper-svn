@@ -22,12 +22,16 @@ namespace pw
 
         void addDelimitedType(const String &type, const String &delim, ConverterInterface *module);
         void addType(const String &type, ConverterInterface *module);
+        void addType(PyTypeObject *obj, ConverterInterface *module);
 
         ConverterInterface *findConverter(const String &type);
+        ConverterInterface *findConverter(PyTypeObject *type);
 
     private:
+        typedef std::map<PyTypeObject *, ConverterInterface *> PyTypeModuleMap;
         typedef std::map<String, ConverterInterface *> TypeModuleMap;
         TypeModuleMap mTypes;
+        PyTypeModuleMap mPyTypes;
     };
 }
 

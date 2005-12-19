@@ -24,6 +24,8 @@ namespace pw
         void loadSwigModule(const String &dllName);
         void unloadModule(const String &dllName);
 
+        void initializeModules();
+
         void unloadAll();
 
     private:

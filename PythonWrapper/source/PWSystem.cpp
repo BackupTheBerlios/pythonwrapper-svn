@@ -1,5 +1,6 @@
 #include "PWSystem.h"
 #include "PWInterpreter.h"
+#include "PWExceptions.h"
 using namespace pw;
 
 System *Singleton<System>::sInstance = 0;
@@ -40,19 +41,31 @@ System::~System()
 
 void System::loadModule(const String &dllName)
 {
-    ModuleManager::getSingletonPtr()->loadModule(dllName);
+    ModuleManager *mm = ModuleManager::getSingletonPtr();
+    if (! mm)
+        PW_Except("Cannot load a module if the ModuleManager does not exist.",
+                  "System::loadModule");
+    mm->loadModule(dllName);
 }
 
 
 void System::loadSwigModule(const String &dllName)
 {
-    ModuleManager::getSingletonPtr()->loadSwigModule(dllName);
+    ModuleManager *mm = ModuleManager::getSingletonPtr();
+    if (! mm)
+        PW_Except("Cannot load a module if the ModuleManager does not exist.",
+                  "System::loadSwigModule");
+    mm->loadSwigModule(dllName);
 }
 
 
 void System::initialize()
 {
     Interpreter::Initialize();
+    
+    ModuleManager *mm = ModuleManager::getSingletonPtr();
+    if (mm)
+        mm->initializeModules();
 }
 
 

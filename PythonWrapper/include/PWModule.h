@@ -22,6 +22,8 @@ namespace pw
 
         virtual const String &getName() const;
         virtual InitFunction getInit() const;
+
+        virtual void initialize();
     protected:
         PW_DLIB mDLib;
         String mName;
