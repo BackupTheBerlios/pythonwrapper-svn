@@ -2,6 +2,7 @@
 #define _PythonWrapper_h_
 
 #include "PWCommon.h"
+#include "PWString.h"
 
 #include "PWObject.h"
 #include "PWDict.h"
@@ -15,5 +16,8 @@
 #include "PWExtract.h"
 #include "PWBuild.h"
 #include "PWInterpreter.h"
+#include "PWModuleManager.h"
+#include "PWTypeManager.h"
+#include "PWSystem.h"
 
 #endif
