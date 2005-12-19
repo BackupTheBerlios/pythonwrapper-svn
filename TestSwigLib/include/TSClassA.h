@@ -11,7 +11,10 @@ namespace ts
         A();
         virtual ~A();
 
+        virtual void setValue(int v);
         virtual int getValue() const;
+
+        int val;
     };
 }
 

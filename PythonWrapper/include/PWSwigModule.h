@@ -3,17 +3,16 @@
 
 #include "PWCommon.h"
 #include "PWModule.h"
-#include "PWConverterInterface.h"
 #include "PWExceptions.h"
 
 namespace pw
 {
-    class SwigModule : public Module, public ConverterInterface
+    class SwigModule : public Module
     {
     public:
         typedef PyTypeObject *(*F_GetType)();
-        typedef void          (*F_RegisterConverters)(void*);
-        typedef PyObject *    (*F_ToPyObject)(void *, int);
+        typedef void          (*F_RegisterConverters)(const char *);
+        typedef PyObject *    (*F_ToPyObject)(void *, void *, int);
         typedef void *        (*F_ToPointer)(PyObject *, int);
 
     public:
@@ -26,25 +25,23 @@ namespace pw
         
         virtual void initialize();
 
-        template <class T>
-        T *convert(PyObject *obj, bool disown)
+        void *convert(PyObject *obj, bool disown)
         {
             if (! (mLoaded && mToPointer))
-                PW_Except("Module not loaded.", "SwigModule<" + typeid(T).name() + ">::convert");
+                PW_Except("Module not loaded.", "SwigModule::convert");
 
-            if (obj->ob_type != mSwigType)
-                PW_Except("This module did not create the given object.", "SwigModule<" + typeid(T).name() + ">::convert");
+            //if (obj->ob_type != mSwigType)
+            //    PW_Except("This module did not create the given object.", "SwigModule::convert");
 
-            return (T *)mToPointer(obj, disown ? 1 : 0);
+            return mToPointer(obj, disown ? 1 : 0);
         }
 
-        template <class T>
-        PyObject *convert(T *obj, bool disown)
+        PyObject *convert(void *obj, void *type, bool disown)
         {
             if (! (mLoaded && mToPyObject))
-                PW_Except("Module not loaded.", "SwigModule<" + typeid(T).name() + ">::convert");
+                PW_Except("Module not loaded.", "SwigModule::convert");
 
-            return mToPyObject((void *)obj, disown ? 1 : 0);
+            return mToPyObject(obj, type, disown ? 1 : 0);
         }
 
     protected:

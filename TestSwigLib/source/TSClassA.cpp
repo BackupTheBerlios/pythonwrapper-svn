@@ -2,11 +2,15 @@
 
 namespace ts
 {
-    A::A() {}
+    A::A() : val(7) {}
     A::~A() {}
 
+    void A::setValue(int v)
+    {
+        val = v;
+    }
     int A::getValue() const
     {
-        return 7;
+        return val;
     }
 }

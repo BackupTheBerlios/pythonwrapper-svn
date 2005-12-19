@@ -2,11 +2,6 @@
 
 namespace ts
 {
-    B::B() {}
+    B::B() { val=42; }
     B::~B() {}
-
-    int B::getValue() const
-    {
-        return 42;
-    }
 }

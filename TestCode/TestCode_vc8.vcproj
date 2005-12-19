@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\TestLib\include;include;..\dependencies\python\include;..\dependencies\cppunit\include;..\PythonWrapper\include"
+				AdditionalIncludeDirectories="..\TestSwigLib\include;..\TestLib\include;include;..\dependencies\python\include;..\dependencies\cppunit\include;..\PythonWrapper\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cppunitd.lib PythonWrapper_d.lib python24.lib TestLib.lib"
+				AdditionalDependencies="cppunitd.lib PythonWrapper_d.lib python24.lib TestLib.lib _TestSwig.lib"
 				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\TestSwigLib\bin\debug;&quot;..\TestLib\$(ConfigurationName)&quot;;..\PythonWrapper\bin\debug;..\dependencies\lib"
@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="include;..\dependencies\python\include;..\dependencies\cppunit\include;..\PythonWrapper\include"
+				AdditionalIncludeDirectories="..\TestSwigLib\include;..\TestLib\include;include;..\dependencies\python\include;..\dependencies\cppunit\include;..\PythonWrapper\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"

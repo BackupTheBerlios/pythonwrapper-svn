@@ -113,3 +113,13 @@ void ModuleManager::initializeModules()
     for (itr = mModules.begin(); itr != mModules.end(); ++itr)
         itr->second->initialize();
 }
+
+Module *ModuleManager::findModule(const String &name)
+{
+    ModuleMap::iterator itr;
+    itr = mModules.find(name);
+    if (itr == mModules.end())
+        PW_Except("Could not find module " + name + ".", "ModuleManager::findModule");
+
+    return itr->second;
+}

@@ -40,10 +40,14 @@ namespace pw
     { return Object(BorrowedReference(val ? Py_True : Py_False)); }
 
     template <class T>
-    inline Object build(T *val, bool disown)
+    inline Object build(T val, bool disown)
     {
-        ConverterInterface *converter = TypeManager::getSingleton().findConverter(typeid(T).name());
-        return NewReference(converter->convert<T>(val, disown));
+        String name = typeid(T).name();
+        if (name.find("class ") == 0)
+            name = name.substr(6);
+
+        TypeManager::TypeInfoPair tip = TypeManager::getSingleton().findConverter(name);
+        return NewReference(tip.first->convert((void *)val, tip.second, disown));
     }
 
 }

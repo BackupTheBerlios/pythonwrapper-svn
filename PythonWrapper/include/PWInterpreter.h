@@ -135,7 +135,7 @@ namespace pw
         /** Returns the namespace that this object uses.
          *  @returns the namespace (Dict) that this object uses
          */
-        virtual const Dict &getNamespace() const;
+        virtual Dict &getNamespace() const;
 
 
         // Static methods.

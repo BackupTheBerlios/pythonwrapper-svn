@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Python24.lib PythonWrapper_d.lib"
-				OutputFile="$(OutDir)\TestSwig.dll"
+				OutputFile="$(OutDir)\_TestSwig.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\PythonWrapper\bin\debug;..\dependencies\lib"
 				GenerateDebugInformation="true"
@@ -92,7 +92,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="cd bin\$(ConfigurationName)&#x0D;&#x0A;copy TestSwig.dll _TestSwig.pyd /Y&#x0D;&#x0A;copy TestSwig.py ..\..\..\TestCode\$(ConfigurationName) /Y&#x0D;&#x0A;copy TestSwig.dll ..\..\..\TestCode\$(ConfigurationName)\_TestSwig.dll /Y&#x0D;&#x0A;"
+				CommandLine="cd bin\$(ConfigurationName)&#x0D;&#x0A;copy _TestSwig.dll _TestSwig.pyd /Y&#x0D;&#x0A;copy TestSwig.py ..\..\..\TestCode\$(ConfigurationName)\ /Y&#x0D;&#x0A;copy _TestSwig.dll ..\..\..\TestCode\$(ConfigurationName)\ /Y&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

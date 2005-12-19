@@ -11,11 +11,8 @@ namespace pw
         inline ConverterInterface() {}
         virtual inline ~ConverterInterface() {}
 
-        template <class T>
-        T *convert(PyObject *obj, bool disown) = 0;
-
-        template <class T>
-        PyObject *convert(T *obj, bool disown) = 0;
+        virtual void *convert(PyObject *obj, bool disown) = 0;
+        virtual PyObject *convert(void *obj, void *typeInfo, bool disown) = 0;
     };
 }
 

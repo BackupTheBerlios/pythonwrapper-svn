@@ -3,7 +3,6 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include <iostream>
-#include "PWInterpreter.h"
 #include "PWSystem.h"
 
 int main(int argc, char* argv[])

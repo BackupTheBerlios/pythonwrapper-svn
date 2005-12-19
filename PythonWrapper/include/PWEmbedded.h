@@ -4,9 +4,9 @@
 #include "PWCommon.h"
 
 extern "C"
-PW_EXPORT void PW_addType(const char *str, void *module);
+PW_EXPORT void PW_addType(const char *type, const char *name, void *typeInfo);
 
 extern "C"
-PW_EXPORT void PW_addPyType(PyTypeObject *type, void *module);
+PW_EXPORT void PW_addPyType(PyTypeObject *type, const char *name);
 
 #endif

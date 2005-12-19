@@ -4,10 +4,11 @@
 #include "PWCommon.h"
 #include "PWString.h"
 #include "PWDLib.h"
+#include "PWConverterInterface.h"
 
 namespace pw
 {
-    class Module
+    class Module : public ConverterInterface
     {
     public:
         typedef void (*InitFunction)();
@@ -24,6 +25,9 @@ namespace pw
         virtual InitFunction getInit() const;
 
         virtual void initialize();
+
+        virtual void *convert(PyObject *obj, bool disown);
+        virtual PyObject *convert(void *obj, void *type, bool disown);
     protected:
         PW_DLIB mDLib;
         String mName;

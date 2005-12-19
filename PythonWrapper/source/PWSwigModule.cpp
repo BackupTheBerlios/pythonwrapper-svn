@@ -69,5 +69,5 @@ void SwigModule::initialize()
     assert(mRegister);
 
     mInit();
-    mRegister(this);
+    mRegister(mName.c_str());
 }

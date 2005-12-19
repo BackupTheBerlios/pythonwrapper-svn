@@ -11,8 +11,6 @@ namespace ts
     public:
         B();
         virtual ~B();
-
-        virtual int getValue() const;
     };
 }
 

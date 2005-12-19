@@ -149,7 +149,7 @@ Object Interpreter::getObject(const String &object)
     return mNamespace[object];
 } // getObject(const std::string &)
 
-const Dict &Interpreter::getNamespace() const
+Dict &Interpreter::getNamespace() const
 {
-    return mNamespace;
+    return (Dict &)mNamespace;
 }

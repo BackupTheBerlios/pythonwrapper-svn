@@ -65,3 +65,15 @@ void Module::initialize()
 {
     mInit();
 }
+
+void *Module::convert(PyObject *obj, bool disown)
+{
+    PW_Except("No converter available for basic Module.", "Module::convert");
+    return 0;
+}
+
+PyObject *Module::convert(void *obj, void *type, bool disown)
+{
+    PW_Except("No converter available for basic Module.", "Module::convert");
+    return 0;
+}

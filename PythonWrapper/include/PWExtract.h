@@ -35,10 +35,14 @@ namespace pw
     } // extract
 
     template <class T>
-    T *extract(const Object &object, bool disown)
+    T extract(const Object &object, bool disown)
     {
-        ConverterInterface *converter = TypeManager::getSingleton().findConverter(typeid(T).name());
-        return converter->convert<T>(object.borrowReference(), disown);
+        String name = typeid(T).name();
+        if (name.find("class ") == 0)
+            name = name.substr(6);
+
+        TypeManager::TypeInfoPair tip = TypeManager::getSingleton().findConverter(name);
+        return (T)tip.first->convert(object.borrowReference(), disown);
     }
 }
 

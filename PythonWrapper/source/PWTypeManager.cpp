@@ -33,7 +33,7 @@ TypeManager::~TypeManager()
 }
 
 
-void TypeManager::addDelimitedType(const String &type, const String &delim, ConverterInterface *module)
+void TypeManager::addDelimitedType(const String &type, const String &delim, ConverterInterface *module, void *typeInfo)
 {
     String tmp;                // temporary value to test for empty strings
     size_t offset = 0;         // the offset we are working at
@@ -47,7 +47,7 @@ void TypeManager::addDelimitedType(const String &type, const String &delim, Conv
 
         // if the substring is not empty, add the type
         if (tmp.length())
-            addType(tmp, module);
+            addType(tmp, module, typeInfo);
 
         // update the offset value, recalculate next index
         offset = index + delim.length();
@@ -57,16 +57,16 @@ void TypeManager::addDelimitedType(const String &type, const String &delim, Conv
     // calculate this one last time, since we have one left over
     tmp = type.substr(offset, index - offset);
     if (tmp.length())
-        addType(tmp, module);
+        addType(tmp, module, typeInfo);
 }
 
-void TypeManager::addType(const String &type, ConverterInterface *module)
+void TypeManager::addType(const String &type, ConverterInterface *module, void *typeInfo)
 {
     TypeModuleMap::iterator itr = mTypes.find(type);
     if (itr != mTypes.end())
         PW_Warn(type + " already added to TypeManager.", "TypeManager::addType");
 
-    mTypes[type] = module;
+    mTypes[type] = TypeInfoPair(module, typeInfo);
 }
 
 void TypeManager::addType(PyTypeObject *obj, ConverterInterface *module)
@@ -79,7 +79,7 @@ void TypeManager::addType(PyTypeObject *obj, ConverterInterface *module)
     mPyTypes[obj] = module;
 }
 
-ConverterInterface *TypeManager::findConverter(const String &type)
+const TypeManager::TypeInfoPair &TypeManager::findConverter(const String &type)
 {
     TypeModuleMap::iterator itr = mTypes.find(type);
     if (itr == mTypes.end())
