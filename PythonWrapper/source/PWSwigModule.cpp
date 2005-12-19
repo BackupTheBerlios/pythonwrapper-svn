@@ -33,8 +33,8 @@ void SwigModule::load()
         PW_Except("Could not obtain the PyTypeObject for the module.", "SwigModule::load");
 
     F_RegisterConverters registerConverters = (F_RegisterConverters)mDLib.getSymbol("PW_RegisterConverters");
-    F_ToPyObject mToPyObject = (F_ToPyObject)mDLib.getSymbol("PW_ToPyObject");
-    F_ToPointer mToPointer = (F_ToPointer)mDLib.getSymbol("PW_ToPointer");
+    mToPyObject = (F_ToPyObject)mDLib.getSymbol("PW_ToPyObject");
+    mToPointer = (F_ToPointer)mDLib.getSymbol("PW_ToPointer");
     
     if (!registerConverters)
         PW_Except("Module is missing symbol PW_RegisterConverters.", "SwigModule::load");
@@ -45,7 +45,8 @@ void SwigModule::load()
     if (!mToPointer)
         PW_Except("Module is missing symbol PW_ToPointer.", "SwigModule::load");
 
-    registerConverters(this);
+    // todo: this is broken
+    //registerConverters(this);
     mLoaded = true;
 }
 

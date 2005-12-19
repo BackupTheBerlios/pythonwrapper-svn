@@ -1,6 +1,7 @@
 #include "PWModuleManager.h"
 #include "PWDLib.h"
 #include "PWExceptions.h"
+#include "PWSwigModule.h"
 
 using namespace pw;
 
@@ -26,21 +27,32 @@ ModuleManager::~ModuleManager()
     unloadAll();
 }
 
-void ModuleManager::loadModule(const String &dllName)
-{
-    ModuleMap::iterator itr;
 
-    itr = mModules.find(dllName);
+void ModuleManager::addModule(Module *module)
+{
+    assert(module);
+
+    ModuleMap::iterator itr;
+    String name = module->getName();
+
+    itr = mModules.find(name);
     if (itr != mModules.end())
-        PW_Except("Already loaded module with name " + dllName + ".",
+        PW_Except("Already loaded module with name " + name + ".",
                   "ModuleManager::loadModule");
 
-    Module *module = 0;
+    mModules[name] = module;
+} // addModule(Module *)
+
+
+void ModuleManager::loadSwigModule(const String &dllName)
+{
+    SwigModule *module = 0;
 
     try
     {
-        module = new Module(dllName);
+        module = new SwigModule(dllName);
         module->load();
+        addModule(module);
     } // try
     catch (...)
     {
@@ -48,10 +60,27 @@ void ModuleManager::loadModule(const String &dllName)
             delete module;
 
         throw;
-    } // catch
-
-    mModules[dllName] = module;
+    } // catch   
 }
+
+void ModuleManager::loadModule(const String &dllName)
+{
+    Module *module = 0;
+
+    try
+    {
+        module = new Module(dllName);
+        module->load();
+        addModule(module);
+    } // try
+    catch (...)
+    {
+        if (module)
+            delete module;
+
+        throw;
+    } // catch   
+} // loadModule(const String &)
 
 
 void ModuleManager::unloadModule(const String &dllName)

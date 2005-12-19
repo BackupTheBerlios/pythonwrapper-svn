@@ -1,7 +1,6 @@
 #include "PWObject.h"
 #include "PWHandler.h"
 #include "PWExceptions.h"
-#include "PWTuple.h"
 #include "PWDict.h"
 
 using namespace pw;
@@ -105,13 +104,37 @@ Object Object::operator()()
 }
 
 
-Object Object::operator()(const Tuple &args)
+Object Object::operator()(const Object &args)
 {
-    return Object(NewReference(PyObject_CallObject(mPtr, args.borrowReference())));
+    PyObject *toReturn = 0;
+
+    if (PyTuple_Check(args.borrowReference()))
+        toReturn = PyObject_CallObject(mPtr, args.borrowReference());
+    else
+    {
+        PyObject *targs = PyTuple_New(1);
+        PyTuple_SET_ITEM(targs, 0, args.newReference());
+        toReturn = PyObject_CallObject(mPtr, targs);
+        Py_DECREF(targs);
+    }
+
+    return NewReference(toReturn);
 }
 
 
-Object Object::operator()(const Tuple &args, const Dict &namedArgs)
+Object Object::operator()(const Object &args, const Dict &namedArgs)
 {
-    return Object(NewReference(PyObject_Call(mPtr, args.borrowReference(), namedArgs.borrowReference())));
+    PyObject *toReturn = 0;
+
+    if (PyTuple_Check(args.borrowReference()))
+        toReturn = PyObject_Call(mPtr, args.borrowReference(), namedArgs.borrowReference());
+    else
+    {
+        PyObject *targs = PyTuple_New(1);
+        PyTuple_SET_ITEM(targs, 0, args.newReference());
+        toReturn = PyObject_Call(mPtr, targs, namedArgs.borrowReference());
+        Py_DECREF(targs);
+    }
+
+    return NewReference(toReturn);
 }

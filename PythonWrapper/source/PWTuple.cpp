@@ -66,3 +66,44 @@ bool Tuple::exact() const
 {
     return PyTuple_CheckExact(mPtr) ? true : false;
 }
+
+
+Tuple Tuple::build(const Object &obj0)
+{
+    PyObject *obj = PyTuple_New(1);
+    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+
+    return NewReference(obj);
+}
+
+
+Tuple Tuple::build(const Object &obj0, const Object &obj1)
+{
+    PyObject *obj = PyTuple_New(2);
+    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+    PyTuple_SET_ITEM(obj, 1, obj1.newReference());
+
+    return NewReference(obj);
+}
+
+Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2)
+{
+    PyObject *obj = PyTuple_New(1);
+    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+    PyTuple_SET_ITEM(obj, 1, obj1.newReference());
+    PyTuple_SET_ITEM(obj, 2, obj2.newReference());
+
+    return NewReference(obj);
+}
+
+
+Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2, const Object &obj3)
+{
+    PyObject *obj = PyTuple_New(1);
+    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+    PyTuple_SET_ITEM(obj, 1, obj1.newReference());
+    PyTuple_SET_ITEM(obj, 2, obj2.newReference());
+    PyTuple_SET_ITEM(obj, 3, obj3.newReference());
+
+    return NewReference(obj);
+}

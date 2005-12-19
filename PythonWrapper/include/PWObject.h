@@ -153,7 +153,7 @@ namespace pw
          * @returns the return value of the function call
          * @throws PythonException if an error occurred during the call
          */
-        virtual Object operator()(const Tuple &args);
+        virtual Object operator()(const Object &args);
 
         
         /**
@@ -163,7 +163,7 @@ namespace pw
          * @returns the return value of the function call
          * @throws PythonException if an error occurred during the call
          */
-        virtual Object operator()(const Tuple &args, const Dict &namedArgs);
+        virtual Object operator()(const Object &args, const Dict &namedArgs);
 
 
         /**
@@ -178,7 +178,7 @@ namespace pw
          * Calls the function specified with args.  Equivalent to:
          * object.function(*args)
          */
-        virtual inline Object call(const String &function, const Tuple &args)
+        virtual inline Object call(const String &function, const Object &args)
         { return getAttr(function)(args); }
 
         /**
@@ -186,10 +186,13 @@ namespace pw
          * Equivalent to:
          * object.function(*args, key1=value1, key2=value2, ...)
          */
-        virtual inline Object call(const String &function, const Tuple &args,
+        virtual inline Object call(const String &function, const Object &args,
                                    const Dict &namedArgs)
         { return getAttr(function)(args, namedArgs); }
 
+
+        virtual inline int getRefCount() const
+        { return mPtr->ob_refcnt; }
     protected:
         /**
          * Garunteed to be valid at all times.

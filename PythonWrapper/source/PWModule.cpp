@@ -1,5 +1,6 @@
 #include "PWModule.h"
 #include "PWExceptions.h"
+#include "PWInterpreter.h"
 
 using namespace pw;
 
@@ -9,7 +10,7 @@ Module::Module(const String &library)
     size_t pos = library.find(".");
 
     if (pos != std::string::npos)
-        mName = library.substr(0, library.size() - pos);
+        mName = library.substr(0, pos);
     else
         mName = library;
 }
@@ -37,6 +38,8 @@ void Module::load()
     
     if (!mInit)
         PW_Except(mDLib.getLibraryName() + " does not contain the function: init" + mName, "Module::load");
+
+    Interpreter::loadModule(mName, mInit);
 }
 
 

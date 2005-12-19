@@ -8,6 +8,12 @@ namespace pw
     class PW_EXPORT Tuple : public Object
     {
     public:
+        static Tuple build(const Object &obj0);
+        static Tuple build(const Object &obj0, const Object &obj1);
+        static Tuple build(const Object &obj0, const Object &obj1, const Object &obj2);
+        static Tuple build(const Object &obj0, const Object &obj1, const Object &obj2, const Object &obj3);
+
+    public:
         Tuple(int length);
         Tuple(ReferenceHandler &ref);
         Tuple(const Tuple &copy);

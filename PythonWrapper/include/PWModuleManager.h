@@ -10,7 +10,7 @@
 
 namespace pw
 {
-    class ModuleManager : public Singleton<ModuleManager>
+    class PW_EXPORT ModuleManager : public Singleton<ModuleManager>
     {
     public:
         static ModuleManager &getSingleton();
@@ -21,9 +21,13 @@ namespace pw
         ~ModuleManager();
 
         void loadModule(const String &dllName);
+        void loadSwigModule(const String &dllName);
         void unloadModule(const String &dllName);
 
         void unloadAll();
+
+    private:
+        void addModule(Module *module);
 
     private:
         typedef std::map<String, Module *> ModuleMap;

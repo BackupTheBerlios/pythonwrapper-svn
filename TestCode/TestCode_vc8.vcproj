@@ -64,7 +64,7 @@
 				AdditionalDependencies="cppunitd.lib PythonWrapper_d.lib python24.lib TestLib.lib"
 				OutputFile="$(OutDir)\TestCode.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\TestLib\$(ConfigurationName)&quot;;..\PythonWrapper\bin\debug;..\dependencies\lib"
+				AdditionalLibraryDirectories="..\TestSwigLib\bin\debug;&quot;..\TestLib\$(ConfigurationName)&quot;;..\PythonWrapper\bin\debug;..\dependencies\lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/TestCode.pdb"
 				SubSystem="1"
@@ -220,7 +220,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\TestSwigModule.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\TestTuple.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\TestTypeManager.cpp"
 				>
 			</File>
 		</Filter>
@@ -262,7 +270,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\TestSwigModule.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\TestTuple.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\TestTypeManager.h"
 				>
 			</File>
 		</Filter>

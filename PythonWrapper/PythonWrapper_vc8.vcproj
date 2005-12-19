@@ -220,6 +220,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\PWEmbedded.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\PWExceptions.cpp"
 				>
 			</File>
@@ -253,6 +257,10 @@
 			</File>
 			<File
 				RelativePath=".\source\PWSwigModule.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\source\PWSystem.cpp"
 				>
 			</File>
 			<File
@@ -314,6 +322,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWEmbedded.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWExceptions.h"
 				>
 			</File>
@@ -366,6 +378,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWSystem.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWTuple.h"
 				>
 			</File>
@@ -383,6 +399,15 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="Swig"
+			Filter="i"
+			>
+			<File
+				RelativePath=".\swig\PWEmbedded.i"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

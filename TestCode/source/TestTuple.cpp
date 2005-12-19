@@ -23,6 +23,10 @@ void TestTuple::testConstructor()
     CPPUNIT_ASSERT_EQUAL(2, py_o1->ob_refcnt);
     CPPUNIT_ASSERT_EQUAL(2, py_o2->ob_refcnt);
 
+    CPPUNIT_ASSERT_EQUAL(obj0->getRefCount(), py_o0->ob_refcnt);
+    CPPUNIT_ASSERT_EQUAL(obj1->getRefCount(), py_o1->ob_refcnt);
+    CPPUNIT_ASSERT_EQUAL(obj2->getRefCount(), py_o2->ob_refcnt);
+
     tuple = new Tuple(3);
     CPPUNIT_ASSERT(! PyErr_Occurred());
     tuple->setItem(0, *obj0);
@@ -38,11 +42,19 @@ void TestTuple::testConstructor()
     CPPUNIT_ASSERT_EQUAL(3, py_o1->ob_refcnt);
     CPPUNIT_ASSERT_EQUAL(3, py_o2->ob_refcnt);
 
+    CPPUNIT_ASSERT_EQUAL(obj0->getRefCount(), py_o0->ob_refcnt);
+    CPPUNIT_ASSERT_EQUAL(obj1->getRefCount(), py_o1->ob_refcnt);
+    CPPUNIT_ASSERT_EQUAL(obj2->getRefCount(), py_o2->ob_refcnt);
+
     delete tuple;
     
     CPPUNIT_ASSERT_EQUAL(2, py_o0->ob_refcnt);
     CPPUNIT_ASSERT_EQUAL(2, py_o1->ob_refcnt);
     CPPUNIT_ASSERT_EQUAL(2, py_o2->ob_refcnt);
+
+    CPPUNIT_ASSERT_EQUAL(obj0->getRefCount(), py_o0->ob_refcnt);
+    CPPUNIT_ASSERT_EQUAL(obj1->getRefCount(), py_o1->ob_refcnt);
+    CPPUNIT_ASSERT_EQUAL(obj2->getRefCount(), py_o2->ob_refcnt);
 
     delete obj0;
     delete obj1;
@@ -94,4 +106,9 @@ void TestTuple::testSize()
     
     Tuple tuple5(5);
     CPPUNIT_ASSERT_EQUAL(5, tuple5.length());
+}
+
+void TestTuple::testBuild()
+{
+    CPPUNIT_ASSERT(false);
 }
