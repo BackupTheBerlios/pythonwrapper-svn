@@ -1,6 +1,7 @@
 #include "TestTuple.h"
 #include "PWTuple.h"
 #include "PWHandler.h"
+#include "PWBuild.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestTuple);
 
@@ -110,5 +111,35 @@ void TestTuple::testSize()
 
 void TestTuple::testBuild()
 {
-    CPPUNIT_ASSERT(false);
+    Object o1 = build("one");
+    Object o2 = build("two");
+    Object o3 = build("three");
+    Object o4 = build("four");
+
+    CPPUNIT_ASSERT_EQUAL(1, o1.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(1, o2.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(1, o3.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(1, o4.getRefCount());
+    
+    {
+        Tuple t1 = Tuple::build(o1);
+        Tuple t2 = Tuple::build(o1, o2);
+        Tuple t3 = Tuple::build(o1, o2, o3);
+        Tuple t4 = Tuple::build(o1, o2, o3, o4);
+
+        CPPUNIT_ASSERT_EQUAL(1, t1.getRefCount());
+        CPPUNIT_ASSERT_EQUAL(1, t2.getRefCount());
+        CPPUNIT_ASSERT_EQUAL(1, t3.getRefCount());
+        CPPUNIT_ASSERT_EQUAL(1, t4.getRefCount());
+
+        CPPUNIT_ASSERT_EQUAL(2, o4.getRefCount());
+        CPPUNIT_ASSERT_EQUAL(3, o3.getRefCount());
+        CPPUNIT_ASSERT_EQUAL(4, o2.getRefCount());
+        CPPUNIT_ASSERT_EQUAL(5, o1.getRefCount());
+    }
+
+    CPPUNIT_ASSERT_EQUAL(1, o1.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(1, o2.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(1, o3.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(1, o4.getRefCount());
 }

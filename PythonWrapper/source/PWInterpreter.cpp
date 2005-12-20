@@ -120,14 +120,24 @@ Object Interpreter::runFile(const String &fileName)
     buffer[length-1] = 0;
 
     fclose(fp);
+
+    Object toReturn;
     
     // run the string
-    Object obj = runString(buffer);
+    try
+    {
+        toReturn = runString(buffer);
+    } // try
+    catch (...)
+    {
+        delete [] buffer;
+        throw;
+    } // catch
 
     // clean up
     delete [] buffer;
     
-    return obj;
+    return toReturn;
 } // runFile(const std::string &)
 
 

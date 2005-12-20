@@ -19,7 +19,7 @@
 
 #include <Python.h>
 
-// Forward definitions
+// Forward declarations
 namespace pw
 {
     class Object;

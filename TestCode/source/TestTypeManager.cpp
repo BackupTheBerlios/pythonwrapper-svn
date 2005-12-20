@@ -4,5 +4,15 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestTypeManager);
 
 void TestTypeManager::testFindConverter()
 {
-    CPPUNIT_ASSERT(false);
+    TypeManager &tm = TypeManager::getSingleton();
+    tm.findConverter("char *");
+    tm.findConverter("ts::A *");
+    tm.findConverter("ts::B *");
+    tm.findConverter("ts::Inner *");
+}
+
+void TestTypeManager::testFindThrow()
+{
+    TypeManager &tm = TypeManager::getSingleton();
+    tm.findConverter("Not a Type.");
 }

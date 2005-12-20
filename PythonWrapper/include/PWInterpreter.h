@@ -7,7 +7,7 @@
 
 namespace pw
 {
-    /** The wrapper for the basic Python/C functions.
+    /** The wrapper for the interpreter related functions.
      *  @remarks
      *      The Interpreter class hides most of the Python/C API from you to
      *      abstract away most of the gritty details of embedding Python.
@@ -16,7 +16,7 @@ namespace pw
      *      Interpreter class in one instance will not affect any other instance.
      *      If you wish to have a shared interpreter state between multiple
      *      instances, use pointers and references, or use the copy
-     *      constructor or the = operator.
+     *      constructor/operator=.
      */
     class PW_EXPORT Interpreter
     {

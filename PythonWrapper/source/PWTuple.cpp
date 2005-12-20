@@ -88,7 +88,7 @@ Tuple Tuple::build(const Object &obj0, const Object &obj1)
 
 Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2)
 {
-    PyObject *obj = PyTuple_New(1);
+    PyObject *obj = PyTuple_New(3);
     PyTuple_SET_ITEM(obj, 0, obj0.newReference());
     PyTuple_SET_ITEM(obj, 1, obj1.newReference());
     PyTuple_SET_ITEM(obj, 2, obj2.newReference());
@@ -99,7 +99,7 @@ Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2)
 
 Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2, const Object &obj3)
 {
-    PyObject *obj = PyTuple_New(1);
+    PyObject *obj = PyTuple_New(4);
     PyTuple_SET_ITEM(obj, 0, obj0.newReference());
     PyTuple_SET_ITEM(obj, 1, obj1.newReference());
     PyTuple_SET_ITEM(obj, 2, obj2.newReference());
