@@ -66,7 +66,7 @@ namespace pw
             name = name.substr(6);
 
         TypeManager::TypeInfoPair tip = TypeManager::getSingleton().findConverter(name);
-        return (T)tip.first->convert(object.borrowReference(), disown);
+        return (T)tip.first->convert(object.borrowReference(), 0, disown);
     } // extract
 } // namespace pw
 

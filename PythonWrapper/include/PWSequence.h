@@ -1,13 +1,14 @@
 #ifndef _PWSequence_h_
 #define _PWSequence_h_
 
+#include "PWCommon.h"
 #include "PWObject.h"
 
 namespace pw
 {
-    class Tuple;
-    class List;
-
+    /**
+     * Wrapper for any python sequence object.
+     */
     class PW_EXPORT Sequence : public Object
     {
     public:

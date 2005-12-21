@@ -24,10 +24,11 @@ namespace pw
          * the returned C++ object, though doing so while valid python objects
          * are pointing at it may result in a crash.
          * @param obj the Python object that contains the object
+         * @param typeInfo the type info to use to convert the object
          * @param disown whether the python object should disown the object it
          *        contains
          */
-        virtual void *convert(PyObject *obj, bool disown) = 0;
+        virtual void *convert(PyObject *obj, void *typeInfo, bool disown) = 0;
 
         /**
          * Converts from a C++ object to a Python object.  The disown

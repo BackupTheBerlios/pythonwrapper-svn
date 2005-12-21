@@ -7,6 +7,7 @@
 
 int main(int argc, char* argv[])
 {
+    // Setup the PythonWrapper
     pw::System sys;
     sys.loadSwigModule("_TestSwig.dll");
     sys.initialize();

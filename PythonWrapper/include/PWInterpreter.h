@@ -163,15 +163,29 @@ namespace pw
           */
         static void loadModule(const String &moduleName, Module::InitFunction f);
 
+
+        /**
+         * Initializes the Python interpeter for execution.
+         * @remarks
+         *      This calls the Python/C function Py_Initialize.
+         */
         static void Initialize();
+        
+
+        /**
+         * Finalizes the Python interpreter, freeing up any outstanding Python
+         * objects.
+         * @remarks
+         *      This calls the Python/C function Py_Finalize.
+         */
         static void Finalize();
     protected:
         /** The python namespace (ie the instance) of the object.
-            @remarks
-                This object IS the interpreter's variable set.  Since each
-                Interpreter has their own dictionary, every Interpreter
-                is like its own self contained interpreter.
-        */
+          * @remarks
+          *     This object IS the interpreter's variable set.  Since each
+          *     Interpreter has their own dictionary, every instance is self
+          *     contained.
+          */
         Dict mNamespace;
 
 

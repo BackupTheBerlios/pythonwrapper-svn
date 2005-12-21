@@ -19,7 +19,7 @@ SWIGEXPORT PyObject *PW_ToPyObject(void *obj, void *typeInfo, int disown)
 }
 
 
-SWIGEXPORT void *PW_ToPointer(PyObject *obj, int disown)
+SWIGEXPORT void *PW_ToPointer(PyObject *obj, void *, int disown)
 {
 	PySwigObject *sobj = (PySwigObject *)obj;
 	void *toReturn = 0;

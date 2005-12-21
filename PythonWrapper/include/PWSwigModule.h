@@ -16,7 +16,7 @@ namespace pw
         typedef PyTypeObject *(*F_GetType)();
         typedef void          (*F_RegisterConverters)(const char *, F_addType, F_addPyType);
         typedef PyObject *    (*F_ToPyObject)(void *, void *, int);
-        typedef void *        (*F_ToPointer)(PyObject *, int);
+        typedef void *        (*F_ToPointer)(PyObject *, void *, int);
 
     public:
         SwigModule(const String &library);
@@ -28,7 +28,7 @@ namespace pw
         
         virtual void initialize();
 
-        void *convert(PyObject *obj, bool disown)
+        void *convert(PyObject *obj, void *typeInfo, bool disown)
         {
             if (! (mLoaded && mToPointer))
                 PW_Except("Module not loaded.", "SwigModule::convert");
@@ -36,7 +36,7 @@ namespace pw
             //if (obj->ob_type != mSwigType)
             //    PW_Except("This module did not create the given object.", "SwigModule::convert");
 
-            return mToPointer(obj, disown ? 1 : 0);
+            return mToPointer(obj, typeInfo, disown ? 1 : 0);
         }
 
         PyObject *convert(void *obj, void *type, bool disown)
