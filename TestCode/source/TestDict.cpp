@@ -191,6 +191,7 @@ void TestDict::setUp()
 void TestDict::tearDown()
 {
     delete mDict;
+    CPPUNIT_ASSERT(! PyErr_Occurred());
 }
 
 

@@ -84,4 +84,5 @@ void TestSwigModule::setUp()
 void TestSwigModule::tearDown()
 {
     delete i;
+    CPPUNIT_ASSERT(!PyErr_Occurred());
 }

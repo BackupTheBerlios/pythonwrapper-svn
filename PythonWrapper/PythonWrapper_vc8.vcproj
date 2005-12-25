@@ -236,6 +236,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\PWLogManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\PWModule.cpp"
 				>
 			</File>
@@ -338,6 +342,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\PWLogManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\PWModule.h"
 				>
 			</File>
@@ -398,6 +406,16 @@
 			>
 			<File
 				RelativePath=".\swig\PWEmbedded.i"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Docs"
+			Filter="txt"
+			ParseFiles="false"
+			>
+			<File
+				RelativePath=".\docs\todo.txt"
 				>
 			</File>
 		</Filter>

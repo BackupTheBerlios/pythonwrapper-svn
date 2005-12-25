@@ -124,7 +124,7 @@ void TestHandler::testBorrrowedReferencePython()
 
 void TestHandler::tearDown()
 {
-    PyErr_Clear();
+    CPPUNIT_ASSERT(!PyErr_Occurred());
 }
 
 void TestHandler::testReferenceNew()

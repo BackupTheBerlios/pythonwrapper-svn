@@ -17,6 +17,7 @@ public:
     void testLoad();
     void testBaseLoad();
 
+    void tearDown() {CPPUNIT_ASSERT(!PyErr_Occurred());}
 protected:
 };
 

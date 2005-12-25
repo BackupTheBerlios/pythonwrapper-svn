@@ -71,6 +71,29 @@ void TestTuple::testConstructor()
 }
 
 
+void TestTuple::testConstructorCleanup()
+{
+    PyObject *list = PyList_New(0);
+    CPPUNIT_ASSERT_EQUAL(1, list->ob_refcnt);
+    
+    BorrowedReference n(list);
+    CPPUNIT_ASSERT_EQUAL(2, list->ob_refcnt);
+
+    try
+    {
+        Tuple t(n);
+        CPPUNIT_ASSERT_MESSAGE("Tuple constructor should have failed with list parameter", false);
+    }
+    catch (Exception &)
+    {
+        CPPUNIT_ASSERT_EQUAL(1, list->ob_refcnt);
+    }
+
+    CPPUNIT_ASSERT_EQUAL(1, list->ob_refcnt);
+    Py_DECREF(list);
+}
+
+
 
 void TestTuple::testNonTupleConstructor()
 {

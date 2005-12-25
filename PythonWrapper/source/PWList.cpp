@@ -8,14 +8,15 @@ namespace pw
     List::List()
     : Object(NewReference(PyList_New(0)))
     {
-        if (! PyList_Check(mPtr))
-            PW_PyExcept("List::List()");
     }
 
 
     List::List(ReferenceHandler &ref)
     : Object(ref)
     {
+        if (! PyList_Check(mPtr))
+            PW_Except("The List object may only be constructed with a Python list.",
+                      "List::List()");
     }
 
 
@@ -23,6 +24,43 @@ namespace pw
     {
     }
 
+
+    List &List::operator=(const Object &rhs)
+    {
+        assert(rhs.borrowReference());
+
+        if (! PyList_Check(rhs.borrowReference()))
+            PW_Except("The List object may only be assigned a Python list.",
+                      "List::operator=");
+
+        // this if takes care of the case when the pointer is the same; if we
+        // did not do this check the following code below would bomb if
+        // mPtr == rhs.mPtr and the refcount was at 1
+        if (mPtr != rhs.borrowReference())
+        {
+            Py_DECREF(mPtr);
+            mPtr = rhs.borrowReference();
+            Py_INCREF(mPtr);
+        } // if
+
+        return *this;
+    } // operator=
+
+
+    List List::operator*(int count) const
+    {
+        return NewReference(PySequence_Repeat(mPtr, count));
+    }
+
+    int List::count(const Object &obj) const
+    {
+        return PySequence_Count(mPtr, obj.borrowReference());
+    }
+
+    int List::index(const Object &obj) const
+    {
+        return PySequence_Index(mPtr, obj.borrowReference());
+    }
 
     Object List::getItem(int index) const
     {

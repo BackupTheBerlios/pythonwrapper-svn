@@ -6,6 +6,9 @@
 
 namespace pw
 {
+    /**
+     * Singleton base class.
+     */
     template <class T>
     class Singleton
     {
@@ -20,9 +23,11 @@ namespace pw
 		{
             return sInstance;
         }
+
     public:
         Singleton();
         virtual ~Singleton();
+
     protected:
         static T *sInstance;
     };

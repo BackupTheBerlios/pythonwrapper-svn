@@ -15,6 +15,8 @@ class TestTypeManager : public CPPUNIT_NS::TestFixture
 public:
     void testFindConverter();
     void testFindThrow();
+
+    void tearDown() {CPPUNIT_ASSERT(!PyErr_Occurred());}
 };
 
 #endif

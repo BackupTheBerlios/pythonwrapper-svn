@@ -3,6 +3,19 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestList);
 
+void TestList::testCopyConstructor()
+{
+    List l;
+    int count = l.getRefCount();
+    int noneCount = Py_None->ob_refcnt;
+
+    List l1(l);
+    CPPUNIT_ASSERT_EQUAL(count+1, l.getRefCount());
+    CPPUNIT_ASSERT_EQUAL(count+1, l1.getRefCount());
+
+    CPPUNIT_ASSERT_EQUAL(noneCount, Py_None->ob_refcnt);
+}
+
 void TestList::setUp()
 {
     mObjList = new PyObject *[8];
@@ -32,6 +45,19 @@ void TestList::tearDown()
 {
     delete [] mObjList;
     delete mList;
+
+    CPPUNIT_ASSERT(! PyErr_Occurred());
+}
+
+void TestList::testConstructorThrow()
+{
+    BorrowedReference br(Py_None);
+    List l(br);
+}
+
+void TestList::testAssignThrow()
+{
+    *mList = Object();
 }
 
 void TestList::testLength()
@@ -42,6 +68,28 @@ void TestList::testLength()
     CPPUNIT_ASSERT_EQUAL(7, mList->length());
 }
 
+
+void TestList::testConstructorCleanup()
+{
+    PyObject *str = PyString_FromString("test");
+    CPPUNIT_ASSERT_EQUAL(1, str->ob_refcnt);
+    
+    BorrowedReference n(str);
+    CPPUNIT_ASSERT_EQUAL(2, str->ob_refcnt);
+
+    try
+    {
+        List l(n);
+        CPPUNIT_ASSERT_MESSAGE("Tuple constructor should have failed with str parameter", false);
+    }
+    catch (Exception &)
+    {
+        CPPUNIT_ASSERT_EQUAL(1, str->ob_refcnt);
+    }
+
+    CPPUNIT_ASSERT_EQUAL(1, str->ob_refcnt);
+    Py_DECREF(str);
+}
 
 
 void TestList::testGetItem()

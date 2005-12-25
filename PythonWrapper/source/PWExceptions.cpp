@@ -1,5 +1,8 @@
 #include "PWExceptions.h"
 #include "PWHandler.h"
+#include "PWLogManager.h"
+#include "PWString.h"
+#include "PWExtract.h"
 
 namespace pw
 {
@@ -7,7 +10,16 @@ namespace pw
                          const String &file, unsigned int line)
     : mMsg(msg), mFunct(funct), mFile(file), mLine(line)
     {
+        LogManager::log(mMsg, mFunct, mFile, mLine, LogManager::Low);
     } // Exception
+
+
+    
+    Exception::Exception(const String &funct, const String &file,
+                         unsigned int line)
+    : mFunct(funct), mFile(file), mLine(line)
+    {
+    }
 
 
     const String &Exception::getMessage() const
@@ -36,7 +48,7 @@ namespace pw
 
     PythonException::PythonException(const String &funct, const String &file,
                                      unsigned int line)
-    : Exception("", funct, file, line)
+    : Exception(funct, file, line)
     {
         PyObject *type = 0,
                  *value = 0,
@@ -52,6 +64,8 @@ namespace pw
 
         if (stackTrace)
             mStackTrace = NewReference(stackTrace);
+
+        LogManager::log("Python Exception", mFunct, mFile, mLine, LogManager::Medium);
     }
 
 
@@ -71,7 +85,6 @@ namespace pw
     {
         return mValue;
     }
-
 
     NullObjectException::NullObjectException(const String &msg,
                   const String &funct, const String &file, unsigned int line)

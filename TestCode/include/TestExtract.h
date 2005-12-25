@@ -62,6 +62,8 @@ public:
         BorrowedReference obj(Py_None);
         extract<T>(obj);
     }
+
+    void tearDown() {CPPUNIT_ASSERT(!PyErr_Occurred());}
 };
 
 #endif

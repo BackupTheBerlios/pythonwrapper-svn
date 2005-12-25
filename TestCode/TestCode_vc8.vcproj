@@ -266,7 +266,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\TestNumber.h"
+				RelativePath=".\include\TestObject.h"
 				>
 			</File>
 			<File

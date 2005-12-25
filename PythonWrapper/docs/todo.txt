@@ -1,0 +1,4 @@
+Todo list:
+- Wrap stack trace objects since they are such a pain to deal with.
+- Update PythonException class to log a nice python stack trace.
+- Possibly wrap Type objects.

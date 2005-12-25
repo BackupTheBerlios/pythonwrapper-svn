@@ -54,6 +54,8 @@ public:
 
     void testBool();
     void testString();
+
+    void tearDown() {CPPUNIT_ASSERT(!PyErr_Occurred());}
 protected:
 };
 

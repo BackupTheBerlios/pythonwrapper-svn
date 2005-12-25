@@ -83,6 +83,8 @@ namespace pw
         virtual unsigned int getLine() const;
 
     protected:
+        Exception(const String &funct, const String &file, unsigned int line);
+
         String mMsg;
         String mFunct;
         String mFile;

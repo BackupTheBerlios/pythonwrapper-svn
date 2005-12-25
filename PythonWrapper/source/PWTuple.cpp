@@ -3,107 +3,131 @@
 #include "PWHandler.h"
 #include "PWSequence.h"
 #include "PWExceptions.h"
-using namespace pw;
 
-Tuple::Tuple(int length)
-: Object(NewReference(PyTuple_New(length)))
+namespace pw
 {
-} // Tuple(int)
+    Tuple::Tuple(int length)
+    : Object(NewReference(PyTuple_New(length)))
+    {
+    } // Tuple(int)
 
 
-Tuple::Tuple(ReferenceHandler &ref)
-: Object(ref)
-{
-    if (! PyTuple_Check(mPtr))
-        PW_Except("Non-tuple object passed into Tuple.",
-                  "Tuple::Tuple(ReferenceHandler &)");
-}
+    Tuple::Tuple(ReferenceHandler &ref)
+    : Object(ref)
+    {
+        if (! PyTuple_Check(mPtr))
+            PW_Except("Non-tuple object passed into Tuple.",
+                      "Tuple::Tuple(ReferenceHandler &)");
+    }
 
 
-Tuple::Tuple(const Tuple &copy)
-: Object(NewReference(PySequence_Tuple(copy.newReference())))
-{
-}
+    Tuple::Tuple(const Tuple &copy)
+    : Object(NewReference(PySequence_Tuple(copy.newReference())))
+    {
+    }
 
 
-Tuple::~Tuple()
-{
-}
+    Tuple::~Tuple()
+    {
+    }
 
 
-void Tuple::setItem(int index, const Object &obj)
-{
-    PyTuple_SetItem(mPtr, index, obj.newReference());
-    PW_PyExcept_Check("Tuple::setItem");
-}
+    Tuple Tuple::operator*(int count) const
+    {
+        return NewReference(PySequence_Repeat(mPtr, count));
+    }
 
 
-Object Tuple::getItem(int index) const
-{
-    return Object(BorrowedReference(PyTuple_GetItem(mPtr, index)));
-}
+    int Tuple::count(const Object &obj) const
+    {
+        return PySequence_Count(mPtr, obj.borrowReference());
+    }
+
+    int Tuple::index(const Object &obj) const
+    {
+        return PySequence_Index(mPtr, obj.borrowReference());
+    }
+
+    bool Tuple::contains(const Object &obj) const
+    {
+        return PySequence_Contains(mPtr, obj.borrowReference()) ? true : false;
+    }
 
 
-Tuple Tuple::getSlice(int start, int stop) const
-{
-    return Tuple(NewReference(PyTuple_GetSlice(mPtr, start, stop)));
-}
+    void Tuple::setItem(int index, const Object &obj)
+    {
+        PyTuple_SetItem(mPtr, index, obj.newReference());
+        PW_PyExcept_Check("Tuple::setItem");
+    }
 
 
-int Tuple::length() const
-{
-    return PyTuple_Size(mPtr);
-}
+    Object Tuple::getItem(int index) const
+    {
+        return Object(BorrowedReference(PyTuple_GetItem(mPtr, index)));
+    }
 
 
-List Tuple::asList() const
-{
-    return List(NewReference(PySequence_List(newReference())));
-}
+    Tuple Tuple::getSlice(int start, int stop) const
+    {
+        return Tuple(NewReference(PyTuple_GetSlice(mPtr, start, stop)));
+    }
 
 
-bool Tuple::exact() const
-{
-    return PyTuple_CheckExact(mPtr) ? true : false;
-}
+    int Tuple::length() const
+    {
+        return PyTuple_Size(mPtr);
+    }
 
 
-Tuple Tuple::build(const Object &obj0)
-{
-    PyObject *obj = PyTuple_New(1);
-    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
-
-    return NewReference(obj);
-}
+    List Tuple::asList() const
+    {
+        return List(NewReference(PySequence_List(newReference())));
+    }
 
 
-Tuple Tuple::build(const Object &obj0, const Object &obj1)
-{
-    PyObject *obj = PyTuple_New(2);
-    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
-    PyTuple_SET_ITEM(obj, 1, obj1.newReference());
-
-    return NewReference(obj);
-}
-
-Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2)
-{
-    PyObject *obj = PyTuple_New(3);
-    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
-    PyTuple_SET_ITEM(obj, 1, obj1.newReference());
-    PyTuple_SET_ITEM(obj, 2, obj2.newReference());
-
-    return NewReference(obj);
-}
+    bool Tuple::exact() const
+    {
+        return PyTuple_CheckExact(mPtr) ? true : false;
+    }
 
 
-Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2, const Object &obj3)
-{
-    PyObject *obj = PyTuple_New(4);
-    PyTuple_SET_ITEM(obj, 0, obj0.newReference());
-    PyTuple_SET_ITEM(obj, 1, obj1.newReference());
-    PyTuple_SET_ITEM(obj, 2, obj2.newReference());
-    PyTuple_SET_ITEM(obj, 3, obj3.newReference());
+    Tuple Tuple::build(const Object &obj0)
+    {
+        PyObject *obj = PyTuple_New(1);
+        PyTuple_SET_ITEM(obj, 0, obj0.newReference());
 
-    return NewReference(obj);
-}
+        return NewReference(obj);
+    }
+
+
+    Tuple Tuple::build(const Object &obj0, const Object &obj1)
+    {
+        PyObject *obj = PyTuple_New(2);
+        PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+        PyTuple_SET_ITEM(obj, 1, obj1.newReference());
+
+        return NewReference(obj);
+    }
+
+    Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2)
+    {
+        PyObject *obj = PyTuple_New(3);
+        PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+        PyTuple_SET_ITEM(obj, 1, obj1.newReference());
+        PyTuple_SET_ITEM(obj, 2, obj2.newReference());
+
+        return NewReference(obj);
+    }
+
+
+    Tuple Tuple::build(const Object &obj0, const Object &obj1, const Object &obj2, const Object &obj3)
+    {
+        PyObject *obj = PyTuple_New(4);
+        PyTuple_SET_ITEM(obj, 0, obj0.newReference());
+        PyTuple_SET_ITEM(obj, 1, obj1.newReference());
+        PyTuple_SET_ITEM(obj, 2, obj2.newReference());
+        PyTuple_SET_ITEM(obj, 3, obj3.newReference());
+
+        return NewReference(obj);
+    }
+} // namespace pw

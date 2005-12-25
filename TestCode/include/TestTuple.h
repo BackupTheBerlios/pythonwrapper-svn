@@ -14,6 +14,7 @@ class TestTuple : public CPPUNIT_NS::TestFixture
         CPPUNIT_TEST(testGetSet);
         CPPUNIT_TEST(testSize);
         CPPUNIT_TEST(testBuild);
+        CPPUNIT_TEST(testConstructorCleanup);
         CPPUNIT_TEST_EXCEPTION(testNonTupleConstructor, Exception);
     CPPUNIT_TEST_SUITE_END();
 public:
@@ -22,6 +23,9 @@ public:
     void testGetSet();
     void testSize();
     void testBuild();
+    void testConstructorCleanup();
+
+    void tearDown() {CPPUNIT_ASSERT(!PyErr_Occurred());}
 };
 
 #endif

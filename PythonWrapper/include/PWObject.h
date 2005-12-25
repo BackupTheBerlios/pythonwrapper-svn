@@ -65,6 +65,28 @@ namespace pw
 
 
         /**
+         * Truth operator.  Used as:
+         *  if (obj) ...
+         * @remarks
+         *      This should be equivalent to the python truth conditional.  IE
+         *      this function returns "not not obj".
+         * @returns
+         *      True if the python object evaluates to true, false otherwise.
+         */
+        virtual operator void *() const;
+
+
+        /**
+         * Logical not operator.
+         * @remarks
+         *      This should be equivalent to the python code "not obj".
+         * @returns
+         *      False if the python object evaluates to true, true otherwise.
+         */
+        virtual bool operator!() const;
+
+
+        /**
          * Returns a borrowed reference to the object that this contains.
          * @remarks
          *      You must NOT call Py_DECREF on the return value of this
@@ -119,6 +141,17 @@ namespace pw
         virtual inline bool hasAttr(const Object &attr)
         { return PyObject_HasAttr(mPtr, attr.borrowReference()) != 0; }
 
+
+        /**
+         * Returns true if this object has the attribute "attr", false otherwise.
+         * Does not throw an exception.
+         * @param attr
+         *      The attribute to check for.
+         * @returns
+         *      True if the object has attr, false otherwise.
+         */
+        virtual inline bool hasAttr(const String &attr)
+        { return PyObject_HasAttrString(mPtr, (char*)attr.c_str()) != 0; }
 
         /**
          * Obtains the attribute from this Object and returns it, same as

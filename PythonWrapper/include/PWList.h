@@ -50,6 +50,18 @@ namespace pw
          */
         virtual ~List();
 
+
+        /**
+         * Assignment operator.
+         * @remarks
+         *      The Object parameter must be a Python list.
+         * @param rhs
+         *      A python List object.
+         * @throws Exception
+         *      If rhs is not a list.
+         */
+        virtual List &operator=(const Object &rhs);
+
         /**
          * Performs an in place concatenation.
          * @remarks
@@ -76,6 +88,19 @@ namespace pw
          *      If a python exception occured while performing the operation.
          */
         virtual List operator+(const List &rhs);
+
+        /**
+         * Repeats the list count times.  This is equivalent to the python
+         * code:
+         *  l * count
+         * @param count
+         *      The number of times to repeat this object.
+         * @returns
+         *      This list object repeated count times.
+         * @throws PythonException
+         *      If this object 
+         */
+        virtual List operator*(int count) const;
 
 
         /**
@@ -231,6 +256,26 @@ namespace pw
          *      If an error occurred.
          */
         virtual bool contains(const Object &obj);
+
+
+        /**
+         * Returns the index of obj, or -1 if it is not found.
+         * @param obj
+         *      The object to find in the list.
+         * @returns
+         *      The index of obj or -1 if it is not found.
+         */
+        virtual int index(const Object &obj) const;
+
+
+        /**
+         * Counts the number of times obj appears in the list.
+         * @param obj
+         *      The object to search for.
+         * @returns
+         *      The number of times obj appears in the list.
+         */
+        virtual int count(const Object &obj) const;
 
 
         /**

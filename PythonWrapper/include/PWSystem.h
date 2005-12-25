@@ -4,6 +4,7 @@
 #include "PWCommon.h"
 #include "PWTypeManager.h"
 #include "PWModuleManager.h"
+#include "PWLogManager.h"
 
 namespace pw
 {
@@ -14,7 +15,8 @@ namespace pw
         static System *getSingletonPtr();
 
     public:
-        System();
+        System(bool log = true, const String &logFile="PythonWrapper.txt",
+               LogManager::LogLevel level = LogManager::Medium);
         ~System();
 
         void loadModule(const String &dllName);
@@ -26,6 +28,7 @@ namespace pw
     private:
         TypeManager *mTM;
         ModuleManager *mMM;
+        LogManager *mLM;
     };
 }
 

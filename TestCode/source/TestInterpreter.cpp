@@ -12,6 +12,7 @@ void TestInterpreter::setUp()
 void TestInterpreter::tearDown()
 {
     delete sys;
+    CPPUNIT_ASSERT(!PyErr_Occurred());
 }
 
 

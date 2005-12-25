@@ -20,8 +20,15 @@ class TestList : public CPPUNIT_NS::TestFixture
         CPPUNIT_TEST(testAppend);
         CPPUNIT_TEST(testOperatorGet);
         CPPUNIT_TEST(testOperatorSet);
+        CPPUNIT_TEST(testCopyConstructor);
+        CPPUNIT_TEST(testConstructorCleanup);
+        CPPUNIT_TEST_EXCEPTION(testConstructorThrow, Exception);
+        CPPUNIT_TEST_EXCEPTION(testAssignThrow, Exception);
     CPPUNIT_TEST_SUITE_END();
 public:
+    void testConstructorCleanup();
+    void testCopyConstructor();
+
     void testLength();
 
     void testGetItem();
@@ -38,6 +45,9 @@ public:
     
     void testReverse();
     void testSort();
+
+    void testConstructorThrow();
+    void testAssignThrow();
 
     void setUp();
     void tearDown();

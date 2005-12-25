@@ -2,6 +2,7 @@
 #include "PWDLib.h"
 #include "PWExceptions.h"
 #include "PWSwigModule.h"
+#include "PWLogManager.h"
 
 namespace pw
 {
@@ -22,12 +23,14 @@ namespace pw
 
     ModuleManager::ModuleManager()
     {
+        PW_LOG("ModuleManager created.", "ModuleManager::ModuleManager", LogManager::High);
     } // ModuleManager()
 
 
     ModuleManager::~ModuleManager()
     {
         unloadAll();
+        PW_LOG("ModuleManager destroyed.", "ModuleManager::~ModuleManager", LogManager::High);
     } // ~ModuleManager()
 
 

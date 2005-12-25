@@ -8,7 +8,7 @@
 int main(int argc, char* argv[])
 {
     // Setup the PythonWrapper
-    pw::System sys;
+    pw::System sys(true, "TestLog.txt", pw::LogManager::High);
     sys.loadSwigModule("_TestSwig.dll");
     sys.initialize();
 

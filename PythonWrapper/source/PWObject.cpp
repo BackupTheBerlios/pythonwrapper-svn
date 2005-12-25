@@ -2,6 +2,7 @@
 #include "PWHandler.h"
 #include "PWExceptions.h"
 #include "PWDict.h"
+#include "PWExtract.h"
 
 namespace pw
 {
@@ -43,9 +44,7 @@ namespace pw
         // mPtr == rhs.mPtr and the refcount was at 1
         if (mPtr != rhs.borrowReference())
         {
-            // mPtr could be 0 if we called this from the copy constructor
             Py_DECREF(mPtr);
-
             mPtr = rhs.borrowReference();
             Py_INCREF(mPtr);
         } // if
@@ -54,9 +53,27 @@ namespace pw
     } // operator=
 
 
+    
+    Object::operator void *() const
+    {
+        int toReturn = PyObject_IsTrue(mPtr);
+        PW_PyExcept_Check("Object::operator void *()");
+        return toReturn ? (void *)1 : (void *)0;
+    }
+
+
+    bool Object::operator!() const
+    {
+        int toReturn = PyObject_Not(mPtr);
+        PW_PyExcept_Check("Object::operator void *()");
+        return toReturn ? true : false;
+    }
+
     int Object::length() const
     {
-        return PyObject_Size(mPtr);
+        int toReturn = PyObject_Size(mPtr);
+        PyErr_Clear();
+        return toReturn;
     } // length()
 
 
