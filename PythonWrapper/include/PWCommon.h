@@ -19,6 +19,14 @@
 
 #include <Python.h>
 
+#ifdef PW_PyThreads
+#   define PW_PyAllowThreads Py_BEGIN_ALLOW_THREADS
+#   define PW_PyDisallowThreads Py_END_ALLOW_THREADS
+#else
+#   define PW_PyAllowThreads
+#   define PW_PyDisallowThreads
+#endif
+
 // Forward declarations
 namespace pw
 {

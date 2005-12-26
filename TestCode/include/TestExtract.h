@@ -47,8 +47,8 @@ public:
         short two = 1234;
         double three = 1000.1234; 
 
-        Object _pyLong = build((long long)one);
-        Object _pyInt = build((short)two);
+        Object _pyLong = build(one);
+        Object _pyInt = build(two);
         Object _pyFloat = build(three);
 
         CPPUNIT_ASSERT_EQUAL((T)one, extract<T>(_pyLong));

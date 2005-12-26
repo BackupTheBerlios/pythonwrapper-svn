@@ -42,14 +42,14 @@ public:
                 i3 = (Numeric)0xFFFE,
                 i4 = (Numeric)0xFF;
 
-        TEST_ALL(f0, build((Numeric)f0));
-        TEST_ALL(f1, build((Numeric)f1));
-        TEST_ALL(f2, build((Numeric)f2));
-        TEST_ALL(i0, build((Numeric)i0));
-        TEST_ALL(i1, build((Numeric)i1));
-        TEST_ALL(i2, build((Numeric)i2));
-        TEST_ALL(i3, build((Numeric)i3));
-        TEST_ALL(i4, build((Numeric)i4));
+        TEST_ALL(f0, build(f0));
+        TEST_ALL(f1, build(f1));
+        TEST_ALL(f2, build(f2));
+        TEST_ALL(i0, build(i0));
+        TEST_ALL(i1, build(i1));
+        TEST_ALL(i2, build(i2));
+        TEST_ALL(i3, build(i3));
+        TEST_ALL(i4, build(i4));
     }
 
     void testBool();

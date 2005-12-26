@@ -381,7 +381,7 @@ void TestObject::testTrueThrows()
 
 void TestObject::testRefCount()
 {
-    Object i = build((short)7);
+    Object i = build(7);
     Object s = build("hello");
 
     CPPUNIT_ASSERT(i.borrowReference()->ob_refcnt == i.getRefCount());

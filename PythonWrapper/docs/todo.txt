@@ -2,3 +2,12 @@ Todo list:
 - Wrap stack trace objects since they are such a pain to deal with.
 - Update PythonException class to log a nice python stack trace.
 - Possibly wrap Type objects.
+- Make an ignore attribute in TypeManager so that a user may specify certain
+  types to ignore.
+- Create a configuration file format and write a parser for it.  It should
+  contain:
+  * [ModuleName]                - header
+  * library = path_to_library   - the actual dll/so to load
+  * import = none|all           - default export status for items
+  * exclude = classA|classB|... - items to exclude from import all
+  * include = classA|classB|... - items to include from import none

@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="TestCode"
 	ProjectGUID="{114D085C-EB8F-48DA-9503-EE40E5F08BD1}"
+	RootNamespace="TestCode"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -93,6 +94,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="cd $(OutDir)&#x0D;&#x0A;TestCode.exe&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -172,6 +174,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="cd $(OutDir)&#x0D;&#x0A;TestCode.exe&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

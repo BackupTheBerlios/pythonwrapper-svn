@@ -154,7 +154,7 @@ void TestDict::testOperatorSetNull()
     CPPUNIT_ASSERT(mDict->contains(test));
     CPPUNIT_ASSERT((*mDict)["test2"].borrowReference() == Py_False);
 
-    Object n = build((short)7);
+    Object n = build(7);
 
     CPPUNIT_ASSERT((*mDict)[n].borrowReference() == Py_None);
     (*mDict)[n] = BorrowedReference(Py_False);

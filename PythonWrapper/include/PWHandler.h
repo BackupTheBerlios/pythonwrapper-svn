@@ -50,7 +50,7 @@ namespace pw
          *         false
          */
         explicit inline NewReference(PyObject *obj)
-            : mObj(obj), mContained(false)
+            : mObj(obj), mContained(false), mOwn(false)
         {
             if (!obj)
             {
@@ -62,10 +62,26 @@ namespace pw
 
 
         /**
+         * Copy constructor.
+         */
+        inline NewReference(const NewReference &rhs)
+            : mContained(false), mOwn(true)
+        {
+            mObj = rhs.mObj;
+
+            assert(mObj);
+            Py_INCREF(mObj);
+        }
+
+
+        /**
          * Destructor.
          */
         virtual inline ~NewReference()
-        {}
+        {
+            if (!mContained || mOwn)
+                Py_DECREF(mObj);
+        } // ~NewReference()
 
 
         /**
@@ -91,11 +107,23 @@ namespace pw
          * Object class.
          */
         virtual inline void contained()
-        { mContained = true; }
+        {
+            if (mContained)
+                Py_INCREF(mObj);
+            else
+            {
+                mContained = true;
+                mOwn = false;
+            }
+        }
 
     protected:
         PyObject *mObj;
         bool mContained;
+        bool mOwn;
+
+    private:
+        NewReference &operator=(const NewReference &);
     }; // class NewReference
 
 
@@ -129,31 +157,24 @@ namespace pw
             Py_INCREF(mObj);
         } // NewReference
 
+        /**
+         * Copy constructor.
+         */
+        inline BorrowedReference(const BorrowedReference &rhs)
+            : NewReference(rhs.mObj)
+        {
+            Py_INCREF(mObj);
+        }
 
         /**
-         * Destructor, will call Py_DECREF if the PyObject did not get
-         * contained by an Object.
+         * Destructor.
          */
         virtual inline ~BorrowedReference()
         {
-            if (!mContained)
-                Py_DECREF(mObj);
         } // ~BorrowedReference()
 
-        /**
-         * When an Object takes ownership of the object (and later must call
-         * Py_DECREF, then this function must be called).  It is safe to call
-         * this function multiple times if another object takes ownership of
-         * the object.  Every time the setcontained is called, Py_Incref will
-         * be called to ensure the proper refcount is maintained.
-         */
-        virtual inline void contained()
-        {
-            if (mContained)
-                Py_INCREF(mObj);
-            else
-                mContained = true;
-        } // setcontained
+    private:
+        BorrowedReference &operator=(const BorrowedReference &);
     }; // class BorrowedReference
 }
 

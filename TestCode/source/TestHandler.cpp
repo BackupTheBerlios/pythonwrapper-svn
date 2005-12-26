@@ -14,7 +14,14 @@ void TestHandler::testReferenceCounting()
     NewReference *nr = new NewReference(obj);
     CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
 
+    nr->contained();
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    nr->contained();
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+
     delete nr;
+    Py_DECREF(obj);
     CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
 
     BorrowedReference *br = new BorrowedReference(obj);
@@ -125,6 +132,7 @@ void TestHandler::testBorrrowedReferencePython()
 void TestHandler::tearDown()
 {
     CPPUNIT_ASSERT(!PyErr_Occurred());
+    PyErr_Clear();
 }
 
 void TestHandler::testReferenceNew()
@@ -142,19 +150,158 @@ void TestHandler::testReferenceNew()
     CPPUNIT_ASSERT_EQUAL(3, nr.getPtr()->ob_refcnt);
 }
 
-void testReferenceBorrowed()
+void TestHandler::testReferenceBorrowed()
 {
-    NewReference nr(PyString_FromString("Test"));
-    CPPUNIT_ASSERT_EQUAL(2, nr.getPtr()->ob_refcnt);
+    BorrowedReference br(PyString_FromString("Test"));
+    CPPUNIT_ASSERT_EQUAL(2, br.getPtr()->ob_refcnt);
 
-    Object obj1(nr);
-    CPPUNIT_ASSERT_EQUAL(2, nr.getPtr()->ob_refcnt);
+    Py_DECREF(br.getPtr());
+    CPPUNIT_ASSERT_EQUAL(1, br.getPtr()->ob_refcnt);
 
-    Object obj2(nr);
-    CPPUNIT_ASSERT_EQUAL(3, nr.getPtr()->ob_refcnt);
+    Object obj1(br);
+    CPPUNIT_ASSERT_EQUAL(1, br.getPtr()->ob_refcnt);
 
-    Object obj3(nr);
-    CPPUNIT_ASSERT_EQUAL(4, nr.getPtr()->ob_refcnt);
+    Object obj2(br);
+    CPPUNIT_ASSERT_EQUAL(2, br.getPtr()->ob_refcnt);
 
-    Py_DECREF(nr.getPtr());
+    Object obj3(br);
+    CPPUNIT_ASSERT_EQUAL(3, br.getPtr()->ob_refcnt);
+
+}
+
+
+
+void TestHandler::testUnusedNew()
+{
+    PyObject *obj = PyString_FromString("Test");
+
+    Py_INCREF(obj);
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+
+    NewReference *nr = new NewReference(obj);
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+
+    delete nr;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    Py_DECREF(obj);
+}
+
+void TestHandler::testUnusedBorrowed()
+{
+    PyObject *obj = PyString_FromString("Test");
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    BorrowedReference *br = new BorrowedReference(obj);
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+
+    delete br;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    Py_DECREF(obj);
+}
+
+
+void TestHandler::testBorrowCopy()
+{
+    BorrowedReference *b1 = 0, *b2 = 0;
+
+    PyObject *obj = PyString_FromString("Test");
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    b1 = new BorrowedReference(obj);
+    b2 = new BorrowedReference(*b1);
+    delete b1;
+    delete b2;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    b1 = new BorrowedReference(obj);
+    b2 = new BorrowedReference(*b1);
+    b1->contained();
+    b2->contained();
+    CPPUNIT_ASSERT_EQUAL(3, obj->ob_refcnt);
+
+    delete b1;
+    delete b2;
+    CPPUNIT_ASSERT_EQUAL(3, obj->ob_refcnt);
+    Py_DECREF(obj);
+    Py_DECREF(obj);
+
+    b1 = new BorrowedReference(obj);
+    b1->contained();
+    b2 = new BorrowedReference(*b1);
+    delete b1;
+    delete b2;
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+    Py_DECREF(obj);
+
+    b1 = new BorrowedReference(obj);
+    b2 = new BorrowedReference(*b1);
+    b1->contained();
+    delete b1;
+    delete b2;
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+    Py_DECREF(obj);
+
+    b1 = new BorrowedReference(obj);
+    b2 = new BorrowedReference(*b1);
+    b2->contained();
+    delete b1;
+    delete b2;
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+    Py_DECREF(obj);
+
+    Py_DECREF(obj);
+}
+
+
+void TestHandler::testNewCopy()
+{
+    NewReference *n1 = 0, *n2 = 0;
+
+    PyObject *obj = PyString_FromString("Test");
+    Py_INCREF(obj);
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+
+    n1 = new NewReference(obj);
+    n2 = new NewReference(*n1);
+    delete n1;
+    delete n2;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    n1 = new NewReference(obj);
+    n2 = new NewReference(*n1);
+    n1->contained();
+    n2->contained();
+    delete n1;
+    delete n2;
+    CPPUNIT_ASSERT_EQUAL(2, obj->ob_refcnt);
+    Py_DECREF(obj);
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+
+    n1 = new NewReference(obj);
+    n1->contained();
+    n2 = new NewReference(*n1);
+    delete n1;
+    delete n2;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+
+    n1 = new NewReference(obj);
+    n2 = new NewReference(*n1);
+    n1->contained();
+    delete n1;
+    delete n2;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+
+    n1 = new NewReference(obj);
+    n2 = new NewReference(*n1);
+    n2->contained();
+    delete n1;
+    delete n2;
+    CPPUNIT_ASSERT_EQUAL(1, obj->ob_refcnt);
+
+    Py_DECREF(obj);
 }
